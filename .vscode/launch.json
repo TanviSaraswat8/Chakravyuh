@@ -1,0 +1,38 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "API (FastAPI, debug)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": ["app.main:app", "--reload", "--port", "8000"],
+      "cwd": "${workspaceFolder}/backend",
+      "envFile": "${workspaceFolder}/.env",
+      "jinja": true
+    },
+    {
+      "name": "Simulator: generate data",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "chakravyuh.sim.simulator",
+      "args": ["--n", "4000", "--generations", "6", "--out", "data"],
+      "cwd": "${workspaceFolder}/backend"
+    },
+    {
+      "name": "Train all models",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "chakravyuh.ml.train",
+      "args": ["--data", "data", "--out", "artifacts"],
+      "cwd": "${workspaceFolder}/backend"
+    },
+    {
+      "name": "Web app (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/frontend/src"
+    }
+  ]
+}

@@ -1,0 +1,334 @@
+{
+  "trained_at": "2026-10-03 03:06:33",
+  "n_train": 3880,
+  "report": {
+    "payee_model": {
+      "pr_auc": 1.0,
+      "roc_auc": 1.0,
+      "n_accounts": 1711,
+      "n_mules": 72
+    },
+    "fusion_weights": {
+      "logit_seq": 2.99,
+      "logit_msg": 0.378,
+      "logit_payee": 0.219,
+      "call_unknown": -0.338,
+      "screen_share": -0.059,
+      "remote_app": 0.03,
+      "new_payee": -0.107,
+      "log_amount_ratio": -0.198,
+      "stage_payment_prob": -0.357
+    },
+    "conformal_thresholds": {
+      "0.001": 0.893244743347168,
+      "0.005": 0.893244743347168,
+      "0.01": 0.7946560978889465,
+      "0.02": 0.7776307463645935,
+      "0.05": 0.6900142431259155,
+      "0.1": 0.6069723963737488
+    },
+    "scamseq_params": 235402,
+    "test_seen": {
+      "rules": {
+        "pr_auc": 0.6376,
+        "recall_at_1pct_far": 0.1828
+      },
+      "per_txn_lightgbm": {
+        "pr_auc": 0.9297,
+        "recall_at_1pct_far": 0.3568,
+        "false_alerts_per_1000_legit": 7.3,
+        "alerts_per_scam_session": 0.36,
+        "projected_alerts_per_1000_users": 14.4,
+        "mean_lead_stages": 0.0
+      },
+      "chakravyuh": {
+        "pr_auc": 0.9998,
+        "recall_at_1pct_far": 0.9956,
+        "false_alerts_per_1000_legit": 11.0,
+        "alerts_per_scam_session": 1.79,
+        "projected_alerts_per_1000_users": 46.5,
+        "legit_interrupted_rate": 0.0,
+        "expected_loss_prevented_share": 0.8899,
+        "alert_utility_rs_per_alert": 34102.0,
+        "mean_lead_stages": 3.65,
+        "ece": 0.0567
+      },
+      "chakravyuh_no_payee_signal": {
+        "pr_auc": 0.9998,
+        "recall_at_1pct_far": 0.9912
+      },
+      "unknown_flagged_share_of_scams": 0.3062
+    },
+    "test_evolved": {
+      "rules": {
+        "pr_auc": 0.8517,
+        "recall_at_1pct_far": 0.1583
+      },
+      "per_txn_lightgbm": {
+        "pr_auc": 0.9827,
+        "recall_at_1pct_far": 0.8833,
+        "false_alerts_per_1000_legit": 7.3,
+        "alerts_per_scam_session": 0.88,
+        "projected_alerts_per_1000_users": 24.8,
+        "mean_lead_stages": 0.0
+      },
+      "chakravyuh": {
+        "pr_auc": 0.9999,
+        "recall_at_1pct_far": 1.0,
+        "false_alerts_per_1000_legit": 11.0,
+        "alerts_per_scam_session": 1.98,
+        "projected_alerts_per_1000_users": 50.4,
+        "legit_interrupted_rate": 0.0,
+        "expected_loss_prevented_share": 0.9,
+        "alert_utility_rs_per_alert": 146892.0,
+        "mean_lead_stages": 4.12,
+        "ece": 0.0724
+      },
+      "chakravyuh_no_payee_signal": {
+        "pr_auc": 0.9998,
+        "recall_at_1pct_far": 0.9958
+      },
+      "unknown_flagged_share_of_scams": 0.5875
+    },
+    "test_holdout": {
+      "rules": {
+        "pr_auc": 0.6431,
+        "recall_at_1pct_far": 0.0
+      },
+      "per_txn_lightgbm": {
+        "pr_auc": 0.7156,
+        "recall_at_1pct_far": 0.035,
+        "false_alerts_per_1000_legit": 7.3,
+        "alerts_per_scam_session": 0.04,
+        "projected_alerts_per_1000_users": 7.9,
+        "mean_lead_stages": 0.0
+      },
+      "chakravyuh": {
+        "pr_auc": 1.0,
+        "recall_at_1pct_far": 1.0,
+        "false_alerts_per_1000_legit": 11.0,
+        "alerts_per_scam_session": 1.99,
+        "projected_alerts_per_1000_users": 50.5,
+        "legit_interrupted_rate": 0.0,
+        "expected_loss_prevented_share": 0.8871,
+        "alert_utility_rs_per_alert": 980.0,
+        "mean_lead_stages": 5.0,
+        "ece": 0.0763
+      },
+      "chakravyuh_no_payee_signal": {
+        "pr_auc": 1.0,
+        "recall_at_1pct_far": 1.0
+      },
+      "unknown_flagged_share_of_scams": 1.0
+    },
+    "campaign_cards_holdout": [
+      {
+        "campaign_id": "C000",
+        "name": "New pattern: authority + fear via sms",
+        "size": 200,
+        "top_tactics": [
+          "authority",
+          "fear",
+          "urgency",
+          "payment_request"
+        ],
+        "event_sequence": [
+          "MSG_RECV",
+          "LINK_OPEN",
+          "APK_INSTALL",
+          "MSG_RECV",
+          "UPI_OPEN",
+          "PAYEE_NEW",
+          "PAY"
+        ],
+        "languages": {
+          "hinglish": 72,
+          "hi": 50,
+          "en": 78
+        },
+        "channels": {
+          "sms": 200
+        },
+        "payee_clusters": [
+          "acc00401@ybl",
+          "acc00427@ybl",
+          "acc00399@ybl",
+          "acc00392@ybl",
+          "acc00406@ybl"
+        ],
+        "example_message": "Aap ho?",
+        "draft_rule": "ALERT if session has tactic:authority AND tactic:fear AND tactic:urgency AND event:LINK_OPEN AND event:PAYEE_NEW"
+      },
+      {
+        "campaign_id": "C001",
+        "name": "New pattern: payment request + urgency via whatsapp",
+        "size": 18,
+        "top_tactics": [
+          "payment_request",
+          "urgency"
+        ],
+        "event_sequence": [
+          "MSG_RECV",
+          "CALL",
+          "MSG_RECV",
+          "UPI_OPEN",
+          "PAYEE_NEW",
+          "PAY"
+        ],
+        "languages": {
+          "hinglish": 10,
+          "hi": 5,
+          "en": 3
+        },
+        "channels": {
+          "whatsapp": 7,
+          "sms": 4,
+          "telegram": 7
+        },
+        "payee_clusters": [
+          "shop01463@paytm",
+          "shop01464@paytm",
+          "shop01472@paytm",
+          "shop01480@paytm",
+          "shop01484@paytm"
+        ],
+        "example_message": "Done hone ke baad screenshot bhejna",
+        "draft_rule": "ALERT if session has tactic:payment_request AND tactic:urgency AND event:PAYEE_NEW"
+      },
+      {
+        "campaign_id": "C002",
+        "name": "New pattern: urgency + trust building via telegram",
+        "size": 14,
+        "top_tactics": [
+          "urgency",
+          "trust_building",
+          "payment_request"
+        ],
+        "event_sequence": [
+          "MSG_RECV",
+          "CALL",
+          "UPI_OPEN",
+          "PAY"
+        ],
+        "languages": {
+          "hi": 3,
+          "hinglish": 11
+        },
+        "channels": {
+          "sms": 6,
+          "telegram": 7,
+          "whatsapp": 1
+        },
+        "payee_clusters": [
+          "fam01470@okbank",
+          "fam01471@okbank",
+          "fam01483@okbank",
+          "fam01487@okbank",
+          "fam01514@okbank"
+        ],
+        "example_message": "\u091c\u0935\u093e\u092c \u0926\u0940\u091c\u093f\u090f",
+        "draft_rule": "ALERT if session has tactic:urgency AND tactic:trust_building AND tactic:payment_request"
+      },
+      {
+        "campaign_id": "C003",
+        "name": "New pattern: unlabelled pattern via telegram",
+        "size": 13,
+        "top_tactics": [],
+        "event_sequence": [
+          "MSG_RECV",
+          "UPI_OPEN",
+          "PAYEE_NEW",
+          "PAY"
+        ],
+        "languages": {
+          "en": 6,
+          "hinglish": 6,
+          "hi": 1
+        },
+        "channels": {
+          "whatsapp": 4,
+          "sms": 4,
+          "telegram": 5
+        },
+        "payee_clusters": [
+          "shop00324@paytm",
+          "shop00964@paytm",
+          "shop00684@paytm",
+          "shop01459@paytm",
+          "shop00334@paytm"
+        ],
+        "example_message": "Send screenshot once done",
+        "draft_rule": "ALERT if session has  AND event:PAYEE_NEW"
+      },
+      {
+        "campaign_id": "C004",
+        "name": "New pattern: urgency + payment request via whatsapp",
+        "size": 24,
+        "top_tactics": [
+          "urgency",
+          "payment_request"
+        ],
+        "event_sequence": [
+          "MSG_RECV",
+          "CALL",
+          "SCREEN_SHARE",
+          "UPI_OPEN",
+          "MSG_RECV",
+          "PAYEE_NEW",
+          "PAY"
+        ],
+        "languages": {
+          "en": 17,
+          "hinglish": 7
+        },
+        "channels": {
+          "whatsapp": 11,
+          "telegram": 9,
+          "sms": 4
+        },
+        "payee_clusters": [
+          "shop01268@paytm",
+          "shop00823@paytm",
+          "shop00475@paytm",
+          "shop00854@paytm",
+          "shop00315@paytm"
+        ],
+        "example_message": "Please reply",
+        "draft_rule": "ALERT if session has tactic:urgency AND tactic:payment_request AND event:PAYEE_NEW"
+      },
+      {
+        "campaign_id": "C005",
+        "name": "New pattern: urgency + trust building via telegram",
+        "size": 12,
+        "top_tactics": [
+          "urgency",
+          "trust_building",
+          "payment_request"
+        ],
+        "event_sequence": [
+          "MSG_RECV",
+          "CALL",
+          "UPI_OPEN",
+          "PAY"
+        ],
+        "languages": {
+          "en": 12
+        },
+        "channels": {
+          "sms": 4,
+          "telegram": 5,
+          "whatsapp": 3
+        },
+        "payee_clusters": [
+          "fam01492@okbank",
+          "fam01534@okbank",
+          "fam01557@okbank",
+          "fam01561@okbank",
+          "fam01580@okbank"
+        ],
+        "example_message": "\ud83d\ude4f beta it's me, using a friend's phone, mine is in repair. \ud83d\ude4f",
+        "draft_rule": "ALERT if session has tactic:urgency AND tactic:trust_building AND tactic:payment_request"
+      }
+    ]
+  }
+}

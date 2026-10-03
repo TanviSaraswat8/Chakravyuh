@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# Data and local databases (regenerate with `make data`)
+backend/data/*
+!backend/data/.gitkeep
+backend/*.db
+*.db-journal
+
+# Node
+node_modules/
+frontend/dist/
+
+# Env and editor
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea/
+
+# Sentinel training outputs
+sentinel/outputs/
+sentinel/*.gguf
