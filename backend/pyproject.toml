@@ -18,4 +18,5 @@ ignore = ["B008", "B905"]   # FastAPI Depends() defaults; zip() lengths are equa
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]   # tests import `app` and `chakravyuh` whether run as `pytest` or `python -m pytest`
 filterwarnings = ["ignore::DeprecationWarning", "ignore::UserWarning"]
