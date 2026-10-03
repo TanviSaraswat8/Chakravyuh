@@ -41,15 +41,20 @@ On Windows with Docker Desktop running, from the repo folder:
 powershell -ExecutionPolicy Bypass -File scripts\validate_docker.ps1
 ```
 
-It checks Docker, pulls the latest code, builds both images, starts PostgreSQL + API + web and
-waits until all three are healthy, then runs the smoke test through nginx, the regression checks
+It checks Docker, pulls the latest code, stops any previous Chakravyuh stack, builds both images,
+starts PostgreSQL + API + web and waits until all three are healthy (if one fails to start it stops
+there and prints that container's status, exit code, restarts and log errors), then runs the smoke test through nginx, the regression checks
 (Customs hold, flat deposit), attacker evolution and the defender's update, campaign detection,
 persistence across an API restart, privacy mode checked inside PostgreSQL, and the full test
 suite inside the API image against PostgreSQL. It writes `validation-report.txt` and leaves the
 stack running at http://localhost:8080. The first build downloads about 1 GB.
 
-If a port is taken, set `DB_HOST_PORT`, `API_HOST_PORT` or `WEB_HOST_PORT` first, for example
-`$env:WEB_HOST_PORT = "8081"`.
+If port 8000 or 8080 is taken, the script picks the next free port and says so in the report. To
+choose yourself, set `API_HOST_PORT` or `WEB_HOST_PORT` first, for example `$env:WEB_HOST_PORT = "8081"`.
+
+PostgreSQL publishes no port on your machine, so another PostgreSQL on 5432 (or another project's
+database container) never blocks the stack. To connect with psql or VS Code, start with the override:
+`docker compose -f docker-compose.yml -f docker-compose.dbport.yml up -d` and use `localhost:55432`.
 
 ## Any Docker host
 

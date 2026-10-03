@@ -9,12 +9,17 @@ services:
       POSTGRES_PASSWORD: chakravyuh
       POSTGRES_DB: chakravyuh
     volumes: [pgdata:/var/lib/postgresql/data]
-    # Only for connecting from your machine (psql, VS Code). Change DB_HOST_PORT if 5432 is taken.
-    ports: ["127.0.0.1:${DB_HOST_PORT:-5432}:5432"]
+    # No host port: the API reaches PostgreSQL on the internal network as db:5432, so the stack
+    # never clashes with another PostgreSQL on this machine. To connect from your machine (psql,
+    # VS Code) add the override:  docker compose -f docker-compose.yml -f docker-compose.dbport.yml up -d
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U chakravyuh"]
-      interval: 5s
-      retries: 10
+      # Check over TCP, not the local socket: on first start the image runs a temporary init server
+      # that answers on the socket but refuses TCP, which would report healthy too early.
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -p 5432 -U chakravyuh -d chakravyuh"]
+      interval: 3s
+      timeout: 5s
+      retries: 40
+      start_period: 10s
 
   api:
     build: ./backend
