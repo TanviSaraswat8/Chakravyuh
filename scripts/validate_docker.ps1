@@ -145,6 +145,16 @@ function Free-Port([int]$preferred) {
     for ($p = $preferred; $p -lt $preferred + 50; $p++) { if (-not (Port-Busy $p)) { return $p } }
     return 0
 }
+# Copy the check scripts into the API container. Needed again after the container is recreated
+# (e.g. restarted with different environment), because a new container starts without them.
+function Copy-Scripts {
+    $ok = $true
+    foreach ($f in @("smoke_test.py", "e2e_checks.py")) {
+        $r = Run "docker compose cp scripts/$f api:/tmp/$f" -Quiet
+        if ($r.Code -ne 0) { $ok = $false; Note-Errors "docker compose cp $f" $r.Out | Out-Null }
+    }
+    return $ok
+}
 function Skip-Rest($reason) {
     foreach ($n in @("smoke test (14 checks, via nginx)", "Customs hold", "flat deposit not held", "attacker evolution (arena)",
                      "defender adapts", "emerging-campaign detection", "data persists across API restart",
@@ -291,9 +301,7 @@ Record "database tables created by API" ($missT.Count -eq 0) "$tables"
 
 # 8. Smoke test, through nginx (exercises the web container's proxy too) -----------------------------
 Section "8. Smoke test"
-$cp1 = Run "docker compose cp scripts/smoke_test.py api:/tmp/smoke_test.py" -Quiet
-$cp2 = Run "docker compose cp scripts/e2e_checks.py api:/tmp/e2e_checks.py" -Quiet
-if ($cp1.Code -ne 0 -or $cp2.Code -ne 0) { Diagnose "could not copy test scripts into the API container"; Skip-Rest "test scripts not copied"; Finish }
+if (-not (Copy-Scripts)) { Diagnose "could not copy test scripts into the API container"; Skip-Rest "test scripts not copied"; Finish }
 $r = Run "docker compose exec -T api python /tmp/smoke_test.py http://web"
 $n = ([regex]::Matches($r.Out, "(?m)^\s*PASS")).Count
 Record "smoke test (14 checks, via nginx)" ($r.Code -eq 0) "exit $($r.Code), $n checks passed"
@@ -344,8 +352,10 @@ if ($r.Code -ne 0 -or -not (Wait-Healthy $Services 60) -or $mode -ne "false") {
     Diagnose "API failed to start in privacy mode"
 } else {
     $since = Sql "select now()"
+    if (-not (Copy-Scripts)) { Diagnose "could not copy test scripts into the recreated API container" }
     $r = Run "docker compose exec -T api python /tmp/e2e_checks.py http://localhost:8000 --privacy"
-    Record "privacy mode checks (API)" ($r.Code -eq 0) "exit $($r.Code), STORE_MESSAGE_TEXT=$mode"
+    $why = if ($r.Code -ne 0) { Note-Errors "privacy checks" $r.Out } else { "" }
+    Record "privacy mode checks (API)" ($r.Code -eq 0) ("exit $($r.Code), STORE_MESSAGE_TEXT=$mode" + $(if ($why) { ": $why" } else { "" }))
     $leaked = Sql "select count(*) from events where created_at >= '$since' and type = 'MSG_RECV' and text is not null"
     $kept = Sql "select count(*) from events where created_at >= '$since' and (attrs::jsonb) ? '_client_tags'"
     Record "privacy mode in PostgreSQL" ((Is-Int $leaked) -and ([int]$leaked -eq 0) -and (Is-Int $kept) -and ([int]$kept -gt 0)) `
