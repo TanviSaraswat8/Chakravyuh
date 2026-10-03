@@ -41,3 +41,6 @@ down: ## Stop Docker services
 
 sft: ## Build the Sentinel SLM fine-tuning set
 	$(PY) sentinel/build_sft.py --sessions $(BACKEND)/data/sessions.jsonl --out sentinel/sft
+
+coevolve: ## Run attacker-defender co-evolution (add PERSIST=1 to save the hardened model)
+	cd $(BACKEND) && $(PY) -m chakravyuh.ml.coevolve --rounds 3 --generations 4 $(if $(PERSIST),--persist,)

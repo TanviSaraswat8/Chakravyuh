@@ -81,7 +81,8 @@ def crossover(a: Genome, b: Genome, rng: random.Random, generation: int) -> Geno
     child.generation = generation
     child.text_ops = sorted(set(a.text_ops) | set(b.text_ops))
     child.extra_tactics = sorted(set(a.extra_tactics) | set(rng.sample(b.extra_tactics, k=len(b.extra_tactics) // 2)))
-    child.borrow_contact = b.family if rng.random() < 0.5 else a.borrow_contact
+    donor = b.family if rng.random() < 0.5 else a.borrow_contact
+    child.borrow_contact = donor if donor != child.family else None   # borrowing your own opener is no disguise
     return child
 
 

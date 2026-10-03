@@ -2,14 +2,12 @@
 
 from __future__ import annotations
 
+import json
 import random
 from functools import lru_cache
 
-import numpy as np
-
-from chakravyuh.ml.train import first_payment_index
+from chakravyuh.ml.coevolve import Attacker, alert_gate, defend, first_payment_index, replay_memory
 from chakravyuh.sim.agents import Genome, random_genome
-from chakravyuh.sim.evolution import evaluate, genome_vector, next_generation
 from chakravyuh.sim.simulator import Chakravyuh
 from chakravyuh.sim.taxonomy import BENIGN_FAMILIES, SCAM_FAMILIES
 
@@ -85,107 +83,48 @@ def engine_detector(sessions: list[dict]) -> list[float]:
     return out
 
 
-def arena(generations: int, population: int, per_genome: int, seed: int = 3) -> dict:
-    """Evolve attackers against the current defender and report detection per generation."""
-    sim = Chakravyuh(seed=seed)
-    fams = [f for f in SCAM_FAMILIES]
-    pop = [random_genome(sim.rng, fams, 1) for _ in range(population)]
-    gate = 0.5
+ARENA_STATE: dict = {"attacker": None, "history": [], "defences": []}
+
+
+def arena(generations: int, population: int, per_genome: int, fresh: bool = True, seed: int = 3) -> dict:
+    """Attackers' turn. fresh=True starts a new arms race; False continues against the current defender."""
     eng = get_engine()
-    if eng and eng.policy:
-        gate = eng.policy.level_gates[1]
-    seen: list[list[float]] = []
-    history = []
-    for gen in range(1, generations + 1):
-        played = []
-        for g in pop:
-            g.generation = gen
-            played.append((g, [sim.play(g, pool="test") for _ in range(per_genome)]))
-        flat = [s for _, ss in played for s in ss]
-        scores = engine_detector(flat)
-        by_id = {s["session_id"]: float(sc > gate) for s, sc in zip(flat, scores)}
-        avg_loss = sum(s["loss"] for s in flat) / max(len(flat), 1)
-        detect = by_id.__getitem__
-        scored = [evaluate(g, ss, lambda s, d=detect: d(s["session_id"]), seen, 0.5 * avg_loss) for g, ss in played]
-        seen.extend(genome_vector(s.genome) for s in scored)
-        missed = [s for s in flat if by_id[s["session_id"]] == 0.0 and s["paid"]]
-        history.append({
-            "generation": gen,
-            "detection_rate": round(float(np.mean(list(by_id.values()))), 4),
-            "mean_loss": round(avg_loss, 0),
-            "missed_examples": [{"family": s["family"], "ops": s["genome"]["text_ops"],
-                                 "extra_tactics": s["genome"]["extra_tactics"],
-                                 "message": next((e["text"] for e in s["events"]
-                                                  if e["type"] == "MSG_RECV" and e.get("text")), "")}
-                                for s in missed[:3]],
-            "top_genome": max(scored, key=lambda s: s.fitness).genome.to_dict(),
-        })
-        pop = next_generation(scored, sim.rng, gen + 1, fams, population)
-        ARENA_STATE["elite"] = [s.genome for s in sorted(scored, key=lambda s: s.fitness, reverse=True)[:12]]
-    return {"gate": gate, "history": history}
-
-
-ARENA_STATE: dict = {"elite": []}
-
-
-def _detection(engine, sessions: list[dict], gate: float) -> float:
-    res = engine.decide(sessions)
-    hits = []
-    for r in res:
-        k = first_payment_index(r["events"])
-        ps = [d["p"] for d in r["decisions"][: (k + 1 if k is not None else None)]]
-        hits.append(float((max(ps) if ps else 0.0) > gate))
-    return float(np.mean(hits)) if hits else 0.0
+    if eng is None:
+        return {"error": "Model not loaded."}
+    if fresh or ARENA_STATE["attacker"] is None:
+        ARENA_STATE.update(attacker=Attacker(population, seed=seed), history=[], defences=[])
+    hist = ARENA_STATE["attacker"].evolve(eng, generations, per_genome)
+    round_no = len(ARENA_STATE["defences"]) + 1
+    for h in hist:
+        h["round"] = round_no
+    ARENA_STATE["history"].extend(hist)
+    return {"gate": alert_gate(eng), "round": round_no, "history": ARENA_STATE["history"],
+            "defences": ARENA_STATE["defences"]}
 
 
 def adapt(epochs: int = 3, seed: int = 5, persist: bool = False) -> dict:
-    """Defender's turn: fine-tune ScamSeq on the attackers' newest tricks, then re-test on fresh variants."""
-    import copy
-    import json
+    """Defender's turn: fine-tune on the attackers' newest tricks, recalibrate the alert gates, and ship
+    the update only if it catches more attacks without breaking the false-alarm cap."""
     from pathlib import Path
 
     from chakravyuh.ml import scamseq as ss
-    from chakravyuh.ml.features import encode_session
 
     from ..config import settings
 
     eng = get_engine()
-    elite = ARENA_STATE.get("elite") or []
-    if eng is None or not elite:
-        return {"error": "Run the arena first (and make sure the model is loaded)."}
-    gate = eng.policy.level_gates[1] if eng.policy else 0.5
-    sim = Chakravyuh(seed=seed)
-    evolved_train = [sim.play(copy.deepcopy(g), pool="train") for g in elite for _ in range(12)]
-    legit = simulate(250, None, 0.0, seed=seed + 1)
-    # Replay memory from the original training data so the model doesn't forget known scams.
-    memory = []
-    data_file = Path(settings.data_dir) / "sessions.jsonl"
-    if data_file.exists():
-        rng = random.Random(seed)
-        lines = data_file.read_text(encoding="utf-8").splitlines()
-        memory = [json.loads(x) for x in rng.sample(lines, min(1500, len(lines)))]
-    fresh_test = [Chakravyuh(seed=seed + 7).play(copy.deepcopy(g), pool="test") for g in elite for _ in range(4)]
-    legit_test = simulate(300, None, 0.0, seed=seed + 8)
-
-    before = _detection(eng, fresh_test, gate)
-    before_far = _detection(eng, legit_test, gate)
-
-    train = evolved_train + legit + memory
-    tags = eng.tag_events(train)
-    enc = [encode_session(s, tags) for s in train]
-    model = copy.deepcopy(eng.model)
-    model.train()
-    adapted = ss.finetune(model, enc, epochs=epochs)
-    new_eng = copy.copy(eng)
-    new_eng.model = adapted
-    after = _detection(new_eng, fresh_test, gate)
-    after_far = _detection(new_eng, legit_test, gate)
-    if persist:
-        ss.save(adapted, str(Path(settings.artifacts_dir) / "scamseq.pt"))
-        get_engine.cache_clear()
-    else:
-        eng.model = adapted      # live for this server process, not written to disk
-    return {"detection_before": round(before, 4), "detection_after": round(after, 4),
-            "legit_false_alarm_before": round(before_far, 4), "legit_false_alarm_after": round(after_far, 4),
-            "trained_on": {"evolved": len(evolved_train), "legit": len(legit), "replay": len(memory)},
-            "tested_on": {"fresh_evolved": len(fresh_test), "legit": len(legit_test)}, "persisted": persist}
+    attacker = ARENA_STATE.get("attacker")
+    if eng is None or attacker is None or not attacker.elite:
+        return {"error": "Run the attackers first (and make sure the model is loaded)."}
+    updated, report = defend(eng, attacker.elite, replay_memory(settings.data_dir), epochs=epochs,
+                             seed=seed + 10 * len(ARENA_STATE["defences"]))
+    if report["accepted"]:
+        # swap the live engine's parts in place, so every request in this process uses the new defender
+        eng.model, eng.policy = updated.model, updated.policy
+        if persist:
+            ss.save(eng.model, str(Path(settings.artifacts_dir) / "scamseq.pt"))
+            if eng.policy:
+                (Path(settings.artifacts_dir) / "policy.json").write_text(json.dumps(eng.policy.to_dict()))
+    report["persisted"] = bool(persist and report["accepted"])
+    report["round"] = len(ARENA_STATE["defences"]) + 1
+    ARENA_STATE["defences"].append(report)
+    return report

@@ -135,3 +135,4 @@ class ArenaRequest(BaseModel):
     generations: int = Field(3, ge=1, le=8)
     population: int = Field(16, ge=4, le=60)
     per_genome: int = Field(2, ge=1, le=5)
+    fresh: bool = True   # False continues the current arms race against the (possibly updated) defender

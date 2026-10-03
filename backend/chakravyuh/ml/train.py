@@ -27,6 +27,7 @@ from ..sim.simulator import rule_detector
 from ..sim.taxonomy import STAGE_INDEX
 from . import scamseq as ss
 from .campaigns import CampaignDetector
+from .coevolve import first_payment_index
 from .engine import PAYMENT_EVENTS, Engine
 from .features import encode_session, payment_rows
 from .fusion import Fusion, ece
@@ -61,13 +62,6 @@ def split(sessions: list[dict], seed: int = 0) -> dict[str, list[dict]]:
 
 
 # ------------------------------------------------------------------ evaluation
-def first_payment_index(events: list[dict]) -> int | None:
-    for i, e in enumerate(events):
-        if e["type"] == "PAY" and not e["attrs"].get("cancelled") and e["attrs"].get("amount_ratio", 0) > 1.5:
-            return i
-    return None
-
-
 def session_scores(results: list[dict]) -> np.ndarray:
     """Max fused probability *before* money leaves (what matters for prevention)."""
     out = []

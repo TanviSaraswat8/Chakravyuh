@@ -62,6 +62,7 @@ export interface ScoreOut {
 
 export interface ArenaGen {
   generation: number;
+  round: number;
   detection_rate: number;
   mean_loss: number;
   missed_examples: { family: string; ops: string[]; extra_tactics: string[]; message: string }[];
@@ -69,6 +70,10 @@ export interface ArenaGen {
 }
 
 export interface AdaptResult {
+  accepted: boolean;
+  round: number;
+  gate_before?: number;
+  gate_after?: number;
   detection_before: number;
   detection_after: number;
   legit_false_alarm_before: number;
@@ -116,9 +121,9 @@ export const api = {
   scenario: (key: string) => req<Scenario>(`/v1/demo/scenarios/${key}`),
   score: (body: { language: string; channel: string; events: Partial<SimEvent>[] }) =>
     req<ScoreOut>("/v1/score", { method: "POST", body: JSON.stringify(body) }),
-  arena: (generations: number, population: number) =>
-    req<{ gate: number; history: ArenaGen[] }>("/v1/demo/arena", {
-      method: "POST", body: JSON.stringify({ generations, population, per_genome: 2 }),
+  arena: (generations: number, population: number, fresh: boolean) =>
+    req<{ gate: number; round: number; history: ArenaGen[]; defences: AdaptResult[]; error?: string }>("/v1/demo/arena", {
+      method: "POST", body: JSON.stringify({ generations, population, per_genome: 2, fresh }),
     }),
   adapt: () => req<AdaptResult>("/v1/demo/arena/adapt", { method: "POST" }),
   campaigns: () => req<Campaign[]>("/v1/campaigns"),

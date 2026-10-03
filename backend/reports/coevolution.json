@@ -1,0 +1,903 @@
+{
+  "rounds": [
+    {
+      "round": 1,
+      "attacker": [
+        {
+          "generation": 1,
+          "detection_rate": 1.0,
+          "mean_loss": 49119.0,
+          "missed_examples": [],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [],
+            "extra_tactics": [],
+            "borrow_contact": null,
+            "swap_trust_pressure": false,
+            "drop_stages": [],
+            "amount_scale": 1.0,
+            "pace_scale": 1.0,
+            "generation": 1,
+            "parent": null,
+            "genome_id": "0da2d8b296"
+          }
+        },
+        {
+          "generation": 2,
+          "detection_rate": 1.0,
+          "mean_loss": 31368.0,
+          "missed_examples": [],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [],
+            "extra_tactics": [],
+            "borrow_contact": "fake_kyc",
+            "swap_trust_pressure": false,
+            "drop_stages": [],
+            "amount_scale": 1.0,
+            "pace_scale": 1.0,
+            "generation": 2,
+            "parent": "0da2d8b296",
+            "genome_id": "g2-15ab0c07"
+          }
+        },
+        {
+          "generation": 3,
+          "detection_rate": 0.9583,
+          "mean_loss": 32648.0,
+          "missed_examples": [
+            {
+              "family": "task_job",
+              "ops": [],
+              "extra_tactics": [],
+              "message": "Market update: NIFTY closed up 1.2%. Review your portfolio in the app."
+            },
+            {
+              "family": "task_job",
+              "ops": [],
+              "extra_tactics": [],
+              "message": "Hello?"
+            }
+          ],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [],
+            "extra_tactics": [],
+            "borrow_contact": "investment_genuine",
+            "swap_trust_pressure": false,
+            "drop_stages": [],
+            "amount_scale": 1.0,
+            "pace_scale": 1.0,
+            "generation": 3,
+            "parent": "g2-15ab0c07",
+            "genome_id": "g3-11a24d82"
+          }
+        },
+        {
+          "generation": 4,
+          "detection_rate": 0.8333,
+          "mean_loss": 18861.0,
+          "missed_examples": [
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix"
+              ],
+              "extra_tactics": [],
+              "message": "Send screenshot once done"
+            },
+            {
+              "family": "task_job",
+              "ops": [],
+              "extra_tactics": [],
+              "message": "Market update: NIFTY closed up 1.2%. Review your portfolio in the app."
+            },
+            {
+              "family": "task_job",
+              "ops": [],
+              "extra_tactics": [],
+              "message": "Are you there?"
+            }
+          ],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [
+              "code_mix",
+              "emoji"
+            ],
+            "extra_tactics": [],
+            "borrow_contact": "investment_genuine",
+            "swap_trust_pressure": false,
+            "drop_stages": [],
+            "amount_scale": 1.0,
+            "pace_scale": 1.0,
+            "generation": 4,
+            "parent": "g3-11a24d82xg3-2920cd28",
+            "genome_id": "g4-0876d213"
+          }
+        }
+      ],
+      "defender": {
+        "accepted": true,
+        "detection_before": 0.75,
+        "detection_after": 1.0,
+        "legit_false_alarm_before": 0.02,
+        "legit_false_alarm_after": 0.0067,
+        "trained_on": {
+          "evolved": 144,
+          "legit": 250,
+          "replay": 1500
+        },
+        "tested_on": {
+          "fresh_evolved": 48,
+          "legit": 300
+        },
+        "gate_before": 0.8932,
+        "gate_after": 0.9992
+      }
+    },
+    {
+      "round": 2,
+      "attacker": [
+        {
+          "generation": 5,
+          "detection_rate": 0.9583,
+          "mean_loss": 27735.0,
+          "missed_examples": [
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "\ud83d\ude4f Market update: NIFTY closed up 1.2%. Review your portfolio in the app. \ud83d\udea8"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "Please reply"
+            }
+          ],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [
+              "code_mix",
+              "emoji"
+            ],
+            "extra_tactics": [],
+            "borrow_contact": "investment_genuine",
+            "swap_trust_pressure": false,
+            "drop_stages": [
+              "hook"
+            ],
+            "amount_scale": 1.0,
+            "pace_scale": 1.0,
+            "generation": 5,
+            "parent": "g4-0876d213",
+            "genome_id": "g5-01502545"
+          }
+        },
+        {
+          "generation": 6,
+          "detection_rate": 0.5833,
+          "mean_loss": 21880.0,
+          "missed_examples": [
+            {
+              "family": "task_job",
+              "ops": [
+                "typos"
+              ],
+              "extra_tactics": [],
+              "message": "Market update: NIFTY closed up 1.2%. Review your portfolio in he app."
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "Thank you"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "\u26a0\ufe0f Market update: NIFTY closed up 1.2%. Review aapka portfolio in the app. \ud83d\udcc8"
+            }
+          ],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [
+              "code_mix",
+              "emoji",
+              "typos"
+            ],
+            "extra_tactics": [],
+            "borrow_contact": "investment_genuine",
+            "swap_trust_pressure": false,
+            "drop_stages": [
+              "hook"
+            ],
+            "amount_scale": 1.0,
+            "pace_scale": 1.0,
+            "generation": 6,
+            "parent": "g5-01502545xg5-1900e5f7",
+            "genome_id": "g6-27655328"
+          }
+        },
+        {
+          "generation": 7,
+          "detection_rate": 0.2292,
+          "mean_loss": 17125.0,
+          "missed_examples": [
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji",
+                "typos"
+              ],
+              "extra_tactics": [],
+              "message": "\ud83d\udc49 Market update: NIFTY closed up 1.2%. Reviw aapka portfolio in the app. \ud83d\udd25"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji",
+                "synonym"
+              ],
+              "extra_tactics": [],
+              "message": "Thank you"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji",
+                "typos"
+              ],
+              "extra_tactics": [],
+              "message": "\ud83d\udea8 Market update: NIFTY closed up 1.2%. Review apka portfolio in the app. \ud83d\udc49"
+            }
+          ],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [
+              "code_mix",
+              "emoji"
+            ],
+            "extra_tactics": [
+              "social_proof"
+            ],
+            "borrow_contact": "investment_genuine",
+            "swap_trust_pressure": false,
+            "drop_stages": [
+              "hook"
+            ],
+            "amount_scale": 1.0,
+            "pace_scale": 1.5356566363305957,
+            "generation": 7,
+            "parent": "g6-163f9695",
+            "genome_id": "g7-0d3e2bc1"
+          }
+        },
+        {
+          "generation": 8,
+          "detection_rate": 0.2708,
+          "mean_loss": 21055.0,
+          "missed_examples": [
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "\ud83d\udcb0 Market update: NIFTY closed up 1.2%. Review your portfolio in the app. \ud83d\ude4f"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [
+                "social_proof"
+              ],
+              "message": "\u26a0\ufe0f Market update: NIFTY closed up 1.2%. Review aapka portfolio in the app. \ud83d\udcc8"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "Thank you"
+            }
+          ],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [
+              "code_mix",
+              "emoji"
+            ],
+            "extra_tactics": [],
+            "borrow_contact": "merchant_payment",
+            "swap_trust_pressure": false,
+            "drop_stages": [
+              "hook"
+            ],
+            "amount_scale": 1.0,
+            "pace_scale": 1.5356566363305957,
+            "generation": 8,
+            "parent": "g7-2331c7b6",
+            "genome_id": "g8-2b48d507"
+          }
+        }
+      ],
+      "defender": {
+        "accepted": true,
+        "detection_before": 0.3125,
+        "detection_after": 0.8958,
+        "legit_false_alarm_before": 0.0033,
+        "legit_false_alarm_after": 0.0067,
+        "trained_on": {
+          "evolved": 144,
+          "legit": 250,
+          "replay": 1500
+        },
+        "tested_on": {
+          "fresh_evolved": 48,
+          "legit": 300
+        },
+        "gate_before": 0.9992,
+        "gate_after": 0.9963
+      }
+    },
+    {
+      "round": 3,
+      "attacker": [
+        {
+          "generation": 9,
+          "detection_rate": 0.8333,
+          "mean_loss": 17401.0,
+          "missed_examples": [
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji",
+                "typos"
+              ],
+              "extra_tactics": [],
+              "message": "\u2705 Maret update: NIFTY closed up 1.2%. Review your portfolio in the app. \ud83d\udcb0"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "\ud83d\udd25 Market update: NIFTY closed up 1.2%. Review aapka portfolio in the app. \ud83d\ude4f"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "\ud83d\udcb0 Hello, I am HR from StarGlobal Media. Simple online tasks, daily payment. Interested? \ud83d\ude4f"
+            }
+          ],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [
+              "code_mix",
+              "emoji"
+            ],
+            "extra_tactics": [
+              "social_proof"
+            ],
+            "borrow_contact": "investment_genuine",
+            "swap_trust_pressure": false,
+            "drop_stages": [
+              "hook",
+              "pressure"
+            ],
+            "amount_scale": 1.0,
+            "pace_scale": 3.126911765902322,
+            "generation": 9,
+            "parent": "g8-09078943",
+            "genome_id": "g9-1f3b4559"
+          }
+        },
+        {
+          "generation": 10,
+          "detection_rate": 0.8958,
+          "mean_loss": 17186.0,
+          "missed_examples": [
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "\ud83d\udd25 Market update: NIFTY closed up 1.2%. Review your portfolio in the app. \ud83d\udcc8"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji",
+                "obfuscate"
+              ],
+              "extra_tactics": [],
+              "message": "\u2705 Hello, I am HR from StarGlobal Media. Simple online tasks, daily p.a.yment. Interested? \ud83d\ude4f"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji",
+                "typos"
+              ],
+              "extra_tactics": [],
+              "message": "\ud83d\udc49 Hello, I am HR from Prme Reviews Ltd. Simple online tasks, daily paymen. Interested? \u2705"
+            }
+          ],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [
+              "code_mix",
+              "emoji"
+            ],
+            "extra_tactics": [],
+            "borrow_contact": "investment_genuine",
+            "swap_trust_pressure": true,
+            "drop_stages": [
+              "hook"
+            ],
+            "amount_scale": 0.7862799830850236,
+            "pace_scale": 1.5356566363305957,
+            "generation": 10,
+            "parent": "g9-09e8f258xg9-2652d07f",
+            "genome_id": "g10-2979d5fc"
+          }
+        },
+        {
+          "generation": 11,
+          "detection_rate": 0.8333,
+          "mean_loss": 17732.0,
+          "missed_examples": [
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "\u2705 Market update: NIFTY closed up 1.2%. Review aapka portfolio in the app. \u2705"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "\ud83d\udcc8 Market update: NIFTY closed up 1.2%. Review aapka portfolio in the app. \ud83d\udd25"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "\ud83d\udcc8 Market update: NIFTY closed up 1.2%. Review your portfolio in the app. \u26a0\ufe0f"
+            }
+          ],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [
+              "code_mix",
+              "emoji"
+            ],
+            "extra_tactics": [],
+            "borrow_contact": "investment_genuine",
+            "swap_trust_pressure": true,
+            "drop_stages": [
+              "hook"
+            ],
+            "amount_scale": 1.372832277132559,
+            "pace_scale": 5.5268570706862805,
+            "generation": 11,
+            "parent": "g10-01be70f3",
+            "genome_id": "g11-20e22367"
+          }
+        },
+        {
+          "generation": 12,
+          "detection_rate": 0.9375,
+          "mean_loss": 24555.0,
+          "missed_examples": [
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "\ud83d\udc49 Market update: NIFTY closed up 1.2%. Review aapka portfolio in the app. \u2705"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "Hello?"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "\u26a0\ufe0f Market update: NIFTY closed up 1.2%. Review aapka portfolio in the app. \ud83d\udd25"
+            }
+          ],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [
+              "code_mix",
+              "emoji"
+            ],
+            "extra_tactics": [],
+            "borrow_contact": "investment_genuine",
+            "swap_trust_pressure": true,
+            "drop_stages": [
+              "hook"
+            ],
+            "amount_scale": 1.372832277132559,
+            "pace_scale": 5.5268570706862805,
+            "generation": 12,
+            "parent": "g11-20e22367",
+            "genome_id": "g12-1f193180"
+          }
+        }
+      ],
+      "defender": {
+        "accepted": false,
+        "detection_before": 0.8542,
+        "detection_after": 0.7292,
+        "legit_false_alarm_before": 0.0033,
+        "legit_false_alarm_after": 0.0033,
+        "trained_on": {
+          "evolved": 144,
+          "legit": 250,
+          "replay": 1500
+        },
+        "tested_on": {
+          "fresh_evolved": 48,
+          "legit": 300
+        },
+        "gate_before": 0.9963,
+        "gate_after": 0.9992
+      }
+    },
+    {
+      "round": 4,
+      "attacker": [
+        {
+          "generation": 13,
+          "detection_rate": 0.6458,
+          "mean_loss": 19521.0,
+          "missed_examples": [
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [
+                "secrecy"
+              ],
+              "message": "\ud83d\ude4f Market update: NIFTY closed up 1.2%. Review aapka portfolio in the app. \ud83d\udcb0"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "\ud83d\udcb0 Market update: NIFTY closed up 1.2%. Review aapka portfolio in the app. \ud83d\ude4f"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [],
+              "message": "\ud83d\udd25 Market update: NIFTY closed up 1.2%. Review your portfolio in the app. \ud83d\ude4f"
+            }
+          ],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [
+              "code_mix",
+              "emoji",
+              "obfuscate"
+            ],
+            "extra_tactics": [],
+            "borrow_contact": "investment_genuine",
+            "swap_trust_pressure": true,
+            "drop_stages": [
+              "hook"
+            ],
+            "amount_scale": 1.372832277132559,
+            "pace_scale": 5.5268570706862805,
+            "generation": 13,
+            "parent": "g12-1f193180",
+            "genome_id": "g13-3354487d"
+          }
+        },
+        {
+          "generation": 14,
+          "detection_rate": 0.6042,
+          "mean_loss": 21949.0,
+          "missed_examples": [
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [
+                "secrecy"
+              ],
+              "message": "\ud83d\ude4f Market update: NIFTY closed up 1.2%. Review your portfolio in the app. \u26a0\ufe0f"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [
+                "link_click"
+              ],
+              "message": "\ud83d\udc49 Hi, this is your Punjab National Bank relationship manager. Aapka card renewal is pending, you can complete it in the app. \ud83d\udcc8"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [
+                "link_click"
+              ],
+              "message": "\ud83d\udcb0 Hi, this is your Punjab National Bank relationship manager. Aapka card renewal is pending, you can complete it in the app. \ud83d\udcb0"
+            }
+          ],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [
+              "code_mix",
+              "emoji"
+            ],
+            "extra_tactics": [
+              "link_click"
+            ],
+            "borrow_contact": "genuine_support",
+            "swap_trust_pressure": true,
+            "drop_stages": [
+              "hook"
+            ],
+            "amount_scale": 1.372832277132559,
+            "pace_scale": 6.7271998685830035,
+            "generation": 14,
+            "parent": "g13-12488238",
+            "genome_id": "g14-1141b0e5"
+          }
+        },
+        {
+          "generation": 15,
+          "detection_rate": 0.5417,
+          "mean_loss": 21608.0,
+          "missed_examples": [
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [
+                "link_click"
+              ],
+              "message": "\ud83d\udcb0 Aapka share for the Goa trip is Rs 15,520. No rush! \ud83d\udc49"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [
+                "link_click"
+              ],
+              "message": "\u26a0\ufe0f Your share for the Goa trip is Rs 12,150. No rush! \u26a0\ufe0f"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [
+                "secrecy"
+              ],
+              "message": "\ud83d\udcc8 Market update: NIFTY closed up 1.2%. Review aapka portfolio in the app. \ud83d\ude4f"
+            }
+          ],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [
+              "code_mix",
+              "emoji"
+            ],
+            "extra_tactics": [
+              "secrecy",
+              "isolation"
+            ],
+            "borrow_contact": "investment_genuine",
+            "swap_trust_pressure": true,
+            "drop_stages": [
+              "hook",
+              "trust"
+            ],
+            "amount_scale": 1.372832277132559,
+            "pace_scale": 2.484442559675819,
+            "generation": 15,
+            "parent": "g14-1f1cffc3",
+            "genome_id": "g15-16119324"
+          }
+        },
+        {
+          "generation": 16,
+          "detection_rate": 0.625,
+          "mean_loss": 24209.0,
+          "missed_examples": [
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [
+                "secrecy"
+              ],
+              "message": "Did you see my message?"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [
+                "secrecy",
+                "isolation"
+              ],
+              "message": "Hello?"
+            },
+            {
+              "family": "task_job",
+              "ops": [
+                "code_mix",
+                "emoji"
+              ],
+              "extra_tactics": [
+                "secrecy",
+                "isolation"
+              ],
+              "message": "\ud83d\udcc8 Market update: NIFTY closed up 1.2%. Review aapka portfolio in the app. \u2705"
+            }
+          ],
+          "top_genome": {
+            "family": "task_job",
+            "language": "en",
+            "channel": "whatsapp",
+            "text_ops": [
+              "code_mix",
+              "emoji"
+            ],
+            "extra_tactics": [
+              "secrecy",
+              "isolation"
+            ],
+            "borrow_contact": "investment_genuine",
+            "swap_trust_pressure": false,
+            "drop_stages": [
+              "hook",
+              "trust"
+            ],
+            "amount_scale": 1.372832277132559,
+            "pace_scale": 2.484442559675819,
+            "generation": 16,
+            "parent": "g15-16119324",
+            "genome_id": "g16-3d53cfd4"
+          }
+        }
+      ],
+      "defender": {
+        "accepted": true,
+        "detection_before": 0.3125,
+        "detection_after": 0.4583,
+        "legit_false_alarm_before": 0.02,
+        "legit_false_alarm_after": 0.0233,
+        "trained_on": {
+          "evolved": 144,
+          "legit": 250,
+          "replay": 1500
+        },
+        "tested_on": {
+          "fresh_evolved": 48,
+          "legit": 300
+        },
+        "gate_before": 0.9963,
+        "gate_after": 0.9968
+      }
+    }
+  ],
+  "seconds": 29.4
+}

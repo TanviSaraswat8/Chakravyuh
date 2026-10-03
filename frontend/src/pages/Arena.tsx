@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { api, pct, tacticLabel, type AdaptResult, type ArenaGen } from "../lib/api";
 
-function GenerationChart({ history }: { history: ArenaGen[] }) {
+function GenerationChart({ history, defences }: { history: ArenaGen[]; defences: AdaptResult[] }) {
   const W = 640, H = 260, pad = { l: 48, r: 16, t: 16, b: 40 };
   const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
   const bw = iw / Math.max(history.length, 1);
@@ -14,6 +14,19 @@ function GenerationChart({ history }: { history: ArenaGen[] }) {
           <text x={pad.l - 8} y={pad.t + ih * (1 - v) + 4} textAnchor="end" fontSize="12" fill="#7b8496">{pct(v)}</text>
         </g>
       ))}
+      {history.map((h, i) => {
+        if (i === 0 || history[i - 1].round === h.round) return null;
+        const x = pad.l + i * bw;
+        const d = defences[history[i - 1].round - 1];
+        return (
+          <g key={`b${i}`}>
+            <line x1={x} x2={x} y1={pad.t} y2={pad.t + ih} stroke="#1F8A70" strokeWidth="1.5" strokeDasharray="4 4" />
+            <text x={x + 4} y={pad.t + 12} fontSize="11" fill="#13614e">
+              {d ? (d.accepted ? "Defender updated" : "Update rejected") : "Next round"}
+            </text>
+          </g>
+        );
+      })}
       {history.map((h, i) => {
         const x = pad.l + i * bw + bw * 0.18, w = bw * 0.64, hh = ih * h.detection_rate;
         const color = h.detection_rate > 0.8 ? "#3D3FBF" : h.detection_rate > 0.5 ? "#E39B17" : "#C8312E";
@@ -33,14 +46,19 @@ function GenerationChart({ history }: { history: ArenaGen[] }) {
 
 export default function Arena() {
   const [history, setHistory] = useState<ArenaGen[]>([]);
+  const [defences, setDefences] = useState<AdaptResult[]>([]);
   const [busy, setBusy] = useState<"arena" | "adapt" | null>(null);
   const [adapt, setAdapt] = useState<AdaptResult | null>(null);
   const [gens, setGens] = useState(6);
   const [error, setError] = useState<string | null>(null);
 
-  const run = async () => {
+  const run = async (fresh: boolean) => {
     setBusy("arena"); setError(null); setAdapt(null);
-    try { setHistory((await api.arena(gens, 24)).history); }
+    try {
+      const r = await api.arena(gens, 24, fresh);
+      if (r.error) setError(r.error);
+      else { setHistory(r.history); setDefences(r.defences); }
+    }
     catch (e: any) { setError(`The arena didn't run: ${e.message}`); }
     finally { setBusy(null); }
   };
@@ -48,7 +66,7 @@ export default function Arena() {
     setBusy("adapt"); setError(null);
     try {
       const r = await api.adapt();
-      if (r.error) setError(r.error); else setAdapt(r);
+      if (r.error) setError(r.error); else { setAdapt(r); setDefences((d) => [...d, r]); }
     } catch (e: any) { setError(`Adapting failed: ${e.message}`); }
     finally { setBusy(null); }
   };
@@ -59,7 +77,7 @@ export default function Arena() {
       <div className="page-head">
         <div>
           <h1>Arena</h1>
-          <p>Attacker agents mutate their scams each generation. The ones that steal money without being caught survive and breed. Then the defender learns from what they invented.</p>
+          <p>Attacker agents mutate their scams each generation. The ones that steal money without being caught survive and breed. Then the defender learns from what they invented, and the attackers try again.</p>
         </div>
         <div className="row">
           <label className="field" style={{ flexDirection: "row", alignItems: "center" }}>
@@ -68,8 +86,8 @@ export default function Arena() {
               {[3, 4, 5, 6, 7, 8].map((n) => <option key={n}>{n}</option>)}
             </select>
           </label>
-          <button className="btn indigo" onClick={run} disabled={busy != null}>
-            {busy === "arena" ? "Attackers evolving…" : "Run the attackers"}
+          <button className="btn indigo" onClick={() => run(true)} disabled={busy != null}>
+            {busy === "arena" ? "Attackers evolving…" : history.length ? "Start a new arms race" : "Run the attackers"}
           </button>
         </div>
       </div>
@@ -87,7 +105,7 @@ export default function Arena() {
               <h2>Defender catch rate by attacker generation</h2>
               <span>Scams detected before money moves</span>
             </div>
-            <GenerationChart history={history} />
+            <GenerationChart history={history} defences={defences} />
           </section>
 
           <div className="stack">
@@ -112,7 +130,7 @@ export default function Arena() {
 
             <section className="panel stack">
               <h2>Defender's turn</h2>
-              <p className="muted">Fine-tune the sequence model on the attackers' newest scams, mixed with earlier data so it doesn't forget, then test on fresh variants it hasn't seen.</p>
+              <p className="muted">Fine-tune the sequence model on the attackers' newest scams, mixed with earlier data so it doesn't forget, and recalibrate the alert thresholds. The update ships only if it catches more attacks without raising false alarms.</p>
               <button className="btn" onClick={learn} disabled={busy != null}>
                 {busy === "adapt" ? "Learning from the attackers…" : "Learn from these attacks"}
               </button>
@@ -122,10 +140,16 @@ export default function Arena() {
                     <div><span className="muted">Caught before</span><strong>{pct(adapt.detection_before)}</strong></div>
                     <div><span className="muted">Caught after</span><strong style={{ color: "var(--teal)" }}>{pct(adapt.detection_after)}</strong></div>
                   </div>
+                  <p className={`chip ${adapt.accepted ? "teal" : "saffron"}`}>
+                    {adapt.accepted ? "Update shipped to the live defender." : "Update rejected: it didn't beat the current model, so nothing changed."}
+                  </p>
                   <p className="muted" style={{ fontSize: "0.88rem" }}>
                     Legitimate sessions wrongly flagged: {pct(adapt.legit_false_alarm_before, 1)} before, {pct(adapt.legit_false_alarm_after, 1)} after.
                     Tested on {adapt.tested_on.fresh_evolved} new attacker sessions and {adapt.tested_on.legit} legitimate ones.
                   </p>
+                  <button className="btn indigo" onClick={() => run(false)} disabled={busy != null}>
+                    {busy === "arena" ? "Attackers evolving…" : "Attackers' next round"}
+                  </button>
                 </>
               )}
             </section>

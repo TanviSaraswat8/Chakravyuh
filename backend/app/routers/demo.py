@@ -49,7 +49,7 @@ def run_simulation(req: SimulateRequest) -> dict:
 
 @router.post("/arena")
 def run_arena(req: ArenaRequest) -> dict:
-    return arena(req.generations, req.population, req.per_genome)
+    return arena(req.generations, req.population, req.per_genome, fresh=req.fresh)
 
 
 @router.post("/arena/adapt")
