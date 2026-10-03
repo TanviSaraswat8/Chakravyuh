@@ -30,3 +30,16 @@ sentinel/*.gguf
 # Local validation output
 validation-report.txt
 validation-build.log
+
+# Real and synthetic datasets: never committed. Provenance, licences and SHA-256 live in
+# data/registry/*.json; fetch with scripts/fetch_real_datasets.py.
+data/real/**/raw/
+data/synthetic/**/*
+!data/synthetic/**/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/splits/*
+!data/splits/.gitkeep
+
+# Real-data Sentinel builds (derived from data/processed; rebuild with sentinel/build_sft_real.py)
+sentinel/sft_real/

@@ -1,0 +1,89 @@
+{
+  "dataset_id": "mishra_soni_smishing",
+  "hard_failures": [],
+  "warnings": [
+    "licence UNRESOLVED: not ingested for training",
+    "raw files are a third-party mirror copy (audit only); the official release is not verified",
+    "37 duplicate groups carry conflicting labels",
+    "20 records match aadhaar_like (heuristic); review before any redistribution"
+  ],
+  "checks": {
+    "manifest": {
+      "problems": []
+    },
+    "license": {
+      "license": "not verified (Mendeley page blocked from this environment)",
+      "status": "UNRESOLVED"
+    },
+    "provenance": {
+      "kind": "mirror",
+      "repo": "https://github.com/MarazMia/SMISH_DT",
+      "commit": "cc54e15c188376d82019631d9198f667b1de862e",
+      "fetched_at": "2026-10-03T13:02:10+00:00"
+    },
+    "files": {
+      "Dataset_5971.csv": {
+        "bytes": 595987,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": true,
+          "bom": false
+        },
+        "structure": {
+          "header_fields": 5,
+          "row_field_counts": {
+            "5": 5971
+          },
+          "rows_not_matching_header": 0
+        }
+      }
+    },
+    "records": 5971,
+    "missingness": {
+      "text": 0.0,
+      "label": 0.0,
+      "language": 0.0,
+      "country": 1.0,
+      "timestamp": 1.0,
+      "year": 1.0,
+      "scam_type": 1.0,
+      "sender_type": 1.0
+    },
+    "labels": {
+      "legit": 4844,
+      "scam": 638,
+      "spam": 489
+    },
+    "duplicates": {
+      "duplicate_rows": 18,
+      "exact_duplicate_texts_raw": 22,
+      "unique_after_normalisation": 5699,
+      "near_duplicate_clusters": 5486,
+      "records_in_multi_member_near_clusters": 748,
+      "groups_with_conflicting_labels": 37,
+      "near_dup_threshold": 0.8
+    },
+    "pii_indicators": {
+      "url": {
+        "records": 183,
+        "share": 0.0306
+      },
+      "phone_india": {
+        "records": 128,
+        "share": 0.0214
+      },
+      "email": {
+        "records": 22,
+        "share": 0.0037
+      },
+      "aadhaar_like": {
+        "records": 20,
+        "share": 0.0033
+      },
+      "phone_intl": {
+        "records": 12,
+        "share": 0.002
+      }
+    }
+  }
+}

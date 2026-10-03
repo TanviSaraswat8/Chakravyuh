@@ -1,0 +1,80 @@
+{
+  "dataset_id": "uci_sms_spam",
+  "hard_failures": [],
+  "warnings": [
+    "raw files are a third-party mirror copy (audit only); the official release is not verified",
+    "7 records match aadhaar_like (heuristic); review before any redistribution"
+  ],
+  "checks": {
+    "manifest": {
+      "problems": []
+    },
+    "license": {
+      "license": "CC-BY-4.0 (stated on the UCI page; not verified from here because UCI is blocked)",
+      "status": "CLEAR"
+    },
+    "provenance": {
+      "kind": "mirror",
+      "repo": "https://github.com/MarazMia/SMISH_DT",
+      "commit": "cc54e15c188376d82019631d9198f667b1de862e",
+      "fetched_at": "2026-10-03T13:01:19+00:00"
+    },
+    "files": {
+      "SMSSpamCollection": {
+        "bytes": 477907,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": true,
+          "bom": false
+        },
+        "structure": {}
+      }
+    },
+    "records": 5574,
+    "missingness": {
+      "text": 0.0,
+      "label": 0.0,
+      "language": 0.0,
+      "country": 1.0,
+      "timestamp": 1.0,
+      "year": 0.0,
+      "scam_type": 1.0,
+      "sender_type": 1.0
+    },
+    "labels": {
+      "legit": 4827,
+      "spam": 747
+    },
+    "duplicates": {
+      "duplicate_rows": 403,
+      "exact_duplicate_texts_raw": 403,
+      "unique_after_normalisation": 5095,
+      "near_duplicate_clusters": 4982,
+      "records_in_multi_member_near_clusters": 947,
+      "groups_with_conflicting_labels": 0,
+      "near_dup_threshold": 0.8
+    },
+    "pii_indicators": {
+      "url": {
+        "records": 108,
+        "share": 0.0194
+      },
+      "email": {
+        "records": 7,
+        "share": 0.0013
+      },
+      "aadhaar_like": {
+        "records": 7,
+        "share": 0.0013
+      },
+      "phone_india": {
+        "records": 4,
+        "share": 0.0007
+      },
+      "phone_intl": {
+        "records": 3,
+        "share": 0.0005
+      }
+    }
+  }
+}

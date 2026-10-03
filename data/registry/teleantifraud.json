@@ -1,0 +1,45 @@
+{
+  "version": "git 6a09c4ee6ac85359c262eb36d689c0e2b392ad0d",
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": 10006,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [
+    "synthetic_track"
+  ],
+  "training_allowed": false,
+  "training_note": "LLM-generated: synthetic track only, never real-data evaluation.",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": "ACM MM 2025 (arXiv:2503.24115)",
+  "pii_status": "synthetic",
+  "collection_period": "unknown",
+  "collection_method": "LLM-generated dialogues (DeepSeek-V2.5 multi-agent); full set on Hugging Face/ModelScope",
+  "geography": "China",
+  "language": "Chinese",
+  "limitations": [
+    "Generated",
+    "Chinese",
+    "Inconsistent field values"
+  ],
+  "provenance": "",
+  "dataset_id": "teleantifraud",
+  "name": "TeleAntiFraud-28k (repository subset)",
+  "source": "Ma et al.",
+  "official_url": "https://github.com/JimmyMa99/TeleAntiFraud",
+  "license": "Apache-2.0 (repository)",
+  "license_status": "CLEAR",
+  "data_type": "dialogues",
+  "access_status": "AVAILABLE_NOW",
+  "original_or_mirror": "original",
+  "real_or_synthetic": "LLM_GENERATED",
+  "fetch": {
+    "method": "git",
+    "repo": "https://github.com/JimmyMa99/TeleAntiFraud",
+    "commit": "6a09c4ee6ac85359c262eb36d689c0e2b392ad0d",
+    "files": []
+  }
+}

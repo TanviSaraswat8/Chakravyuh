@@ -1,0 +1,577 @@
+{
+  "datasets": {
+    "imc25_smishing": 33869,
+    "sp24_gateway_phishing": 68029,
+    "uci_sms_spam": 5574,
+    "super_sms": 67008,
+    "mishra_soni_smishing": 5971,
+    "smishtank": 1062,
+    "nus_sms_corpus": 55835,
+    "india_spam_sms_junioralive": 2267
+  },
+  "within": {
+    "imc25_smishing": {
+      "records": 33869,
+      "near_dup_clusters": 18076,
+      "largest_cluster": 1165,
+      "records_in_top_10_clusters": 2453,
+      "random_80_20_split_leakage": {
+        "test_records": 6774,
+        "test_with_near_dup_in_train": 3801,
+        "share": 0.5611
+      },
+      "languages": {
+        "method": "dataset field",
+        "top": {
+          "english": 22078,
+          "spanish": 4639,
+          "dutch": 1945,
+          "french": 1163,
+          "german": 810,
+          "italian": 669,
+          "indonesian": 347,
+          "portuguese": 280,
+          "japanese": 257,
+          "hindi": 175,
+          "malay": 152,
+          "polish": 133
+        },
+        "share_top": {
+          "english": 0.6534,
+          "spanish": 0.1373,
+          "dutch": 0.0576,
+          "french": 0.0344,
+          "german": 0.024
+        },
+        "devanagari_records": 113,
+        "hinglish_candidates_heuristic": 11
+      }
+    },
+    "sp24_gateway_phishing": {
+      "records": 68029,
+      "near_dup_clusters": 2464,
+      "largest_cluster": 9273,
+      "records_in_top_10_clusters": 41674,
+      "random_80_20_split_leakage": {
+        "test_records": 13606,
+        "test_with_near_dup_in_train": 13388,
+        "share": 0.984
+      },
+      "languages": {
+        "method": "langid.py on first 20000 records",
+        "top": {
+          "en": 10112,
+          "fr": 3396,
+          "ja": 2029,
+          "mt": 1215,
+          "es": 641,
+          "fi": 384,
+          "ru": 356,
+          "lo": 253,
+          "kn": 236,
+          "it": 183,
+          "zh": 140,
+          "de": 120
+        },
+        "share_top": {
+          "en": 0.5056,
+          "fr": 0.1698,
+          "ja": 0.1014,
+          "mt": 0.0607,
+          "es": 0.0321
+        },
+        "devanagari_records": 2,
+        "hinglish_candidates_heuristic": 13
+      }
+    },
+    "uci_sms_spam": {
+      "records": 5574,
+      "near_dup_clusters": 4982,
+      "largest_cluster": 30,
+      "records_in_top_10_clusters": 114,
+      "random_80_20_split_leakage": {
+        "test_records": 1115,
+        "test_with_near_dup_in_train": 182,
+        "share": 0.1632
+      },
+      "languages": {
+        "method": "dataset field",
+        "top": {
+          "en": 5574
+        },
+        "share_top": {
+          "en": 1.0
+        },
+        "devanagari_records": 0,
+        "hinglish_candidates_heuristic": 1
+      }
+    },
+    "super_sms": {
+      "records": 67008,
+      "near_dup_clusters": 62550,
+      "largest_cluster": 75,
+      "records_in_top_10_clusters": 400,
+      "random_80_20_split_leakage": {
+        "test_records": 13402,
+        "test_with_near_dup_in_train": 1213,
+        "share": 0.0905
+      },
+      "languages": {
+        "method": "langid.py on first 20000 records",
+        "top": {
+          "en": 19199,
+          "fr": 84,
+          "de": 70,
+          "it": 68,
+          "es": 63,
+          "nl": 55,
+          "da": 45,
+          "mt": 43,
+          "id": 42,
+          "tl": 24,
+          "af": 23,
+          "pt": 22
+        },
+        "share_top": {
+          "en": 0.9599,
+          "fr": 0.0042,
+          "de": 0.0035,
+          "it": 0.0034,
+          "es": 0.0032
+        },
+        "devanagari_records": 0,
+        "hinglish_candidates_heuristic": 21
+      }
+    },
+    "mishra_soni_smishing": {
+      "records": 5971,
+      "near_dup_clusters": 5486,
+      "largest_cluster": 16,
+      "records_in_top_10_clusters": 97,
+      "random_80_20_split_leakage": {
+        "test_records": 1195,
+        "test_with_near_dup_in_train": 133,
+        "share": 0.1113
+      },
+      "languages": {
+        "method": "dataset field",
+        "top": {
+          "en": 5971
+        },
+        "share_top": {
+          "en": 1.0
+        },
+        "devanagari_records": 0,
+        "hinglish_candidates_heuristic": 1
+      }
+    },
+    "smishtank": {
+      "records": 1062,
+      "near_dup_clusters": 847,
+      "largest_cluster": 29,
+      "records_in_top_10_clusters": 149,
+      "random_80_20_split_leakage": {
+        "test_records": 213,
+        "test_with_near_dup_in_train": 57,
+        "share": 0.2676
+      },
+      "languages": {
+        "method": "dataset field",
+        "top": {
+          "en": 1062
+        },
+        "share_top": {
+          "en": 1.0
+        },
+        "devanagari_records": 0,
+        "hinglish_candidates_heuristic": 0
+      }
+    },
+    "nus_sms_corpus": {
+      "records": 55835,
+      "near_dup_clusters": 46830,
+      "largest_cluster": 377,
+      "records_in_top_10_clusters": 1378,
+      "random_80_20_split_leakage": {
+        "test_records": 11167,
+        "test_with_near_dup_in_train": 2358,
+        "share": 0.2112
+      },
+      "languages": {
+        "method": "dataset field",
+        "top": {
+          "en": 55835
+        },
+        "share_top": {
+          "en": 1.0
+        },
+        "devanagari_records": 0,
+        "hinglish_candidates_heuristic": 372
+      }
+    },
+    "india_spam_sms_junioralive": {
+      "records": 2267,
+      "near_dup_clusters": 1845,
+      "largest_cluster": 35,
+      "records_in_top_10_clusters": 179,
+      "random_80_20_split_leakage": {
+        "test_records": 454,
+        "test_with_near_dup_in_train": 135,
+        "share": 0.2974
+      },
+      "languages": {
+        "method": "langid.py on first 2267 records",
+        "top": {
+          "en": 2059,
+          "fi": 51,
+          "de": 16,
+          "vi": 14,
+          "fo": 13,
+          "nl": 13,
+          "fr": 13,
+          "tl": 9,
+          "qu": 8,
+          "es": 8,
+          "mt": 6,
+          "et": 6
+        },
+        "share_top": {
+          "en": 0.9082,
+          "fi": 0.0225,
+          "de": 0.0071,
+          "vi": 0.0062,
+          "fo": 0.0057
+        },
+        "devanagari_records": 0,
+        "hinglish_candidates_heuristic": 3
+      }
+    }
+  },
+  "splits": {
+    "imc25_family_spanning_clusters": {
+      "clusters_spanning_values": 427,
+      "records_in_spanning_clusters": 4156,
+      "share": 0.1227
+    },
+    "imc25_country_spanning_clusters": {
+      "clusters_spanning_values": 868,
+      "records_in_spanning_clusters": 9115,
+      "share": 0.2691
+    },
+    "imc25_family_counts": {
+      "delivery": 3810,
+      "others": 6922,
+      "wrong number": 332,
+      "banking": 15277,
+      "government": 3248,
+      "hey mum/dad": 263,
+      "spam": 1710,
+      "telecom": 2226,
+      "null": 81
+    },
+    "imc25_group_split_counts": {
+      "train": 23702,
+      "val": 3388,
+      "test": 6779
+    },
+    "sp24_temporal": {
+      "time_range": [
+        "2022-05-01T10:09:13+00:00",
+        "2023-06-01T09:21:10+00:00"
+      ],
+      "val_cut": "2023-05-04T23:41:17+00:00",
+      "test_cut": "2023-05-11T14:49:11+00:00",
+      "counts": {
+        "train": 47620,
+        "val": 6801,
+        "test": 13608
+      },
+      "test_seen_campaign": 3084,
+      "test_novel_campaign": 10524,
+      "seen_share": 0.2266
+    }
+  },
+  "cross_dataset": {
+    "imc25_smishing -> sp24_gateway_phishing": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0017,
+      "near_dup_share_of_a_records": 0.0145
+    },
+    "imc25_smishing -> uci_sms_spam": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0,
+      "near_dup_share_of_a_records": 0.0
+    },
+    "imc25_smishing -> super_sms": {
+      "exact_share_of_a_unique_texts": 0.0007,
+      "template_share_of_a_templates": 0.0038,
+      "near_dup_share_of_a_records": 0.0451
+    },
+    "imc25_smishing -> mishra_soni_smishing": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0001,
+      "near_dup_share_of_a_records": 0.004
+    },
+    "imc25_smishing -> smishtank": {
+      "exact_share_of_a_unique_texts": 0.0003,
+      "template_share_of_a_templates": 0.0064,
+      "near_dup_share_of_a_records": 0.0266
+    },
+    "imc25_smishing -> nus_sms_corpus": {
+      "exact_share_of_a_unique_texts": 0.0006,
+      "template_share_of_a_templates": 0.0007,
+      "near_dup_share_of_a_records": 0.0054
+    },
+    "imc25_smishing -> india_spam_sms_junioralive": {
+      "exact_share_of_a_unique_texts": 0.0001,
+      "template_share_of_a_templates": 0.0001,
+      "near_dup_share_of_a_records": 0.0001
+    },
+    "sp24_gateway_phishing -> imc25_smishing": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0031,
+      "near_dup_share_of_a_records": 0.0254
+    },
+    "sp24_gateway_phishing -> uci_sms_spam": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0001,
+      "near_dup_share_of_a_records": 0.0
+    },
+    "sp24_gateway_phishing -> super_sms": {
+      "exact_share_of_a_unique_texts": 0.0002,
+      "template_share_of_a_templates": 0.0002,
+      "near_dup_share_of_a_records": 0.0063
+    },
+    "sp24_gateway_phishing -> mishra_soni_smishing": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0,
+      "near_dup_share_of_a_records": 0.0
+    },
+    "sp24_gateway_phishing -> smishtank": {
+      "exact_share_of_a_unique_texts": 0.0002,
+      "template_share_of_a_templates": 0.0002,
+      "near_dup_share_of_a_records": 0.0051
+    },
+    "sp24_gateway_phishing -> nus_sms_corpus": {
+      "exact_share_of_a_unique_texts": 0.0002,
+      "template_share_of_a_templates": 0.0002,
+      "near_dup_share_of_a_records": 0.0063
+    },
+    "sp24_gateway_phishing -> india_spam_sms_junioralive": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0001,
+      "near_dup_share_of_a_records": 0.0
+    },
+    "uci_sms_spam -> imc25_smishing": {
+      "exact_share_of_a_unique_texts": 0.0002,
+      "template_share_of_a_templates": 0.0002,
+      "near_dup_share_of_a_records": 0.0002
+    },
+    "uci_sms_spam -> sp24_gateway_phishing": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0002,
+      "near_dup_share_of_a_records": 0.0
+    },
+    "uci_sms_spam -> super_sms": {
+      "exact_share_of_a_unique_texts": 0.8418,
+      "template_share_of_a_templates": 0.842,
+      "near_dup_share_of_a_records": 0.899
+    },
+    "uci_sms_spam -> mishra_soni_smishing": {
+      "exact_share_of_a_unique_texts": 0.9657,
+      "template_share_of_a_templates": 0.9657,
+      "near_dup_share_of_a_records": 0.9752
+    },
+    "uci_sms_spam -> smishtank": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0002,
+      "near_dup_share_of_a_records": 0.0
+    },
+    "uci_sms_spam -> nus_sms_corpus": {
+      "exact_share_of_a_unique_texts": 0.6826,
+      "template_share_of_a_templates": 0.6826,
+      "near_dup_share_of_a_records": 0.7253
+    },
+    "uci_sms_spam -> india_spam_sms_junioralive": {
+      "exact_share_of_a_unique_texts": 0.0012,
+      "template_share_of_a_templates": 0.0012,
+      "near_dup_share_of_a_records": 0.0045
+    },
+    "super_sms -> imc25_smishing": {
+      "exact_share_of_a_unique_texts": 0.0002,
+      "template_share_of_a_templates": 0.0014,
+      "near_dup_share_of_a_records": 0.0102
+    },
+    "super_sms -> sp24_gateway_phishing": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0,
+      "near_dup_share_of_a_records": 0.0001
+    },
+    "super_sms -> uci_sms_spam": {
+      "exact_share_of_a_unique_texts": 0.0653,
+      "template_share_of_a_templates": 0.0654,
+      "near_dup_share_of_a_records": 0.0744
+    },
+    "super_sms -> mishra_soni_smishing": {
+      "exact_share_of_a_unique_texts": 0.064,
+      "template_share_of_a_templates": 0.064,
+      "near_dup_share_of_a_records": 0.0746
+    },
+    "super_sms -> smishtank": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0,
+      "near_dup_share_of_a_records": 0.0002
+    },
+    "super_sms -> nus_sms_corpus": {
+      "exact_share_of_a_unique_texts": 0.5169,
+      "template_share_of_a_templates": 0.5169,
+      "near_dup_share_of_a_records": 0.5199
+    },
+    "super_sms -> india_spam_sms_junioralive": {
+      "exact_share_of_a_unique_texts": 0.0002,
+      "template_share_of_a_templates": 0.0002,
+      "near_dup_share_of_a_records": 0.0007
+    },
+    "mishra_soni_smishing -> imc25_smishing": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0004,
+      "near_dup_share_of_a_records": 0.006
+    },
+    "mishra_soni_smishing -> sp24_gateway_phishing": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0,
+      "near_dup_share_of_a_records": 0.0
+    },
+    "mishra_soni_smishing -> uci_sms_spam": {
+      "exact_share_of_a_unique_texts": 0.8633,
+      "template_share_of_a_templates": 0.8633,
+      "near_dup_share_of_a_records": 0.8898
+    },
+    "mishra_soni_smishing -> super_sms": {
+      "exact_share_of_a_unique_texts": 0.7371,
+      "template_share_of_a_templates": 0.7375,
+      "near_dup_share_of_a_records": 0.819
+    },
+    "mishra_soni_smishing -> smishtank": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0,
+      "near_dup_share_of_a_records": 0.0
+    },
+    "mishra_soni_smishing -> nus_sms_corpus": {
+      "exact_share_of_a_unique_texts": 0.5945,
+      "template_share_of_a_templates": 0.5948,
+      "near_dup_share_of_a_records": 0.6254
+    },
+    "mishra_soni_smishing -> india_spam_sms_junioralive": {
+      "exact_share_of_a_unique_texts": 0.0011,
+      "template_share_of_a_templates": 0.0011,
+      "near_dup_share_of_a_records": 0.0013
+    },
+    "smishtank -> imc25_smishing": {
+      "exact_share_of_a_unique_texts": 0.0084,
+      "template_share_of_a_templates": 0.1556,
+      "near_dup_share_of_a_records": 0.4934
+    },
+    "smishtank -> sp24_gateway_phishing": {
+      "exact_share_of_a_unique_texts": 0.0032,
+      "template_share_of_a_templates": 0.0032,
+      "near_dup_share_of_a_records": 0.0151
+    },
+    "smishtank -> uci_sms_spam": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0011,
+      "near_dup_share_of_a_records": 0.0
+    },
+    "smishtank -> super_sms": {
+      "exact_share_of_a_unique_texts": 0.0011,
+      "template_share_of_a_templates": 0.0011,
+      "near_dup_share_of_a_records": 0.0254
+    },
+    "smishtank -> mishra_soni_smishing": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0,
+      "near_dup_share_of_a_records": 0.0
+    },
+    "smishtank -> nus_sms_corpus": {
+      "exact_share_of_a_unique_texts": 0.0011,
+      "template_share_of_a_templates": 0.0021,
+      "near_dup_share_of_a_records": 0.0104
+    },
+    "smishtank -> india_spam_sms_junioralive": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0011,
+      "near_dup_share_of_a_records": 0.0
+    },
+    "nus_sms_corpus -> imc25_smishing": {
+      "exact_share_of_a_unique_texts": 0.0003,
+      "template_share_of_a_templates": 0.0003,
+      "near_dup_share_of_a_records": 0.0041
+    },
+    "nus_sms_corpus -> sp24_gateway_phishing": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0001,
+      "near_dup_share_of_a_records": 0.0002
+    },
+    "nus_sms_corpus -> uci_sms_spam": {
+      "exact_share_of_a_unique_texts": 0.0738,
+      "template_share_of_a_templates": 0.0739,
+      "near_dup_share_of_a_records": 0.0879
+    },
+    "nus_sms_corpus -> super_sms": {
+      "exact_share_of_a_unique_texts": 0.7203,
+      "template_share_of_a_templates": 0.7205,
+      "near_dup_share_of_a_records": 0.6939
+    },
+    "nus_sms_corpus -> mishra_soni_smishing": {
+      "exact_share_of_a_unique_texts": 0.0719,
+      "template_share_of_a_templates": 0.072,
+      "near_dup_share_of_a_records": 0.0855
+    },
+    "nus_sms_corpus -> smishtank": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0,
+      "near_dup_share_of_a_records": 0.0002
+    },
+    "nus_sms_corpus -> india_spam_sms_junioralive": {
+      "exact_share_of_a_unique_texts": 0.0009,
+      "template_share_of_a_templates": 0.0009,
+      "near_dup_share_of_a_records": 0.0251
+    },
+    "india_spam_sms_junioralive -> imc25_smishing": {
+      "exact_share_of_a_unique_texts": 0.0016,
+      "template_share_of_a_templates": 0.0016,
+      "near_dup_share_of_a_records": 0.0057
+    },
+    "india_spam_sms_junioralive -> sp24_gateway_phishing": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0005,
+      "near_dup_share_of_a_records": 0.0
+    },
+    "india_spam_sms_junioralive -> uci_sms_spam": {
+      "exact_share_of_a_unique_texts": 0.0031,
+      "template_share_of_a_templates": 0.0031,
+      "near_dup_share_of_a_records": 0.0273
+    },
+    "india_spam_sms_junioralive -> super_sms": {
+      "exact_share_of_a_unique_texts": 0.0078,
+      "template_share_of_a_templates": 0.0083,
+      "near_dup_share_of_a_records": 0.0168
+    },
+    "india_spam_sms_junioralive -> mishra_soni_smishing": {
+      "exact_share_of_a_unique_texts": 0.0031,
+      "template_share_of_a_templates": 0.0031,
+      "near_dup_share_of_a_records": 0.0256
+    },
+    "india_spam_sms_junioralive -> smishtank": {
+      "exact_share_of_a_unique_texts": 0.0,
+      "template_share_of_a_templates": 0.0005,
+      "near_dup_share_of_a_records": 0.0
+    },
+    "india_spam_sms_junioralive -> nus_sms_corpus": {
+      "exact_share_of_a_unique_texts": 0.0224,
+      "template_share_of_a_templates": 0.0224,
+      "near_dup_share_of_a_records": 0.0631
+    }
+  },
+  "seconds": 110.3
+}

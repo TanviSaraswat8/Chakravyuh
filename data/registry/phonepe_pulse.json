@@ -1,0 +1,48 @@
+{
+  "version": "git 257bf38e3095020f9f516c4c72c10bdc348781b1 (2026-09-24)",
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": 11184,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [
+    "priors",
+    "simulator calibration"
+  ],
+  "training_allowed": false,
+  "training_note": "Context only: realistic UPI volume/amount/category distributions to calibrate the simulator. No fraud labels, no payer/payee records.",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": {
+    "note": "no fraud labels; aggregate counts/amounts by state, district, quarter, category"
+  },
+  "paper": null,
+  "pii_status": "aggregates only",
+  "collection_period": "2018 onwards, quarterly",
+  "collection_method": "Anonymised aggregates from one UPI app (PhonePe)",
+  "geography": "India",
+  "language": "n/a",
+  "limitations": [
+    "No fraud labels",
+    "No transactions or payees",
+    "One app only"
+  ],
+  "provenance": "",
+  "dataset_id": "phonepe_pulse",
+  "name": "PhonePe Pulse (aggregated UPI statistics)",
+  "source": "PhonePe",
+  "official_url": "https://github.com/PhonePe/pulse",
+  "license": "CDLA-Permissive-2.0 (LICENSE file)",
+  "license_status": "CLEAR",
+  "data_type": "transactions",
+  "access_status": "AVAILABLE_NOW",
+  "original_or_mirror": "original",
+  "real_or_synthetic": "AGGREGATE_REPORTS",
+  "fetch": {
+    "method": "git",
+    "repo": "https://github.com/PhonePe/pulse",
+    "commit": "257bf38e3095020f9f516c4c72c10bdc348781b1",
+    "files": []
+  }
+}

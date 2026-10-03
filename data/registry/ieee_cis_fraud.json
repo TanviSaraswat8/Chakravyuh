@@ -1,0 +1,41 @@
+{
+  "version": null,
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": null,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [],
+  "training_allowed": false,
+  "training_note": "Card-not-present e-commerce, anonymised features, competition-only terms: no payee relationships, wrong rail.",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": null,
+  "pii_status": "anonymised features",
+  "collection_period": "unknown",
+  "collection_method": "unknown",
+  "geography": "unknown (e-commerce card payments)",
+  "language": "unknown",
+  "limitations": [
+    "Competition terms",
+    "Card payments, not UPI"
+  ],
+  "provenance": "",
+  "dataset_id": "ieee_cis_fraud",
+  "name": "IEEE-CIS Fraud Detection (Vesta)",
+  "source": "Vesta / IEEE CIS (Kaggle competition)",
+  "official_url": "https://www.kaggle.com/competitions/ieee-fraud-detection",
+  "license": "Kaggle competition rules (use restricted to the competition)",
+  "license_status": "RESTRICTED",
+  "data_type": "transactions",
+  "access_status": "REJECTED",
+  "original_or_mirror": "Kaggle",
+  "real_or_synthetic": "REAL",
+  "fetch": {
+    "method": "local",
+    "instructions": "Not planned",
+    "files": []
+  }
+}

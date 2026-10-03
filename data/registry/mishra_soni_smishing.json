@@ -1,0 +1,75 @@
+{
+  "version": null,
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {
+    "Dataset_5971.csv": "649844f1c62a6b27e145eaf17a65f7010c56c390e11a794ea8329993a05ba71e"
+  },
+  "sample_count": 5971,
+  "preprocessing_version": null,
+  "adapter": "mishra_soni_smishing",
+  "components": [],
+  "training_allowed": false,
+  "training_note": "Not an independent source: largely relabelled UCI. Audit only.",
+  "raw_columns": [
+    "LABEL",
+    "TEXT",
+    "URL",
+    "EMAIL",
+    "PHONE"
+  ],
+  "schema": "canonical msg-v1 (see docs/REAL_DATA_STRATEGY.md); raw columns listed in 'raw_columns'",
+  "label_schema": {
+    "raw": [
+      "ham",
+      "Smishing",
+      "smishing",
+      "spam",
+      "Spam"
+    ],
+    "canonical": "ham -> legit; smishing -> scam; spam -> spam"
+  },
+  "paper": "Mishra & Soni, Mendeley Data v1 (2022)",
+  "pii_status": "unmasked",
+  "collection_period": "unknown (published 2022)",
+  "collection_method": "Compiled; ~85% of texts are UCI SMS Spam Collection messages",
+  "geography": "mixed (largely UCI UK/Singapore text)",
+  "language": "English",
+  "limitations": [
+    "~85% overlap with UCI",
+    "inconsistent label casing",
+    "4 texts with conflicting labels"
+  ],
+  "provenance": "Third-party copy in MarazMia/SMISH_DT.",
+  "dataset_id": "mishra_soni_smishing",
+  "name": "SMS Phishing Dataset for Machine Learning and Pattern Recognition",
+  "source": "Mishra & Soni (2022)",
+  "official_url": "https://data.mendeley.com/datasets/f45bkkt8pr/1",
+  "license": "not verified (Mendeley page blocked from this environment)",
+  "license_status": "UNRESOLVED",
+  "data_type": "messages",
+  "access_status": "REQUIRES_LOCAL_DOWNLOAD",
+  "original_or_mirror": "official via local download; GitHub copy is third-party",
+  "real_or_synthetic": "REAL",
+  "fetch": {
+    "method": "local",
+    "instructions": "Download Dataset_5971.csv from Mendeley, confirm licence, register --pin",
+    "files": [
+      {
+        "dest": "Dataset_5971.csv"
+      }
+    ],
+    "mirror": {
+      "method": "git",
+      "repo": "https://github.com/MarazMia/SMISH_DT",
+      "commit": "cc54e15c188376d82019631d9198f667b1de862e",
+      "files": [
+        {
+          "src": "Dataset/Mendeley_Dataset_5971.csv",
+          "dest": "Dataset_5971.csv"
+        }
+      ],
+      "note": "third-party copy; leakage audit only"
+    }
+  }
+}

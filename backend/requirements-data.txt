@@ -1,0 +1,2 @@
+# Optional, for the real-data pipeline
+langid>=1.1.6          # language ID for datasets without a language field

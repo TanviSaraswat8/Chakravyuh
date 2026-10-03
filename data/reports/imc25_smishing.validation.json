@@ -1,0 +1,130 @@
+{
+  "dataset_id": "imc25_smishing",
+  "hard_failures": [],
+  "warnings": [
+    "81 records have no usable label",
+    "47 duplicate groups carry conflicting labels",
+    "16 records match aadhaar_like (heuristic); review before any redistribution",
+    "16 records match payment_card_luhn (heuristic); review before any redistribution",
+    "6 records match pan_like (heuristic); review before any redistribution"
+  ],
+  "checks": {
+    "manifest": {
+      "problems": []
+    },
+    "license": {
+      "license": "CC-BY-4.0 (LICENSE.txt in the repository)",
+      "status": "CLEAR"
+    },
+    "provenance": {
+      "kind": "original",
+      "repo": "https://github.com/reportsmishing/Smishing-Dataset-IMC25",
+      "commit": "a6175560b57387199871e51fbef6bc523d2516b4",
+      "fetched_at": "2026-10-03T13:01:05+00:00"
+    },
+    "files": {
+      "LICENSE.txt": {
+        "bytes": 18650,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": true,
+          "bom": false
+        },
+        "structure": {}
+      },
+      "final_dataset_output.csv": {
+        "bytes": 9462365,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": true,
+          "bom": false
+        },
+        "structure": {
+          "header_fields": 12,
+          "row_field_counts": {
+            "12": 33869
+          },
+          "rows_not_matching_header": 0
+        }
+      },
+      "time_day.csv": {
+        "bytes": 171441,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": true,
+          "bom": false
+        },
+        "structure": {
+          "header_fields": 2,
+          "row_field_counts": {
+            "2": 9431
+          },
+          "rows_not_matching_header": 0
+        }
+      }
+    },
+    "records": 33869,
+    "missingness": {
+      "text": 0.0,
+      "label": 0.0,
+      "language": 0.0024,
+      "country": 0.6665,
+      "timestamp": 0.0856,
+      "year": 0.8509,
+      "scam_type": 0.0024,
+      "sender_type": 0.5254
+    },
+    "labels": {
+      "scam": 32078,
+      "spam": 1710,
+      "unknown": 81
+    },
+    "duplicates": {
+      "duplicate_rows": 3348,
+      "exact_duplicate_texts_raw": 8573,
+      "unique_after_normalisation": 23256,
+      "near_duplicate_clusters": 18076,
+      "records_in_multi_member_near_clusters": 20102,
+      "groups_with_conflicting_labels": 47,
+      "near_dup_threshold": 0.8
+    },
+    "pii_indicators": {
+      "url": {
+        "records": 352,
+        "share": 0.0104
+      },
+      "phone_india": {
+        "records": 25,
+        "share": 0.0007
+      },
+      "ifsc_like": {
+        "records": 22,
+        "share": 0.0006
+      },
+      "aadhaar_like": {
+        "records": 16,
+        "share": 0.0005
+      },
+      "payment_card_luhn": {
+        "records": 16,
+        "share": 0.0005
+      },
+      "upi_vpa": {
+        "records": 10,
+        "share": 0.0003
+      },
+      "pan_like": {
+        "records": 6,
+        "share": 0.0002
+      },
+      "phone_intl": {
+        "records": 2,
+        "share": 0.0001
+      },
+      "email": {
+        "records": 1,
+        "share": 0.0
+      }
+    }
+  }
+}

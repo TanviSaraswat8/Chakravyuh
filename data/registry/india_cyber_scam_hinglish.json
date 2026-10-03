@@ -1,0 +1,42 @@
+{
+  "version": "git 731bad5163075568ba048e1e3ff44bdfc72a7de0",
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": 10000,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [],
+  "training_allowed": false,
+  "training_note": "",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": null,
+  "pii_status": "unknown",
+  "collection_period": "unknown",
+  "collection_method": "synthetic construction (10,000 rows, 743 unique texts; measured)",
+  "geography": "India",
+  "language": "Hinglish",
+  "limitations": [
+    "Synthetic"
+  ],
+  "provenance": "",
+  "dataset_id": "india_cyber_scam_hinglish",
+  "name": "India Cyber Scam Hinglish dataset (digital arrest etc.)",
+  "source": "Abhinaiinjeti (GitHub re-host)",
+  "official_url": "https://github.com/Abhinaiinjeti/AI-BASED-DIGITAL-ARREST-AND-VOICE-SCAM-DETECTION",
+  "license": "none in repository",
+  "license_status": "UNRESOLVED",
+  "data_type": "messages",
+  "access_status": "REJECTED",
+  "original_or_mirror": "re-hosted copy",
+  "real_or_synthetic": "SYNTHETIC",
+  "rejection_reason": "Synthetic and highly duplicated (743 unique of 10,000); re-hosted. May serve the SYNTHETIC adversarial track only.",
+  "fetch": {
+    "method": "git",
+    "repo": "https://github.com/Abhinaiinjeti/AI-BASED-DIGITAL-ARREST-AND-VOICE-SCAM-DETECTION",
+    "commit": "731bad5163075568ba048e1e3ff44bdfc72a7de0",
+    "files": []
+  }
+}

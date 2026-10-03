@@ -2,7 +2,7 @@
 PY ?= python3
 BACKEND = backend
 
-.PHONY: help setup data train api user web test lint build up down sft
+.PHONY: help setup data train api user web test lint build up down sft data-real validate-real audit-leakage splits-real sft-real
 
 help:
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-10s %s\n", $$1, $$2}'
@@ -50,3 +50,18 @@ coevolve: ## Run attacker-defender co-evolution (add PERSIST=1 to save the harde
 
 dataset: ## Export the public tactic-level dataset to dataset/
 	cd $(BACKEND) && $(PY) -m chakravyuh.sim.export_public --sessions data/sessions.jsonl --out ../dataset
+
+data-real: ## Fetch the licensed real datasets at their pinned commits (SHA-256 checked)
+	$(PY) scripts/fetch_real_datasets.py fetch imc25_smishing sp24_gateway_phishing india_spam_sms_junioralive
+
+validate-real: ## Validate every real dataset on disk (schema, duplicates, labels, PII, licence, SHA-256)
+	$(PY) scripts/validate_real_dataset.py --all
+
+audit-leakage: ## Measure duplicate / template / cross-dataset leakage (writes data/reports/)
+	$(PY) scripts/leakage_audit.py
+
+splits-real: ## Preprocess real data and build leakage-safe splits
+	$(PY) scripts/prepare_real_splits.py
+
+sft-real: ## Build Sentinel SFT files from real data (no training)
+	$(PY) sentinel/build_sft_real.py --config sentinel/configs/sentinel_real_v1.json

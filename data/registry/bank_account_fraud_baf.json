@@ -1,0 +1,41 @@
+{
+  "version": null,
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": null,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [],
+  "training_allowed": false,
+  "training_note": "",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": null,
+  "pii_status": "unknown",
+  "collection_period": "unknown",
+  "collection_method": "Synthetic, generated from real account-opening applications",
+  "geography": "unknown",
+  "language": "unknown",
+  "limitations": [
+    "Wrong task"
+  ],
+  "provenance": "",
+  "dataset_id": "bank_account_fraud_baf",
+  "name": "Bank Account Fraud (BAF) suite",
+  "source": "Feedzai (NeurIPS 2022 Datasets & Benchmarks)",
+  "official_url": "https://github.com/feedzai/bank-account-fraud",
+  "license": "CC BY-NC-ND 4.0 (datasheet, per an earlier pass; not re-verified)",
+  "license_status": "NON_COMMERCIAL",
+  "data_type": "transactions",
+  "access_status": "REJECTED",
+  "original_or_mirror": "original",
+  "real_or_synthetic": "SYNTHETIC",
+  "rejection_reason": "Account-opening applications, not payments; no payee relationships; synthetic; NC-ND.",
+  "fetch": {
+    "method": "local",
+    "instructions": "Not planned",
+    "files": []
+  }
+}

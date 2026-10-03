@@ -1,0 +1,44 @@
+{
+  "version": null,
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": null,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [
+    "payee_graph (methodology benchmark only)"
+  ],
+  "training_allowed": false,
+  "training_note": "Real graph with provenance, but crypto AML, not UPI payee relationships: only for testing graph methods.",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": "Demystifying Fraudulent Transactions and Illicit Nodes in the Bitcoin Network. KDD 2023",
+  "pii_status": "pseudonymous addresses",
+  "collection_period": "2009-2019 (Elliptic time steps)",
+  "collection_method": "Elliptic labelled transactions extended with wallet addresses",
+  "geography": "Bitcoin (global)",
+  "language": "n/a",
+  "limitations": [
+    "Not UPI",
+    "Licence unresolved",
+    "Large (txs_features ~695 MB)"
+  ],
+  "provenance": "",
+  "dataset_id": "elliptic_plus_plus",
+  "name": "Elliptic++ (Bitcoin transactions + wallets)",
+  "source": "Elmougy & Liu (Georgia Tech)",
+  "official_url": "https://github.com/git-disl/EllipticPlusPlus",
+  "license": "none in repository (Elliptic data terms apply)",
+  "license_status": "UNRESOLVED",
+  "data_type": "graphs",
+  "access_status": "REQUIRES_LOCAL_DOWNLOAD",
+  "original_or_mirror": "original; CSVs are Git LFS pointers, data on Google Drive",
+  "real_or_synthetic": "REAL",
+  "fetch": {
+    "method": "local",
+    "instructions": "Download from the Google Drive folder linked in the README",
+    "files": []
+  }
+}

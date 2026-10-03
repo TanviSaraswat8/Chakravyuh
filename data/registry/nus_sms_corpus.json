@@ -1,0 +1,59 @@
+{
+  "version": "2015.03.09 (git 38ea56e1bedb48da8740671c1e0b07bc9faf7b2c)",
+  "download_date": "2026-10-03",
+  "sha256": {
+    "smsCorpus_en_xml_2015.03.09_all.zip": "bf73d77fce35c703dab21826cd2c1698205358c2c25b2d43da1f08671b825bdc"
+  },
+  "mirror_sha256": {},
+  "sample_count": 55835,
+  "preprocessing_version": null,
+  "adapter": "nus_sms_corpus",
+  "components": [],
+  "training_allowed": false,
+  "training_note": "Most useful real source of Indian-English legitimate SMS, but no licence: ask the authors before training use.",
+  "raw_columns": [
+    "message/@id",
+    "text",
+    "source/userProfile/country",
+    "collectionMethod/@time",
+    "..."
+  ],
+  "schema": "canonical msg-v1 (see docs/REAL_DATA_STRATEGY.md); raw columns listed in 'raw_columns'",
+  "label_schema": {
+    "canonical": "all -> legit (assumed: volunteer personal messages, not individually labelled)"
+  },
+  "paper": "Creating a Live, Public Short Message Service Corpus: The NUS SMS Corpus. Language Resources and Evaluation 47(2), 2013",
+  "pii_status": "sender numbers replaced by user IDs; message text unmasked",
+  "collection_period": "2003-2015 (mostly 2010-2011)",
+  "collection_method": "Volunteers donated their own sent messages",
+  "geography": "Singapore-heavy; India ~8,560 messages from 67 users",
+  "language": "English (incl. Singlish / Indian English)",
+  "limitations": [
+    "No licence",
+    "Old (2010-2011)",
+    "Personal chat, not bank/merchant transactional SMS",
+    "UCI ham was sampled from it"
+  ],
+  "provenance": "Original research group's GitHub release.",
+  "dataset_id": "nus_sms_corpus",
+  "name": "NUS SMS Corpus (English, 2015.03.09)",
+  "source": "Chen & Kan (NUS WING)",
+  "official_url": "https://github.com/WING-NUS/nus-sms-corpus",
+  "license": "none (README asks for citation and a courtesy e-mail; no licence file)",
+  "license_status": "UNRESOLVED",
+  "data_type": "messages",
+  "access_status": "AVAILABLE_NOW",
+  "original_or_mirror": "original",
+  "real_or_synthetic": "REAL",
+  "fetch": {
+    "method": "git",
+    "repo": "https://github.com/WING-NUS/nus-sms-corpus",
+    "commit": "38ea56e1bedb48da8740671c1e0b07bc9faf7b2c",
+    "files": [
+      {
+        "src": "smsCorpus_en_xml_2015.03.09_all.zip",
+        "dest": "smsCorpus_en_xml_2015.03.09_all.zip"
+      }
+    ]
+  }
+}

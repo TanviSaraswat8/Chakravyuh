@@ -1,0 +1,43 @@
+{
+  "version": "git 228408132fe5ab4edd884e8111c693bc1eabe385",
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": 5240,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [],
+  "training_allowed": false,
+  "training_note": "No licence; 'SPAM' is mostly operator promotions; broken CSVs.",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": "Information Security Journal 2015",
+  "pii_status": "unmasked Nigerian numbers and senders",
+  "collection_period": "2010-2016",
+  "collection_method": "Volunteers' phones",
+  "geography": "Nigeria",
+  "language": "English",
+  "limitations": [
+    "No headers / unquoted commas",
+    "Label noise"
+  ],
+  "provenance": "",
+  "dataset_id": "exais_sms",
+  "name": "ExAIS SMS spam",
+  "source": "Onashoga, Abayomi-Alli et al.",
+  "official_url": "https://github.com/AbayomiAlli/SMS-Spam-Dataset",
+  "license": "none",
+  "license_status": "UNRESOLVED",
+  "data_type": "messages",
+  "access_status": "REJECTED",
+  "original_or_mirror": "original",
+  "real_or_synthetic": "REAL",
+  "fetch": {
+    "method": "git",
+    "repo": "https://github.com/AbayomiAlli/SMS-Spam-Dataset",
+    "commit": "228408132fe5ab4edd884e8111c693bc1eabe385",
+    "files": []
+  },
+  "rejection_reason": "No licence; Nigerian operator promotions; malformed CSVs."
+}

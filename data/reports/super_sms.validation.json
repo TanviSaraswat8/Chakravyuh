@@ -1,0 +1,102 @@
+{
+  "dataset_id": "super_sms",
+  "hard_failures": [],
+  "warnings": [
+    "licence UNRESOLVED: not ingested for training",
+    "super_sms_dataset.csv is not valid UTF-8 (decoded with a fallback encoding)",
+    "1 duplicate groups carry conflicting labels",
+    "191 records match aadhaar_like (heuristic); review before any redistribution",
+    "5 records match payment_card_luhn (heuristic); review before any redistribution"
+  ],
+  "checks": {
+    "manifest": {
+      "problems": []
+    },
+    "license": {
+      "license": "none (no LICENSE file in the repository)",
+      "status": "UNRESOLVED"
+    },
+    "provenance": {
+      "kind": "original",
+      "repo": "https://github.com/smspamresearch/spstudy",
+      "commit": "a0889f36fb59e23a7f853a6932485d93d18b8afc",
+      "fetched_at": "2026-10-03T13:01:07+00:00"
+    },
+    "files": {
+      "super_sms_dataset.csv": {
+        "bytes": 6728482,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": false,
+          "first_error_byte": 7478,
+          "replacement_chars_if_utf8": 2
+        },
+        "structure": {
+          "header_fields": 2,
+          "row_field_counts": {
+            "2": 67010
+          },
+          "rows_not_matching_header": 0
+        }
+      }
+    },
+    "records": 67008,
+    "missingness": {
+      "text": 0.0,
+      "label": 0.0,
+      "language": 1.0,
+      "country": 1.0,
+      "timestamp": 1.0,
+      "year": 1.0,
+      "scam_type": 1.0,
+      "sender_type": 1.0
+    },
+    "labels": {
+      "spam": 26178,
+      "legit": 40830
+    },
+    "duplicates": {
+      "duplicate_rows": 0,
+      "exact_duplicate_texts_raw": 0,
+      "unique_after_normalisation": 65638,
+      "near_duplicate_clusters": 62550,
+      "records_in_multi_member_near_clusters": 6940,
+      "groups_with_conflicting_labels": 1,
+      "near_dup_threshold": 0.8
+    },
+    "pii_indicators": {
+      "url": {
+        "records": 5763,
+        "share": 0.086
+      },
+      "phone_india": {
+        "records": 433,
+        "share": 0.0065
+      },
+      "aadhaar_like": {
+        "records": 191,
+        "share": 0.0029
+      },
+      "phone_intl": {
+        "records": 131,
+        "share": 0.002
+      },
+      "email": {
+        "records": 44,
+        "share": 0.0007
+      },
+      "payment_card_luhn": {
+        "records": 5,
+        "share": 0.0001
+      },
+      "ifsc_like": {
+        "records": 4,
+        "share": 0.0001
+      },
+      "upi_vpa": {
+        "records": 2,
+        "share": 0.0
+      }
+    }
+  }
+}

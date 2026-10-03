@@ -1,0 +1,69 @@
+{
+  "name": "sentinel_real_v1",
+  "seed": 13,
+  "real_or_synthetic": "REAL",
+  "base_model": "unsloth/Qwen2.5-1.5B-Instruct-bnb-4bit",
+  "lora": {
+    "rank": 16,
+    "alpha": 32,
+    "dropout": 0.0,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ]
+  },
+  "training": {
+    "epochs": 1,
+    "learning_rate": 0.0002,
+    "max_seq_len": 512,
+    "per_device_batch": 8,
+    "grad_accum": 2,
+    "scheduler": "cosine",
+    "warmup_ratio": 0.03,
+    "loss_on": "assistant JSON only"
+  },
+  "max_train": 20000,
+  "require_negatives": true,
+  "sources": [
+    {
+      "dataset_id": "imc25_smishing",
+      "split": "imc25_group_v1",
+      "typed": true
+    },
+    {
+      "dataset_id": "india_spam_sms_junioralive",
+      "split": "india_spam_sms_junioralive_group_v1",
+      "typed": false,
+      "labels": [
+        "legit",
+        "spam"
+      ]
+    },
+    {
+      "dataset_id": "sp24_gateway_phishing",
+      "split": "sp24_temporal_v1",
+      "typed": false,
+      "eval_only": true
+    },
+    {
+      "dataset_id": "uci_sms_spam",
+      "split": "uci_group_v1",
+      "typed": false,
+      "labels": [
+        "legit"
+      ]
+    },
+    {
+      "dataset_id": "moz_smishing",
+      "split": "moz_group_v1",
+      "typed": false,
+      "eval_only": true
+    }
+  ],
+  "notes": "eval_only sources never reach train/val; any test example that is a near-duplicate of a train/val example is purged. UCI and MOZ need local download + licence confirmation first. Family-holdout runs use sentinel_real_holdout_delivery_v1.json (separate model)."
+}

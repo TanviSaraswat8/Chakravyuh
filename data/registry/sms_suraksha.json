@@ -1,0 +1,42 @@
+{
+  "version": "git 0e2bbc7e374cffd8598d6cd3d164ab438a12f18e",
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": null,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [],
+  "training_allowed": false,
+  "training_note": "",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": null,
+  "pii_status": "unknown",
+  "collection_period": "unknown",
+  "collection_method": "Machine translation (README) of an English SMS spam corpus",
+  "geography": "n/a",
+  "language": "machine-translated Indian languages",
+  "limitations": [
+    "Machine-translated"
+  ],
+  "provenance": "",
+  "dataset_id": "sms_suraksha",
+  "name": "SMS-Suraksha multilingual Indian SMS",
+  "source": "vanshbeni (GitHub)",
+  "official_url": "https://github.com/vanshbeni/-SMS-Suraksha-Multi-lingual-Fraud-SMS-Detector-Indian-Languages-",
+  "license": "none",
+  "license_status": "UNRESOLVED",
+  "data_type": "messages",
+  "access_status": "REJECTED",
+  "original_or_mirror": "original",
+  "real_or_synthetic": "SYNTHETIC",
+  "rejection_reason": "Machine-translated, not authored Indian messages; would leak its English source into splits; no licence.",
+  "fetch": {
+    "method": "git",
+    "repo": "https://github.com/vanshbeni/-SMS-Suraksha-Multi-lingual-Fraud-SMS-Detector-Indian-Languages-",
+    "commit": "0e2bbc7e374cffd8598d6cd3d164ab438a12f18e",
+    "files": []
+  }
+}

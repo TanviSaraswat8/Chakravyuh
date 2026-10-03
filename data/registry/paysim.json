@@ -1,0 +1,43 @@
+{
+  "version": null,
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": null,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [
+    "synthetic_track"
+  ],
+  "training_allowed": false,
+  "training_note": "SYNTHETIC benchmark only. Never described as real transaction data.",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": "EMSS 2016",
+  "pii_status": "synthetic",
+  "collection_period": "unknown",
+  "collection_method": "Agent-based SIMULATION",
+  "geography": "simulated from an African mobile-money operator's logs",
+  "language": "n/a",
+  "limitations": [
+    "Synthetic",
+    "Only 'fraud' flag, no payee graph realism"
+  ],
+  "provenance": "",
+  "dataset_id": "paysim",
+  "name": "PaySim mobile money simulation",
+  "source": "Lopez-Rojas et al.",
+  "official_url": "https://www.kaggle.com/datasets/ealaxi/paysim1",
+  "license": "CC BY-SA 4.0 (Kaggle page; not verified from here)",
+  "license_status": "UNRESOLVED",
+  "data_type": "transactions",
+  "access_status": "REQUIRES_LOCAL_DOWNLOAD",
+  "original_or_mirror": "Kaggle",
+  "real_or_synthetic": "SYNTHETIC",
+  "fetch": {
+    "method": "local",
+    "instructions": "Download from Kaggle; store under data/synthetic/ (not data/real/)",
+    "files": []
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "version": "dataset repo git 22f0f0f6d84ceefc2fa6d42510591f0f916d18e8 (2025-11-12) contains only LICENSE.md",
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": null,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [],
+  "training_allowed": false,
+  "training_note": "Do not ingest: licence contradictory, no data in the GitHub dump, API host unreachable here, and seeded from datasets we already have (leakage).",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": null,
+  "pii_status": "automated PII redaction (per site)",
+  "collection_period": "unknown",
+  "collection_method": "User submissions (email/SMS/WhatsApp/Telegram/Signal) + imports of existing datasets (Mendeley Dataset_5971 and 'analysisdataset.csv')",
+  "geography": "global",
+  "language": "multilingual (ISO 639-1 detected)",
+  "limitations": [
+    "Licence conflict",
+    "Repackages existing datasets",
+    "Weekly-changing content without versions"
+  ],
+  "provenance": "",
+  "dataset_id": "sting9",
+  "name": "Sting9 anti-phishing dataset",
+  "source": "Sting9 Research Initiative",
+  "official_url": "https://github.com/sting9-research/dataset",
+  "license": "CONFLICTING: dataset repo LICENSE.md = ODC-BY-NC 'with clarifications' (no commercial model training, no paywalled publication); website/API code and org README say CC0",
+  "license_status": "CONFLICTING",
+  "data_type": "messages",
+  "access_status": "REJECTED",
+  "original_or_mirror": "original (no data released in the repository)",
+  "real_or_synthetic": "MIXED",
+  "fetch": {
+    "method": "local",
+    "instructions": "Blocked until the maintainers publish a versioned dump under one licence",
+    "files": []
+  }
+}

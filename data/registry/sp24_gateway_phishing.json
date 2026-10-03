@@ -1,0 +1,76 @@
+{
+  "version": "git a4f18cedc9909cbf8234eea3c2028080a1e95cd4 (2025-12-01)",
+  "download_date": "2026-10-03",
+  "sha256": {
+    "LICENSE": "1739c7ecb4fa71012827c7e1068ae4eb6dc8c5c9c122f72dba939cc0d930897b",
+    "phishing_campaigns.csv": "f23a56037ca3e4d5aceb34536c11c7fff37174f7618ff943e855820f550600a5",
+    "phishing_messages.csv": "d125c394af792faeb2b71b3f7100cad3b4cece02aff78cb4ec1fb9e7db90f230"
+  },
+  "mirror_sha256": {},
+  "sample_count": 68029,
+  "preprocessing_version": "msg-v1",
+  "adapter": "sp24_gateway_phishing",
+  "components": [
+    "campaign_detector",
+    "message_tagger"
+  ],
+  "training_allowed": true,
+  "training_note": "Best public source of campaign + timestamp structure; not victim sessions. Positive-only.",
+  "raw_columns": [
+    "(row index)",
+    "objectID",
+    "destination number",
+    "message",
+    "(sender, unnamed)",
+    "time (unix)",
+    "error in time (s)"
+  ],
+  "schema": "canonical msg-v1 (see docs/REAL_DATA_STRATEGY.md); raw columns listed in 'raw_columns'; phishing_campaigns.csv: campaignID, objectID, number of messages, start/stop timestamp, message template (#URL/#OTP), urls",
+  "label_schema": {
+    "canonical": "all messages labelled scam (URL flagged by VirusTotal/APWG); no legitimate messages"
+  },
+  "paper": "On SMS Phishing Tactics and Infrastructure. IEEE Symposium on Security and Privacy 2024",
+  "pii_status": "Destination numbers are public gateway numbers (not victims); message text unmasked (URLs, codes)",
+  "collection_period": "2022-05 to 2023-06",
+  "collection_method": "Crawled public online SMS gateways; kept messages whose URLs VirusTotal/APWG marked as phishing; clustered into campaigns",
+  "geography": "Messages received by public SMS gateway numbers; UK and US heavy, 81 Indian (+91) destinations",
+  "language": "multilingual, mostly English (measured in docs/DATASET_CATALOG.md)",
+  "limitations": [
+    "Header has 6 names but rows have 7 fields: pandas silently shifts columns; parse positionally",
+    "Positive-only",
+    "URL-reputation labels include gambling/marketing promotions (label noise)",
+    "Gateway numbers are not real victims: no replies, no payments, no outcomes",
+    "Heavy duplication (37,475 unique texts of 68,029)",
+    "Little Indian content"
+  ],
+  "provenance": "Original authors' data release.",
+  "dataset_id": "sp24_gateway_phishing",
+  "name": "On SMS Phishing Tactics and Infrastructure — gateway messages and campaigns (IEEE S&P 2024)",
+  "source": "Nahapetyan, Prasad, Childs, Oest, Ladwig, Kapravelos, Reaves (NC State / PayPal)",
+  "official_url": "https://github.com/wspr-ncsu/sms-phishing",
+  "license": "MIT (LICENSE file in the repository)",
+  "license_status": "CLEAR",
+  "data_type": "campaigns",
+  "access_status": "AVAILABLE_NOW",
+  "original_or_mirror": "original",
+  "real_or_synthetic": "REAL",
+  "fetch": {
+    "method": "git",
+    "repo": "https://github.com/wspr-ncsu/sms-phishing",
+    "commit": "a4f18cedc9909cbf8234eea3c2028080a1e95cd4",
+    "files": [
+      {
+        "src": "phishing_messages.csv",
+        "dest": "phishing_messages.csv"
+      },
+      {
+        "src": "phishing_campaigns.csv",
+        "dest": "phishing_campaigns.csv"
+      },
+      {
+        "src": "LICENSE",
+        "dest": "LICENSE"
+      }
+    ]
+  }
+}

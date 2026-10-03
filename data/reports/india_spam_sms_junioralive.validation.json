@@ -1,0 +1,94 @@
+{
+  "dataset_id": "india_spam_sms_junioralive",
+  "hard_failures": [],
+  "warnings": [
+    "40 records match aadhaar_like (heuristic); review before any redistribution"
+  ],
+  "checks": {
+    "manifest": {
+      "problems": []
+    },
+    "license": {
+      "license": "MIT (repository LICENSE, Copyright (c) 2024 JuniorAlive)",
+      "status": "CLEAR"
+    },
+    "provenance": {
+      "kind": "original",
+      "repo": "https://github.com/junioralive/india-spam-sms-classification",
+      "commit": "09137cc677a7d8d24caef0817de41f55a6b3ed44",
+      "fetched_at": "2026-10-03T13:01:08+00:00"
+    },
+    "files": {
+      "LICENSE": {
+        "bytes": 1068,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": true,
+          "bom": false
+        },
+        "structure": {}
+      },
+      "spam_ham_india.csv": {
+        "bytes": 238896,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": true,
+          "bom": false
+        },
+        "structure": {
+          "header_fields": 2,
+          "row_field_counts": {
+            "2": 2267
+          },
+          "rows_not_matching_header": 0
+        }
+      }
+    },
+    "records": 2267,
+    "missingness": {
+      "text": 0.0,
+      "label": 0.0,
+      "language": 1.0,
+      "country": 0.0,
+      "timestamp": 1.0,
+      "year": 1.0,
+      "scam_type": 1.0,
+      "sender_type": 1.0
+    },
+    "labels": {
+      "spam": 745,
+      "legit": 1522
+    },
+    "duplicates": {
+      "duplicate_rows": 204,
+      "exact_duplicate_texts_raw": 204,
+      "unique_after_normalisation": 1920,
+      "near_duplicate_clusters": 1845,
+      "records_in_multi_member_near_clusters": 577,
+      "groups_with_conflicting_labels": 0,
+      "near_dup_threshold": 0.8
+    },
+    "pii_indicators": {
+      "url": {
+        "records": 179,
+        "share": 0.079
+      },
+      "phone_india": {
+        "records": 56,
+        "share": 0.0247
+      },
+      "aadhaar_like": {
+        "records": 40,
+        "share": 0.0176
+      },
+      "phone_intl": {
+        "records": 19,
+        "share": 0.0084
+      },
+      "email": {
+        "records": 1,
+        "share": 0.0004
+      }
+    }
+  }
+}

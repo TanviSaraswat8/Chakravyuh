@@ -1,0 +1,47 @@
+{
+  "version": "generated per build (python -m chakravyuh.sim.simulator)",
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": null,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [
+    "scamseq",
+    "payee_graph",
+    "fusion",
+    "policy",
+    "campaign_detector"
+  ],
+  "training_allowed": true,
+  "training_note": "SYNTHETIC track only. Results are never reported as real-world performance and never merged with real-data metrics.",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": null,
+  "pii_status": "synthetic",
+  "collection_period": "unknown",
+  "collection_method": "Agent-based simulation with evolutionary attackers",
+  "geography": "simulated India/UPI",
+  "language": "English, Hindi, Hinglish (template-generated)",
+  "limitations": [
+    "Synthetic",
+    "Templates written by the team"
+  ],
+  "provenance": "",
+  "dataset_id": "chakravyuh_simulator",
+  "name": "Chakravyuh simulator sessions",
+  "source": "This project (backend/chakravyuh/sim)",
+  "official_url": "https://github.com/TanviSaraswat8/Chakravyuh",
+  "license": "project licence",
+  "license_status": "NOT_APPLICABLE",
+  "data_type": "simulator",
+  "access_status": "AVAILABLE_NOW",
+  "original_or_mirror": "generated",
+  "real_or_synthetic": "SYNTHETIC",
+  "fetch": {
+    "method": "local",
+    "instructions": "make data  (writes backend/data/)",
+    "files": []
+  }
+}

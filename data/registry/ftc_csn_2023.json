@@ -1,0 +1,44 @@
+{
+  "version": null,
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": null,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [
+    "taxonomy",
+    "priors"
+  ],
+  "training_allowed": false,
+  "training_note": "Trend comparison with 2024 only.",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": null,
+  "pii_status": "aggregates only",
+  "collection_period": "calendar year 2023",
+  "collection_method": "Unverified consumer reports (aggregates)",
+  "geography": "United States",
+  "language": "n/a",
+  "limitations": [
+    "Unverified consumer reports",
+    "US only"
+  ],
+  "provenance": "",
+  "dataset_id": "ftc_csn_2023",
+  "name": "FTC Consumer Sentinel Network Data Book 2023 (CSV files)",
+  "source": "US Federal Trade Commission",
+  "official_url": "https://www.ftc.gov/reports/consumer-sentinel-network-data-book-2023",
+  "license": "US federal government work (public domain in the US)",
+  "license_status": "CLEAR",
+  "data_type": "complaints",
+  "access_status": "REQUIRES_LOCAL_DOWNLOAD",
+  "original_or_mirror": "official via local download",
+  "real_or_synthetic": "AGGREGATE_REPORTS",
+  "fetch": {
+    "method": "local",
+    "instructions": "Download the 2023 data-files zip from the official page, then register --pin",
+    "files": []
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "version": null,
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": 2000,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [
+    "message_tagger (evaluation)"
+  ],
+  "training_allowed": false,
+  "training_note": "Possibly the only real Hindi SMS set; request it from the authors and record their terms before any use.",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": null,
+  "pii_status": "unknown",
+  "collection_period": "unknown",
+  "collection_method": "Crowd-sourced (per redistributor README: 1,000 ham, 1,000 spam)",
+  "geography": "India",
+  "language": "Hindi and English",
+  "limitations": [
+    "Access by request",
+    "'spam' likely includes promotions",
+    "Size and date unverified"
+  ],
+  "provenance": "",
+  "dataset_id": "precog_indian_sms",
+  "name": "Indian SMS spam corpus (Hindi + English, crowdsourced)",
+  "source": "Precog, IIIT-Delhi",
+  "official_url": "http://precog.iiitd.edu.in/requester.php?dataset=smsspam",
+  "license": "terms set by the authors on request (not seen)",
+  "license_status": "UNRESOLVED",
+  "data_type": "messages",
+  "access_status": "REQUIRES_LOCAL_DOWNLOAD",
+  "original_or_mirror": "original by request; unlicensed GitHub redistribution (princebari) not used",
+  "real_or_synthetic": "REAL",
+  "fetch": {
+    "method": "local",
+    "instructions": "Request via the official URL; register after terms are recorded",
+    "files": []
+  }
+}

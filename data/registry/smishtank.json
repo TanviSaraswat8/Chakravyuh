@@ -1,0 +1,78 @@
+{
+  "version": null,
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {
+    "smishtank.csv": "55dd9a19d48b51a86acd35b97cfa50f77453488434498521ce1f6ba5d52bef15"
+  },
+  "sample_count": 1062,
+  "preprocessing_version": null,
+  "adapter": "smishtank",
+  "components": [
+    "message_tagger"
+  ],
+  "training_allowed": false,
+  "training_note": "Licence unresolved; also contained in IMC'25 (which ingested SmishTank).",
+  "raw_columns": [
+    "messageid",
+    "Fulltext",
+    "Sender",
+    "SenderType",
+    "timeReceived",
+    "MainText",
+    "Url",
+    "...",
+    "Brand",
+    "URL Subcategory",
+    "Message Categories",
+    "..."
+  ],
+  "schema": "canonical msg-v1 (see docs/REAL_DATA_STRATEGY.md); raw columns listed in 'raw_columns'",
+  "label_schema": {
+    "canonical": "reported smishing -> scam; 'Advertisement' category -> spam"
+  },
+  "paper": "Smishing Dataset I: Phishing SMS Dataset from Smishtank.com. arXiv:2402.18430 (CODASPY 2024 poster)",
+  "pii_status": "Fulltext is OCR of screenshots and contains recipient first names; ~58 rows with long digit runs",
+  "collection_period": "2022-03 to 2023-12",
+  "collection_method": "User submissions to SmishTank.com, analysed with VirusTotal and WHOIS",
+  "geography": "United States",
+  "language": "English",
+  "limitations": [
+    "Small",
+    "US only",
+    "Overlaps IMC'25",
+    "Recipient names in Fulltext"
+  ],
+  "provenance": "Third-party copy in MarazMia/SMISH_DT is cp1252-encoded; official file to be downloaded locally.",
+  "dataset_id": "smishtank",
+  "name": "SmishTank Smishing Dataset I",
+  "source": "Timko & Rahman (SmishTank.com)",
+  "official_url": "https://smishtank.com/dataset",
+  "license": "not verified (official page unreachable from this environment)",
+  "license_status": "UNRESOLVED",
+  "data_type": "messages",
+  "access_status": "REQUIRES_LOCAL_DOWNLOAD",
+  "original_or_mirror": "official via local download; GitHub copy is third-party",
+  "real_or_synthetic": "REAL",
+  "fetch": {
+    "method": "local",
+    "instructions": "Download from https://smishtank.com/dataset, confirm the licence, save as smishtank.csv, then register --pin",
+    "files": [
+      {
+        "dest": "smishtank.csv"
+      }
+    ],
+    "mirror": {
+      "method": "git",
+      "repo": "https://github.com/MarazMia/SMISH_DT",
+      "commit": "cc54e15c188376d82019631d9198f667b1de862e",
+      "files": [
+        {
+          "src": "Dataset/smishtank.csv",
+          "dest": "smishtank.csv"
+        }
+      ],
+      "note": "third-party copy; leakage audit only"
+    }
+  }
+}

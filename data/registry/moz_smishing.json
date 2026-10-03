@@ -1,0 +1,49 @@
+{
+  "version": "Hugging Face commit 1092f9d9a545b29ae6be030ee9713b615fc2d987 (2025-05-24), per the earlier pass; reconfirm",
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": 2561,
+  "preprocessing_version": null,
+  "adapter": "moz_smishing",
+  "components": [
+    "message_tagger",
+    "sentinel"
+  ],
+  "training_allowed": false,
+  "training_note": "Only real mobile-money smishing set with real legitimate messages. Blocked until the dataset licence is confirmed on the Hugging Face card.",
+  "raw_columns": [],
+  "schema": "canonical msg-v1 (see docs/REAL_DATA_STRATEGY.md); raw columns listed in 'raw_columns'",
+  "label_schema": {
+    "paper": "ham 2,009 / smishing ('spam') 552",
+    "canonical": "ham -> legit; spam -> scam"
+  },
+  "paper": "MOZ-Smishing: A Benchmark Dataset for Detecting Mobile Money Frauds. AfricaNLP workshop 2025 (ACL Anthology 2025.africanlp-1.23)",
+  "pii_status": "legitimate messages anonymised per paper; verify after download",
+  "collection_period": "not stated in the paper",
+  "collection_method": "Crowd-sourced via a WhatsApp group of Mozambican mobile users; manual annotation; personal identifiers in legitimate messages anonymised",
+  "geography": "Mozambique (NOT India)",
+  "language": "Portuguese (Mozambican usage)",
+  "limitations": [
+    "Small (2,561)",
+    "Portuguese / Mozambique mobile money (M-Pesa, e-Mola, mKesh): useful as an out-of-domain test, not as Indian data",
+    "Collection period and consent procedure not documented in the paper",
+    "Shipped as one 'test' file (no official split); no timestamps"
+  ],
+  "provenance": "Authors' Hugging Face release cited in the paper.",
+  "dataset_id": "moz_smishing",
+  "name": "MOZ-Smishing",
+  "source": "Ali, Saide, Sousa-Silva, Lopes Cardoso (Univ. Porto / Mozambique)",
+  "official_url": "https://huggingface.co/datasets/MOZNLP/MOZ-Smishing",
+  "license": "Paper CC-BY-4.0. An earlier pass of this audit read the Hugging Face card as 'creativeml-openrail-m' (a model licence with use restrictions, unusual for data); not re-verified here. Confirm the card at download.",
+  "license_status": "UNRESOLVED",
+  "data_type": "messages",
+  "access_status": "REQUIRES_LOCAL_DOWNLOAD",
+  "original_or_mirror": "original (Hugging Face)",
+  "real_or_synthetic": "REAL",
+  "fetch": {
+    "method": "local",
+    "instructions": "huggingface-cli download MOZNLP/MOZ-Smishing --repo-type dataset --local-dir ~/Downloads/moz ; read the dataset card licence and record it in this manifest ; then register (adapter accepts csv/tsv with text+label columns)",
+    "files": []
+  }
+}

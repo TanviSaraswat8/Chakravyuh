@@ -1,0 +1,99 @@
+{
+  "dataset_id": "smishtank",
+  "hard_failures": [],
+  "warnings": [
+    "licence UNRESOLVED: not ingested for training",
+    "raw files are a third-party mirror copy (audit only); the official release is not verified",
+    "smishtank.csv is not valid UTF-8 (decoded with a fallback encoding)",
+    "6 duplicate groups carry conflicting labels",
+    "8 records match aadhaar_like (heuristic); review before any redistribution",
+    "1 records match payment_card_luhn (heuristic); review before any redistribution"
+  ],
+  "checks": {
+    "manifest": {
+      "problems": []
+    },
+    "license": {
+      "license": "not verified (official page unreachable from this environment)",
+      "status": "UNRESOLVED"
+    },
+    "provenance": {
+      "kind": "mirror",
+      "repo": "https://github.com/MarazMia/SMISH_DT",
+      "commit": "cc54e15c188376d82019631d9198f667b1de862e",
+      "fetched_at": "2026-10-03T13:01:42+00:00"
+    },
+    "files": {
+      "smishtank.csv": {
+        "bytes": 731902,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": false,
+          "first_error_byte": 4346,
+          "replacement_chars_if_utf8": 514
+        },
+        "structure": {
+          "header_fields": 23,
+          "row_field_counts": {
+            "23": 1062
+          },
+          "rows_not_matching_header": 0
+        }
+      }
+    },
+    "records": 1062,
+    "missingness": {
+      "text": 0.0,
+      "label": 0.0,
+      "language": 0.0,
+      "country": 0.0,
+      "timestamp": 0.0,
+      "year": 0.0,
+      "scam_type": 0.0,
+      "sender_type": 0.0942
+    },
+    "labels": {
+      "scam": 780,
+      "spam": 282
+    },
+    "duplicates": {
+      "duplicate_rows": 0,
+      "exact_duplicate_texts_raw": 3,
+      "unique_after_normalisation": 951,
+      "near_duplicate_clusters": 847,
+      "records_in_multi_member_near_clusters": 277,
+      "groups_with_conflicting_labels": 6,
+      "near_dup_threshold": 0.8
+    },
+    "pii_indicators": {
+      "url": {
+        "records": 599,
+        "share": 0.564
+      },
+      "phone_intl": {
+        "records": 24,
+        "share": 0.0226
+      },
+      "email": {
+        "records": 18,
+        "share": 0.0169
+      },
+      "phone_india": {
+        "records": 15,
+        "share": 0.0141
+      },
+      "aadhaar_like": {
+        "records": 8,
+        "share": 0.0075
+      },
+      "payment_card_luhn": {
+        "records": 1,
+        "share": 0.0009
+      },
+      "ifsc_like": {
+        "records": 1,
+        "share": 0.0009
+      }
+    }
+  }
+}

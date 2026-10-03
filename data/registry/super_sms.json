@@ -1,0 +1,61 @@
+{
+  "version": "git a0889f36fb59e23a7f853a6932485d93d18b8afc (2024-02-22)",
+  "download_date": "2026-10-03",
+  "sha256": {
+    "super_sms_dataset.csv": "ba825b468b59fb229cc56c15a6c2d14d593a88051d54ea2f402166bf2ab894d3"
+  },
+  "mirror_sha256": {},
+  "sample_count": 67008,
+  "preprocessing_version": null,
+  "adapter": "super_sms",
+  "components": [],
+  "training_allowed": false,
+  "training_note": "No licence, and it contains 87.6% of UCI: audit only.",
+  "raw_columns": [
+    "SMSes",
+    "Labels"
+  ],
+  "schema": "canonical msg-v1 (see docs/REAL_DATA_STRATEGY.md); raw columns listed in 'raw_columns'",
+  "label_schema": {
+    "raw": [
+      "0",
+      "1"
+    ],
+    "canonical": "0 -> legit; 1 -> spam (spam and smishing mixed)"
+  },
+  "paper": "Investigating Evasive Techniques in SMS Spam Filtering. IEEE Access 2024 (arXiv:2210.10451)",
+  "pii_status": "partially unmasked (+91 and 10-digit numbers present)",
+  "collection_period": "aggregate of earlier corpora up to ~2022",
+  "collection_method": "Aggregated public SMS datasets, lowercased/cleaned",
+  "geography": "mixed aggregate",
+  "language": "mostly English",
+  "limitations": [
+    "No licence file",
+    "Row count differs from the paper (67,010 vs 53,286)",
+    "Contains most of UCI and Mishra & Soni",
+    "Labels are spam vs ham, not scam",
+    "2 rows without a label are excluded (67,010 rows in the file)"
+  ],
+  "provenance": "Original authors' repository.",
+  "dataset_id": "super_sms",
+  "name": "Super SMS Dataset",
+  "source": "Salman, Ikram, Kaafar",
+  "official_url": "https://github.com/smspamresearch/spstudy",
+  "license": "none (no LICENSE file in the repository)",
+  "license_status": "UNRESOLVED",
+  "data_type": "messages",
+  "access_status": "AVAILABLE_NOW",
+  "original_or_mirror": "original",
+  "real_or_synthetic": "REAL",
+  "fetch": {
+    "method": "git",
+    "repo": "https://github.com/smspamresearch/spstudy",
+    "commit": "a0889f36fb59e23a7f853a6932485d93d18b8afc",
+    "files": [
+      {
+        "src": "Data/super_sms_dataset.csv",
+        "dest": "super_sms_dataset.csv"
+      }
+    ]
+  }
+}

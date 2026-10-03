@@ -1,0 +1,79 @@
+{
+  "dataset_id": "nus_sms_corpus",
+  "hard_failures": [],
+  "warnings": [
+    "licence UNRESOLVED: not ingested for training",
+    "1 records match aadhaar_like (heuristic); review before any redistribution"
+  ],
+  "checks": {
+    "manifest": {
+      "problems": []
+    },
+    "license": {
+      "license": "none (README asks for citation and a courtesy e-mail; no licence file)",
+      "status": "UNRESOLVED"
+    },
+    "provenance": {
+      "kind": "original",
+      "repo": "https://github.com/WING-NUS/nus-sms-corpus",
+      "commit": "38ea56e1bedb48da8740671c1e0b07bc9faf7b2c",
+      "fetched_at": "2026-10-03T13:01:08+00:00"
+    },
+    "files": {
+      "smsCorpus_en_xml_2015.03.09_all.zip": {
+        "bytes": 2415584,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": null,
+          "note": "binary container; text encoding checked by the adapter"
+        },
+        "structure": {}
+      }
+    },
+    "records": 55835,
+    "missingness": {
+      "text": 0.0,
+      "label": 0.0,
+      "language": 0.0,
+      "country": 0.0,
+      "timestamp": 1.0,
+      "year": 0.1812,
+      "scam_type": 1.0,
+      "sender_type": 1.0
+    },
+    "labels": {
+      "legit": 55835
+    },
+    "duplicates": {
+      "duplicate_rows": 6667,
+      "exact_duplicate_texts_raw": 7213,
+      "unique_after_normalisation": 47101,
+      "near_duplicate_clusters": 46830,
+      "records_in_multi_member_near_clusters": 12890,
+      "groups_with_conflicting_labels": 0,
+      "near_dup_threshold": 0.8
+    },
+    "pii_indicators": {
+      "url": {
+        "records": 25,
+        "share": 0.0004
+      },
+      "email": {
+        "records": 14,
+        "share": 0.0003
+      },
+      "phone_india": {
+        "records": 4,
+        "share": 0.0001
+      },
+      "phone_intl": {
+        "records": 3,
+        "share": 0.0001
+      },
+      "aadhaar_like": {
+        "records": 1,
+        "share": 0.0
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "version": "git a64ff7523e187a24251f7ca88435d2c9d8f7dcd9",
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": null,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [],
+  "training_allowed": false,
+  "training_note": "Review/user fraud, not payments. Rejected for the payee graph.",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": "CIKM 2020",
+  "pii_status": "features only",
+  "collection_period": "unknown",
+  "collection_method": "Review platforms",
+  "geography": "US",
+  "language": "n/a",
+  "limitations": [
+    "Wrong domain"
+  ],
+  "provenance": "",
+  "dataset_id": "care_gnn_amazon_yelp",
+  "name": "Amazon / YelpChi fraud graphs (CARE-GNN release)",
+  "source": "Dou et al.; YelpChi from Rayana & Akoglu",
+  "official_url": "https://github.com/YingtongDou/CARE-GNN",
+  "license": "Apache-2.0 (repository; no separate data licence)",
+  "license_status": "UNRESOLVED",
+  "data_type": "graphs",
+  "access_status": "REJECTED",
+  "original_or_mirror": "original",
+  "real_or_synthetic": "REAL",
+  "fetch": {
+    "method": "git",
+    "repo": "https://github.com/YingtongDou/CARE-GNN",
+    "commit": "a64ff7523e187a24251f7ca88435d2c9d8f7dcd9",
+    "files": []
+  },
+  "rejection_reason": "Out of scope: review fraud, not payments."
+}

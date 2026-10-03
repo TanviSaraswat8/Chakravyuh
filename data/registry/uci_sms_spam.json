@@ -1,0 +1,72 @@
+{
+  "version": "v.1 (2012)",
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {
+    "SMSSpamCollection": "7d039a24a6083ed9ef0f806ebad56bbb976e3aeb8de05669173bfdc4996c239d"
+  },
+  "sample_count": 5574,
+  "preprocessing_version": "msg-v1",
+  "adapter": "uci_sms_spam",
+  "components": [
+    "message_tagger"
+  ],
+  "training_allowed": true,
+  "training_note": "Use ham as legitimate negatives only after the official file is verified; never use UCI 'spam' as scam positives.",
+  "raw_columns": [
+    "label (ham/spam)",
+    "text"
+  ],
+  "schema": "canonical msg-v1 (see docs/REAL_DATA_STRATEGY.md); raw columns listed in 'raw_columns'",
+  "label_schema": {
+    "raw": [
+      "ham",
+      "spam"
+    ],
+    "canonical": "ham -> legit; spam -> spam (NOT scam: mixes premium-rate prize scams and marketing)"
+  },
+  "paper": "Almeida, Gómez Hidalgo, Yamakami. Contributions to the Study of SMS Spam Filtering. DocEng 2011",
+  "pii_status": "unmasked; phone numbers and short codes in text",
+  "collection_period": "up to 2012",
+  "collection_method": "UK spam reports from Grumbletext + ham sampled from NUS SMS Corpus and a PhD thesis corpus; manual labels",
+  "geography": "UK (Grumbletext) and Singapore (NUS SMS Corpus)",
+  "language": "English",
+  "limitations": [
+    "2012 text; old style",
+    "'spam' is not 'scam'",
+    "Ham overlaps the NUS SMS Corpus",
+    "Contained (87.6%) in Super SMS and (~85%) in Mishra & Soni: never mix those with UCI across splits"
+  ],
+  "provenance": "Official file from UCI (local download). The GitHub copy is used only for the leakage audit.",
+  "dataset_id": "uci_sms_spam",
+  "name": "SMS Spam Collection v.1",
+  "source": "Almeida & Gómez Hidalgo (UCI Machine Learning Repository)",
+  "official_url": "https://archive.ics.uci.edu/dataset/228/sms+spam+collection",
+  "license": "CC-BY-4.0 (stated on the UCI page; not verified from here because UCI is blocked)",
+  "license_status": "CLEAR",
+  "data_type": "messages",
+  "access_status": "REQUIRES_LOCAL_DOWNLOAD",
+  "original_or_mirror": "official via local download; GitHub copy is third-party",
+  "real_or_synthetic": "REAL",
+  "fetch": {
+    "method": "local",
+    "instructions": "Download smsspamcollection.zip from the official URL, unzip, then: python scripts/fetch_real_datasets.py register uci_sms_spam --from <unzipped folder> --pin",
+    "files": [
+      {
+        "dest": "SMSSpamCollection"
+      }
+    ],
+    "mirror": {
+      "method": "git",
+      "repo": "https://github.com/MarazMia/SMISH_DT",
+      "commit": "cc54e15c188376d82019631d9198f667b1de862e",
+      "files": [
+        {
+          "src": "Dataset/UCI_SMSSpamCollection",
+          "dest": "SMSSpamCollection"
+        }
+      ],
+      "note": "third-party copy; leakage audit only"
+    }
+  }
+}

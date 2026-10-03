@@ -1,0 +1,68 @@
+{
+  "version": "git 09137cc677a7d8d24caef0817de41f55a6b3ed44 (2024-09-06)",
+  "download_date": "2026-10-03",
+  "sha256": {
+    "LICENSE": "203ac8eb9e2c16d5cd517c24732f87003f0b9be3e3bfd3ec3253d2cb6b61cb8d",
+    "spam_ham_india.csv": "e6a28126d1c4ec9d805a10cd89f2de2bb63650532102e9f35ab05c909c3a79f3"
+  },
+  "mirror_sha256": {},
+  "sample_count": 2267,
+  "preprocessing_version": "msg-v1",
+  "adapter": "india_spam_sms_junioralive",
+  "components": [
+    "message_tagger",
+    "sentinel"
+  ],
+  "training_allowed": true,
+  "training_note": "Only clearly licensed INDIAN legitimate + promotional SMS found. Use as negatives (promotions are hard negatives a scam alert must not fire on). Provenance and contributor consent undocumented: requires your approval.",
+  "raw_columns": [
+    "Msg",
+    "Label"
+  ],
+  "schema": "canonical msg-v1",
+  "label_schema": {
+    "raw": [
+      "ham",
+      "spam"
+    ],
+    "canonical": "ham -> legit; spam -> spam (operator/retail promotions, NOT scam)"
+  },
+  "paper": null,
+  "pii_status": "not anonymised; personal 'ham' messages from contributors",
+  "collection_period": "unknown (<= 2024)",
+  "collection_method": "Crowd-sourced through a Google Form (README); labelling protocol not documented",
+  "geography": "India (Airtel, Vi, Jio, CERT-In messages)",
+  "language": "English, some romanised Hindi",
+  "limitations": [
+    "Small (2,267; 2,063 unique)",
+    "Labelling undocumented",
+    "'spam' = marketing; one CERT-In advisory labelled spam",
+    "Personal messages not anonymised"
+  ],
+  "provenance": "Original repository; same data posted on Kaggle.",
+  "dataset_id": "india_spam_sms_junioralive",
+  "name": "India spam SMS classification (Indian telecom SMS collection)",
+  "source": "junioralive (community, GitHub + Kaggle)",
+  "official_url": "https://github.com/junioralive/india-spam-sms-classification",
+  "license": "MIT (repository LICENSE, Copyright (c) 2024 JuniorAlive)",
+  "license_status": "CLEAR",
+  "data_type": "messages",
+  "access_status": "AVAILABLE_NOW",
+  "original_or_mirror": "original",
+  "real_or_synthetic": "REAL",
+  "fetch": {
+    "method": "git",
+    "repo": "https://github.com/junioralive/india-spam-sms-classification",
+    "commit": "09137cc677a7d8d24caef0817de41f55a6b3ed44",
+    "files": [
+      {
+        "src": "dataset/spam_ham_india.csv",
+        "dest": "spam_ham_india.csv"
+      },
+      {
+        "src": "LICENSE",
+        "dest": "LICENSE"
+      }
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "version": "Data Book 2024 (published 2025)",
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": null,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [
+    "taxonomy",
+    "priors"
+  ],
+  "training_allowed": false,
+  "training_note": "Context only: category distribution, contact/payment-method trends. Never transaction-level ground truth or training labels.",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": {
+    "note": "aggregate counts by category, contact method, payment method, state, age — no individual reports"
+  },
+  "paper": "Consumer Sentinel Network Data Book 2024",
+  "pii_status": "aggregates only",
+  "collection_period": "calendar year 2024 (historical books for earlier years)",
+  "collection_method": "Unverified consumer reports to the FTC and partners; the Data Book states it is based on unverified reports and is not a survey",
+  "geography": "United States",
+  "language": "n/a (aggregates)",
+  "limitations": [
+    "Unverified consumer reports",
+    "US only",
+    "Aggregates (no record-level data)",
+    "Reporting bias"
+  ],
+  "provenance": "",
+  "dataset_id": "ftc_csn_2024",
+  "name": "FTC Consumer Sentinel Network Data Book 2024 (CSV files)",
+  "source": "US Federal Trade Commission",
+  "official_url": "https://www.ftc.gov/system/files/ftc_gov/data/csn-data-book-2024-csv.zip",
+  "license": "US federal government work (public domain in the US); verify any third-party notices in the zip",
+  "license_status": "CLEAR",
+  "data_type": "complaints",
+  "access_status": "REQUIRES_LOCAL_DOWNLOAD",
+  "original_or_mirror": "official via local download (ftc.gov blocked here)",
+  "real_or_synthetic": "AGGREGATE_REPORTS",
+  "fetch": {
+    "method": "local",
+    "instructions": "Download csn-data-book-2024-csv.zip from the official URL, then register ftc_csn_2024 --from <folder> --pin",
+    "files": [
+      {
+        "dest": "csn-data-book-2024-csv.zip"
+      }
+    ]
+  }
+}

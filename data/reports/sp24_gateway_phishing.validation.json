@@ -1,0 +1,109 @@
+{
+  "dataset_id": "sp24_gateway_phishing",
+  "hard_failures": [],
+  "warnings": [
+    "phishing_messages.csv: 68029 rows don't match the header's field count (header 6)",
+    "37 records match aadhaar_like (heuristic); review before any redistribution"
+  ],
+  "checks": {
+    "manifest": {
+      "problems": []
+    },
+    "license": {
+      "license": "MIT (LICENSE file in the repository)",
+      "status": "CLEAR"
+    },
+    "provenance": {
+      "kind": "original",
+      "repo": "https://github.com/wspr-ncsu/sms-phishing",
+      "commit": "a4f18cedc9909cbf8234eea3c2028080a1e95cd4",
+      "fetched_at": "2026-10-03T13:01:06+00:00"
+    },
+    "files": {
+      "LICENSE": {
+        "bytes": 1066,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": true,
+          "bom": false
+        },
+        "structure": {}
+      },
+      "phishing_campaigns.csv": {
+        "bytes": 6288608,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": true,
+          "bom": false
+        },
+        "structure": {
+          "header_fields": 7,
+          "row_field_counts": {
+            "7": 35128
+          },
+          "rows_not_matching_header": 0
+        }
+      },
+      "phishing_messages.csv": {
+        "bytes": 12762328,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": true,
+          "bom": false
+        },
+        "structure": {
+          "header_fields": 6,
+          "row_field_counts": {
+            "7": 68029
+          },
+          "rows_not_matching_header": 68029
+        }
+      }
+    },
+    "records": 68029,
+    "missingness": {
+      "text": 0.0,
+      "label": 0.0,
+      "language": 1.0,
+      "country": 1.0,
+      "timestamp": 0.0,
+      "year": 0.0,
+      "scam_type": 1.0,
+      "sender_type": 0.0
+    },
+    "labels": {
+      "scam": 68029
+    },
+    "duplicates": {
+      "duplicate_rows": 441,
+      "exact_duplicate_texts_raw": 30554,
+      "unique_after_normalisation": 12767,
+      "near_duplicate_clusters": 2464,
+      "records_in_multi_member_near_clusters": 67241,
+      "groups_with_conflicting_labels": 0,
+      "near_dup_threshold": 0.8
+    },
+    "pii_indicators": {
+      "url": {
+        "records": 41730,
+        "share": 0.6134
+      },
+      "email": {
+        "records": 123,
+        "share": 0.0018
+      },
+      "aadhaar_like": {
+        "records": 37,
+        "share": 0.0005
+      },
+      "phone_intl": {
+        "records": 36,
+        "share": 0.0005
+      },
+      "phone_india": {
+        "records": 34,
+        "share": 0.0005
+      }
+    }
+  }
+}

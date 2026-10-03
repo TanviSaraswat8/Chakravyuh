@@ -1,0 +1,42 @@
+{
+  "version": "git f4d56649a401988b8d7708ec2b3f75c991578e67",
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": 10000,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [],
+  "training_allowed": false,
+  "training_note": "",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": null,
+  "pii_status": "unknown",
+  "collection_period": "unknown",
+  "collection_method": "templated (5,000 rows per file, 101 unique texts each; measured)",
+  "geography": "India",
+  "language": "Hindi, Hinglish",
+  "limitations": [
+    "Templated"
+  ],
+  "provenance": "",
+  "dataset_id": "hindi_hinglish_gupta7050",
+  "name": "multilingual-phishing-detection Hindi/Hinglish CSVs",
+  "source": "gupta7050 (GitHub)",
+  "official_url": "https://github.com/gupta7050/multilingual-phishing-detection",
+  "license": "none",
+  "license_status": "UNRESOLVED",
+  "data_type": "messages",
+  "access_status": "REJECTED",
+  "original_or_mirror": "original",
+  "real_or_synthetic": "SYNTHETIC",
+  "rejection_reason": "Templated: 101 unique texts per 5,000-row file; no licence.",
+  "fetch": {
+    "method": "git",
+    "repo": "https://github.com/gupta7050/multilingual-phishing-detection",
+    "commit": "f4d56649a401988b8d7708ec2b3f75c991578e67",
+    "files": []
+  }
+}

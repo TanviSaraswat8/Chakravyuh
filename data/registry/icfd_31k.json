@@ -1,0 +1,43 @@
+{
+  "version": null,
+  "download_date": null,
+  "sha256": {},
+  "mirror_sha256": {},
+  "sample_count": 31000,
+  "preprocessing_version": null,
+  "adapter": null,
+  "components": [
+    "synthetic_track"
+  ],
+  "training_allowed": false,
+  "training_note": "Synthetic Indian scam calls: adversarial/synthetic track only, clearly labelled SYNTHETIC. Restricted licence.",
+  "raw_columns": [],
+  "schema": null,
+  "label_schema": null,
+  "paper": "IJCAI 2026",
+  "pii_status": "synthetic",
+  "collection_period": "unknown",
+  "collection_method": "Synthetic call transcripts",
+  "geography": "India",
+  "language": "Indian English / Hinglish",
+  "limitations": [
+    "Synthetic",
+    "Restricted licence"
+  ],
+  "provenance": "",
+  "dataset_id": "icfd_31k",
+  "name": "ICFD-31k Indian call-fraud dialogues",
+  "source": "Ahuja et al. (SPELL AI Lab)",
+  "official_url": "https://huggingface.co/datasets/rishia2220/icfd-31k",
+  "license": "code MIT; data under a restricted defensive-use, non-commercial licence",
+  "license_status": "RESTRICTED",
+  "data_type": "dialogues",
+  "access_status": "REQUIRES_LOCAL_DOWNLOAD",
+  "original_or_mirror": "original (Hugging Face; GitHub has 21 examples)",
+  "real_or_synthetic": "SYNTHETIC",
+  "fetch": {
+    "method": "local",
+    "instructions": "Accept the licence on Hugging Face, download, register under data/real/dialogues only if re-labelled SYNTHETIC (store under data/synthetic/)",
+    "files": []
+  }
+}
