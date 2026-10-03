@@ -43,3 +43,6 @@ data/splits/*
 
 # Real-data Sentinel builds (derived from data/processed; rebuild with sentinel/build_sft_real.py)
 sentinel/sft_real/
+
+# Real-data experiment models (provenance manifests in experiments/real/manifests are committed)
+experiments/real/artifacts/

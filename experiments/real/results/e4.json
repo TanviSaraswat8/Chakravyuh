@@ -1,0 +1,337 @@
+{
+  "label": "REAL PUBLIC DATA \u00b7 EXTERNAL-STYLE TEMPORAL TEST (gateway messages, not victim sessions)",
+  "split": {
+    "id": "sp24_temporal_v1",
+    "val_cut": "2023-05-04T23:41:17+00:00",
+    "test_cut": "2023-05-11T14:49:11+00:00",
+    "sizes": {
+      "train": 47620,
+      "val": 6801,
+      "test": 13608
+    }
+  },
+  "provenance": {
+    "datasets": {
+      "sp24_gateway_phishing": {
+        "version": "git a4f18cedc9909cbf8234eea3c2028080a1e95cd4 (2025-12-01)",
+        "license": "MIT (LICENSE file in the repository)",
+        "raw_sha256": {
+          "LICENSE": "1739c7ecb4fa71012827c7e1068ae4eb6dc8c5c9c122f72dba939cc0d930897b",
+          "phishing_campaigns.csv": "f23a56037ca3e4d5aceb34536c11c7fff37174f7618ff943e855820f550600a5",
+          "phishing_messages.csv": "d125c394af792faeb2b71b3f7100cad3b4cece02aff78cb4ec1fb9e7db90f230"
+        },
+        "processed_file": "sp24_gateway_phishing.msg-v1.jsonl",
+        "processed_sha256": "9f7f96d2d81105e34bf69af3eb0feddbd49fa52be1eb0b9a9030ecbe7c7fc1da",
+        "real_or_synthetic": "REAL"
+      }
+    },
+    "splits": {
+      "sp24_temporal_v1": {
+        "file": "sp24_temporal_v1.json",
+        "sha256": "1928e4b5a58ade7dbc42885a2c2d4233eb685db85710748a0d8165bed2f817d5"
+      }
+    }
+  },
+  "ground_truths": {
+    "A_near_dup_cluster_novel": "test message's near-duplicate cluster (MinHash Jaccard>=0.8) never appears in train \u2014 the split's own definition; partly circular with text-similarity detectors",
+    "B_exact_template_novel": "normalised template never appears in train",
+    "C_authors_campaign_novel": "authors' campaign (matched by template + time) started after the training cut; independent of our clustering",
+    "C_mapped_share": 0.86
+  },
+  "detectors": {
+    "D1_knn_novelty": {
+      "what": "1 - max cosine(char 3-5 TF-IDF) to any train message; flag if > tau",
+      "tau": 0.2601,
+      "tau_rule": "95th percentile on val messages with a train template"
+    },
+    "D2_campaign_detector": {
+      "what": "current CampaignDetector algorithm: HDBSCAN(min_cluster_size=5) on SVD-128 of train messages -> cluster prototypes; unknown if distance > delta (97% quantile of train distances)",
+      "train_clusters": 254,
+      "train_noise_share": 0.1465,
+      "delta": 0.0433,
+      "fit_seconds": 12.7
+    }
+  },
+  "results": {
+    "GT_A": {
+      "D1_knn": {
+        "n": 13608,
+        "novel": 10524,
+        "known": 3084,
+        "auroc": 0.9993,
+        "auroc_95ci": [
+          0.9988,
+          0.9997
+        ],
+        "auprc_novel": 0.9998,
+        "flag_precision": 0.9998,
+        "flag_recall": 0.9971,
+        "flag_fpr_on_known": 0.0006
+      },
+      "D2_campaign_detector": {
+        "n": 13608,
+        "novel": 10524,
+        "known": 3084,
+        "auroc": 0.9898,
+        "auroc_95ci": [
+          0.9862,
+          0.9928
+        ],
+        "auprc_novel": 0.9898,
+        "flag_precision": 0.9951,
+        "flag_recall": 0.9982,
+        "flag_fpr_on_known": 0.0169
+      }
+    },
+    "GT_B": {
+      "D1_knn": {
+        "n": 13608,
+        "novel": 13551,
+        "known": 57,
+        "auroc": 0.9783,
+        "auroc_95ci": [
+          0.9515,
+          0.9943
+        ],
+        "auprc_novel": 0.9999,
+        "flag_precision": 0.9999,
+        "flag_recall": 0.7744,
+        "flag_fpr_on_known": 0.0175
+      },
+      "D2_campaign_detector": {
+        "n": 13608,
+        "novel": 13551,
+        "known": 57,
+        "auroc": 0.5891,
+        "auroc_95ci": [
+          0.4835,
+          0.6861
+        ],
+        "auprc_novel": 0.9945,
+        "flag_precision": 0.9968,
+        "flag_recall": 0.7765,
+        "flag_fpr_on_known": 0.5965
+      }
+    },
+    "GT_C": {
+      "D1_knn": {
+        "n": 11703,
+        "novel": 11683,
+        "known": 20,
+        "auroc": 0.999,
+        "auroc_95ci": [
+          0.9985,
+          0.9995
+        ],
+        "auprc_novel": 1.0,
+        "flag_precision": 1.0,
+        "flag_recall": 0.8832,
+        "flag_fpr_on_known": 0.0
+      },
+      "D2_campaign_detector": {
+        "n": 11703,
+        "novel": 11683,
+        "known": 20,
+        "auroc": 0.2994,
+        "auroc_95ci": [
+          0.1374,
+          0.4756
+        ],
+        "auprc_novel": 0.9949,
+        "flag_precision": 0.9984,
+        "flag_recall": 0.887,
+        "flag_fpr_on_known": 0.85
+      }
+    }
+  },
+  "temporal_by_day": {
+    "2023-05-11": {
+      "n": 755,
+      "novel_share_C": 0.9909,
+      "D1_auroc_A": 1.0,
+      "D1_flag_rate": 0.3762
+    },
+    "2023-05-12": {
+      "n": 2254,
+      "novel_share_C": 0.9976,
+      "D1_auroc_A": 0.9989,
+      "D1_flag_rate": 0.0976
+    },
+    "2023-05-13": {
+      "n": 1850,
+      "novel_share_C": 0.9993,
+      "D1_auroc_A": 1.0,
+      "D1_flag_rate": 0.7195
+    },
+    "2023-05-14": {
+      "n": 2633,
+      "novel_share_C": 1.0,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.9985
+    },
+    "2023-05-15": {
+      "n": 2944,
+      "novel_share_C": 1.0,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.9993
+    },
+    "2023-05-16": {
+      "n": 1686,
+      "novel_share_C": 0.9994,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.9976
+    },
+    "2023-05-17": {
+      "n": 493,
+      "novel_share_C": 0.9959,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.9817
+    },
+    "2023-05-18": {
+      "n": 179,
+      "novel_share_C": 0.9887,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.9721
+    },
+    "2023-05-19": {
+      "n": 21,
+      "novel_share_C": 1.0,
+      "D1_auroc_A": 0.9909,
+      "D1_flag_rate": 0.5238
+    },
+    "2023-05-20": {
+      "n": 16,
+      "novel_share_C": 0.8667,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.5625
+    },
+    "2023-05-21": {
+      "n": 241,
+      "novel_share_C": 0.9913,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.971
+    },
+    "2023-05-22": {
+      "n": 123,
+      "novel_share_C": 1.0,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.9593
+    },
+    "2023-05-23": {
+      "n": 71,
+      "novel_share_C": 1.0,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.9155
+    },
+    "2023-05-24": {
+      "n": 21,
+      "novel_share_C": 0.9375,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.6667
+    },
+    "2023-05-25": {
+      "n": 14,
+      "novel_share_C": 1.0,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.7857
+    },
+    "2023-05-26": {
+      "n": 54,
+      "novel_share_C": 1.0,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.9444
+    },
+    "2023-05-27": {
+      "n": 25,
+      "novel_share_C": 1.0,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.92
+    },
+    "2023-05-28": {
+      "n": 19,
+      "novel_share_C": 1.0,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 1.0
+    },
+    "2023-05-29": {
+      "n": 58,
+      "novel_share_C": 1.0,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.9138
+    },
+    "2023-05-30": {
+      "n": 39,
+      "novel_share_C": 0.9375,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.8462
+    },
+    "2023-05-31": {
+      "n": 73,
+      "novel_share_C": 1.0,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.9589
+    },
+    "2023-06-01": {
+      "n": 39,
+      "novel_share_C": 1.0,
+      "D1_auroc_A": null,
+      "D1_flag_rate": 0.9744
+    }
+  },
+  "cluster_agreement_vs_authors_campaigns": {
+    "hdbscan_on_test_messages": {
+      "ari": 0.0255,
+      "nmi": 0.9068,
+      "homogeneity": 0.8296,
+      "completeness": 1.0,
+      "n_pred_clusters": 3921,
+      "n_gold": 7162
+    },
+    "our_near_dup_clusters": {
+      "ari": 0.0005,
+      "nmi": 0.3478,
+      "homogeneity": 0.2105,
+      "completeness": 1.0,
+      "n_pred_clusters": 360,
+      "n_gold": 7162
+    },
+    "note": "Authors split campaigns by URL and time (median duration < 1 day), so text-only clusters are expected to be homogeneous but incomplete with respect to their IDs."
+  },
+  "early_signal": {
+    "procedure": "Stream test messages in time order; messages flagged by D1 (novelty > tau) join an emerging group if cosine >= 0.5 to its first message, else start one; a group 'forms' at its 3rd member.",
+    "emerging_groups": 112,
+    "formed_groups": 50,
+    "known_message_false_flag_rate": 0.0006,
+    "novel_campaigns_GT_A_with_3plus_messages": {
+      "campaigns": 71,
+      "first_message_flagged_novel_rate": 0.9577,
+      "formed_rate": 0.9577,
+      "covered_on_arrival_rate": 0.338,
+      "median_messages_before_formation": 1.0,
+      "median_share_of_campaign_before_formation": 0.2,
+      "median_hours_to_formation": 0.04
+    },
+    "novel_campaigns_GT_C_with_3plus_messages": {
+      "campaigns": 221,
+      "first_message_flagged_novel_rate": 0.7964,
+      "formed_rate": 0.8009,
+      "covered_on_arrival_rate": 0.724,
+      "median_messages_before_formation": 0.0,
+      "median_share_of_campaign_before_formation": 0.0,
+      "median_hours_to_formation": 0.0
+    }
+  },
+  "environment": {
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "cpus": 2,
+    "memory": "8223868 kB",
+    "gpu": "none",
+    "python": "3.13.16",
+    "numpy": "2.5.3",
+    "sklearn": "1.9.1",
+    "torch": "2.14.1+cu130",
+    "torch_threads": 2,
+    "code_commit": "74ba971fdaa1ac2905e7e2298f90d36220885f6e"
+  },
+  "runtime_seconds": 144.2
+}

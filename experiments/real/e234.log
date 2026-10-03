@@ -1,0 +1,31 @@
+== e2
+  E2 rules: micro 0.4101 macro 0.2743
+  E2 tfidf_lr: micro 0.8097 macro 0.5433
+/usr/local/lib/python3.13/dist-packages/sklearn/svm/_base.py:1295: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  warnings.warn(
+/usr/local/lib/python3.13/dist-packages/sklearn/svm/_base.py:1295: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  warnings.warn(
+/usr/local/lib/python3.13/dist-packages/sklearn/svm/_base.py:1295: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  warnings.warn(
+/usr/local/lib/python3.13/dist-packages/sklearn/svm/_base.py:1295: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  warnings.warn(
+  E2 tfidf_svm: micro 0.8014 macro 0.5436
+  E2 chakravyuh_tagger_arch: micro 0.8061 macro 0.5665
+  E2 shipped synthetic tagger: micro 0.3928
+   wrote /home/claude/chakravyuh/experiments/real/results/e2.json in 53.1s
+== e3
+  E3[masked] rules: P 0.9963 R 0.3115 FPR-legit 0.013 FPR-promo 0.0211 SP24-novel 0.0048
+  E3[masked] tfidf_lr: P 0.9938 R 0.987 FPR-legit 0.0912 FPR-promo 0.0634 SP24-novel 0.0265
+  E3[masked] tfidf_svm: P 0.9909 R 0.9934 FPR-legit 0.1466 FPR-promo 0.0704 SP24-novel 0.8546
+  E3[masked] chakravyuh_tagger_arch: P 0.9953 R 0.9886 FPR-legit 0.0847 FPR-promo 0.0141 SP24-novel 0.0118
+  E3[clean] rules: P 0.9962 R 0.312 FPR-legit 0.0132 FPR-promo 0.0211 SP24-novel 0.0048
+  E3[clean] tfidf_lr: P 0.9903 R 0.9708 FPR-legit 0.1217 FPR-promo 0.1338 SP24-novel 0.9972
+  E3[clean] tfidf_svm: P 0.985 R 0.9898 FPR-legit 0.2138 FPR-promo 0.169 SP24-novel 0.999
+  E3[clean] chakravyuh_tagger_arch: P 0.9903 R 0.9717 FPR-legit 0.1283 FPR-promo 0.1197 SP24-novel 0.998
+  E3[clean] shipped_synthetic_tagger_zero_shot: P 0.9366 R 0.7416 FPR-legit 0.6053 FPR-promo 0.7887 SP24-novel 0.1865
+   wrote /home/claude/chakravyuh/experiments/real/results/e3.json in 88.7s
+== e4
+  E4 GT-A: D1 AUROC 0.9993 flagR 0.9971 FPR 0.0006 | D2 AUROC 0.9898 flagR 0.9982 FPR 0.0169
+  E4 GT-B: D1 AUROC 0.9783 flagR 0.7744 FPR 0.0175 | D2 AUROC 0.5891 flagR 0.7765 FPR 0.5965
+  E4 GT-C: D1 AUROC 0.999 flagR 0.8832 FPR 0.0 | D2 AUROC 0.2994 flagR 0.887 FPR 0.85
+   wrote /home/claude/chakravyuh/experiments/real/results/e4.json in 129.1s

@@ -1,0 +1,74 @@
+{
+  "artifact": "experiments/real/artifacts/e3__clean__tfidf_lr.pkl",
+  "sha256": "44a7e2f0561a1b47b778fce96bc72b3225d8a2a685884810dd74bf1db619a6a7",
+  "bytes": 3284055,
+  "experiment": "e3",
+  "model": "clean__tfidf_lr",
+  "track": "REAL PUBLIC DATA",
+  "created_at": "2026-10-03T15:50:30Z",
+  "code_commit": "74ba971fdaa1ac2905e7e2298f90d36220885f6e",
+  "task": "scam/legit/promo",
+  "text_variant": "clean",
+  "config": {
+    "clf": "LogisticRegression balanced",
+    "C_val_macro_f1": {
+      "0.5": 0.8521,
+      "2.0": 0.8457,
+      "8.0": 0.8573
+    },
+    "train_seconds": 9.7
+  },
+  "provenance": {
+    "datasets": {
+      "imc25_smishing": {
+        "version": "git a6175560b57387199871e51fbef6bc523d2516b4 (2025-09-12)",
+        "license": "CC-BY-4.0 (LICENSE.txt in the repository)",
+        "raw_sha256": {
+          "LICENSE.txt": "7e7170e3cebf88a9f60c7b8421418323c09304da1af4d5e90f4da1dc1c8a2661",
+          "final_dataset_output.csv": "1bbd1e9e82c3ea023112207b80da268a5c4a07d2353c2b0898360ab037fa9a64",
+          "time_day.csv": "a0f9afb70836990109e9ea687384e93b2a60fd7813e13f424ea7a9d062440b11"
+        },
+        "processed_file": "imc25_smishing.msg-v1.jsonl",
+        "processed_sha256": "ca5c4334edcfa9793be46c87f2f1eec6e8db46cee1338a9c8a46216bade3d702",
+        "real_or_synthetic": "REAL"
+      },
+      "india_spam_sms_junioralive": {
+        "version": "git 09137cc677a7d8d24caef0817de41f55a6b3ed44 (2024-09-06)",
+        "license": "MIT (repository LICENSE, Copyright (c) 2024 JuniorAlive)",
+        "raw_sha256": {
+          "LICENSE": "203ac8eb9e2c16d5cd517c24732f87003f0b9be3e3bfd3ec3253d2cb6b61cb8d",
+          "spam_ham_india.csv": "e6a28126d1c4ec9d805a10cd89f2de2bb63650532102e9f35ab05c909c3a79f3"
+        },
+        "processed_file": "india_spam_sms_junioralive.msg-v1.jsonl",
+        "processed_sha256": "213cc72fd88e3e49582e4a2866f555288581773da84a60691beb8bcd34519b9e",
+        "real_or_synthetic": "REAL"
+      },
+      "sp24_gateway_phishing": {
+        "version": "git a4f18cedc9909cbf8234eea3c2028080a1e95cd4 (2025-12-01)",
+        "license": "MIT (LICENSE file in the repository)",
+        "raw_sha256": {
+          "LICENSE": "1739c7ecb4fa71012827c7e1068ae4eb6dc8c5c9c122f72dba939cc0d930897b",
+          "phishing_campaigns.csv": "f23a56037ca3e4d5aceb34536c11c7fff37174f7618ff943e855820f550600a5",
+          "phishing_messages.csv": "d125c394af792faeb2b71b3f7100cad3b4cece02aff78cb4ec1fb9e7db90f230"
+        },
+        "processed_file": "sp24_gateway_phishing.msg-v1.jsonl",
+        "processed_sha256": "9f7f96d2d81105e34bf69af3eb0feddbd49fa52be1eb0b9a9030ecbe7c7fc1da",
+        "real_or_synthetic": "REAL"
+      }
+    },
+    "splits": {
+      "imc25_group_v1": {
+        "file": "imc25_group_v1.json",
+        "sha256": "7bfeb0cb8d651a456286418aad17d5acaf017078301061174517009b905c5cb0"
+      },
+      "india_spam_sms_junioralive_group_v1": {
+        "file": "india_spam_sms_junioralive_group_v1.json",
+        "sha256": "29231a95347cba9c4ecf8b3a396c024f87bb448357cdbb18bd0ee37c3c86c8ba"
+      },
+      "sp24_temporal_v1": {
+        "file": "sp24_temporal_v1.json",
+        "sha256": "1928e4b5a58ade7dbc42885a2c2d4233eb685db85710748a0d8165bed2f817d5"
+      }
+    }
+  }
+}

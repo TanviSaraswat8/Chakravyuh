@@ -1,0 +1,938 @@
+{
+  "label": "REAL PUBLIC DATA \u00b7 WEAKLY LABELLED (GPT-4o scam_type; kappa 0.93 vs humans on 150 English msgs)",
+  "task": "8-class scam type",
+  "split": "imc25_group_v1",
+  "text_variant": "masked",
+  "class_distribution": {
+    "tr": {
+      "delivery": 2625,
+      "others": 4759,
+      "banking": 10898,
+      "government": 2255,
+      "hey mum/dad": 185,
+      "spam": 1185,
+      "wrong number": 234,
+      "telecom": 1510
+    },
+    "va": {
+      "wrong number": 31,
+      "others": 775,
+      "banking": 1423,
+      "delivery": 401,
+      "government": 300,
+      "spam": 170,
+      "telecom": 250,
+      "hey mum/dad": 28
+    },
+    "te": {
+      "delivery": 784,
+      "others": 1388,
+      "banking": 2956,
+      "spam": 355,
+      "government": 693,
+      "telecom": 466,
+      "wrong number": 67,
+      "hey mum/dad": 50
+    }
+  },
+  "models": {
+    "rules": {
+      "macro_f1": 0.4938,
+      "accuracy": 0.6349,
+      "per_class": {
+        "banking": {
+          "precision": 0.8427,
+          "recall": 0.7811,
+          "f1": 0.8107,
+          "support": 2956
+        },
+        "delivery": {
+          "precision": 0.9551,
+          "recall": 0.7054,
+          "f1": 0.8114,
+          "support": 784
+        },
+        "government": {
+          "precision": 0.6551,
+          "recall": 0.3535,
+          "f1": 0.4592,
+          "support": 693
+        },
+        "telecom": {
+          "precision": 0.6448,
+          "recall": 0.4013,
+          "f1": 0.4947,
+          "support": 466
+        },
+        "wrong number": {
+          "precision": 0.6129,
+          "recall": 0.2836,
+          "f1": 0.3878,
+          "support": 67
+        },
+        "hey mum/dad": {
+          "precision": 0.2231,
+          "recall": 0.54,
+          "f1": 0.3158,
+          "support": 50
+        },
+        "others": {
+          "precision": 0.3638,
+          "recall": 0.6477,
+          "f1": 0.4659,
+          "support": 1388
+        },
+        "spam": {
+          "precision": 0.3399,
+          "recall": 0.1465,
+          "f1": 0.2047,
+          "support": 355
+        }
+      },
+      "confusion": {
+        "labels": [
+          "banking",
+          "delivery",
+          "government",
+          "telecom",
+          "wrong number",
+          "hey mum/dad",
+          "others",
+          "spam"
+        ],
+        "matrix": [
+          [
+            2309,
+            0,
+            10,
+            9,
+            1,
+            53,
+            546,
+            28
+          ],
+          [
+            13,
+            553,
+            6,
+            9,
+            0,
+            2,
+            198,
+            3
+          ],
+          [
+            67,
+            5,
+            245,
+            10,
+            0,
+            12,
+            351,
+            3
+          ],
+          [
+            71,
+            4,
+            13,
+            187,
+            1,
+            5,
+            168,
+            17
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            19,
+            0,
+            47,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            27,
+            23,
+            0
+          ],
+          [
+            243,
+            13,
+            91,
+            67,
+            6,
+            20,
+            899,
+            49
+          ],
+          [
+            37,
+            4,
+            9,
+            8,
+            4,
+            2,
+            239,
+            52
+          ]
+        ],
+        "rows": "true",
+        "cols": "predicted"
+      },
+      "latency": {
+        "p50_ms": 0.034,
+        "p95_ms": 0.136,
+        "n": 300,
+        "mode": "one message per call, CPU, includes feature extraction"
+      },
+      "macro_f1_english_only": 0.5964,
+      "macro_f1_non_english": 0.2947,
+      "lexicon": "expmodels.SCAM_TYPE_LEXICON (English + es/nl/fr/de terms)",
+      "train_seconds": 0
+    },
+    "tfidf_lr": {
+      "macro_f1": 0.7762,
+      "accuracy": 0.8096,
+      "per_class": {
+        "banking": {
+          "precision": 0.9214,
+          "recall": 0.9005,
+          "f1": 0.9109,
+          "support": 2956
+        },
+        "delivery": {
+          "precision": 0.9247,
+          "recall": 0.8929,
+          "f1": 0.9085,
+          "support": 784
+        },
+        "government": {
+          "precision": 0.8193,
+          "recall": 0.798,
+          "f1": 0.8085,
+          "support": 693
+        },
+        "telecom": {
+          "precision": 0.7465,
+          "recall": 0.8026,
+          "f1": 0.7735,
+          "support": 466
+        },
+        "wrong number": {
+          "precision": 0.6267,
+          "recall": 0.7015,
+          "f1": 0.662,
+          "support": 67
+        },
+        "hey mum/dad": {
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9474,
+          "support": 50
+        },
+        "others": {
+          "precision": 0.6085,
+          "recall": 0.6362,
+          "f1": 0.6221,
+          "support": 1388
+        },
+        "spam": {
+          "precision": 0.5683,
+          "recall": 0.5859,
+          "f1": 0.577,
+          "support": 355
+        }
+      },
+      "confusion": {
+        "labels": [
+          "banking",
+          "delivery",
+          "government",
+          "telecom",
+          "wrong number",
+          "hey mum/dad",
+          "others",
+          "spam"
+        ],
+        "matrix": [
+          [
+            2662,
+            15,
+            29,
+            25,
+            0,
+            0,
+            211,
+            14
+          ],
+          [
+            10,
+            700,
+            1,
+            6,
+            1,
+            0,
+            61,
+            5
+          ],
+          [
+            17,
+            6,
+            553,
+            12,
+            2,
+            0,
+            94,
+            9
+          ],
+          [
+            20,
+            2,
+            3,
+            374,
+            0,
+            0,
+            57,
+            10
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            47,
+            0,
+            19,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            1,
+            45,
+            3,
+            0
+          ],
+          [
+            172,
+            31,
+            85,
+            76,
+            22,
+            0,
+            883,
+            119
+          ],
+          [
+            7,
+            3,
+            4,
+            8,
+            2,
+            0,
+            123,
+            208
+          ]
+        ],
+        "rows": "true",
+        "cols": "predicted"
+      },
+      "ece_top_label": 0.033,
+      "latency": {
+        "p50_ms": 0.603,
+        "p95_ms": 0.854,
+        "n": 300,
+        "mode": "one message per call, CPU, includes feature extraction"
+      },
+      "macro_f1_english_only": 0.8147,
+      "macro_f1_non_english": 0.6077,
+      "features": "word 1-2-gram TF-IDF, min_df 2, sublinear, max 200k",
+      "clf": "LogisticRegression balanced",
+      "C_val_macro_f1": {
+        "0.5": 0.7527,
+        "2.0": 0.7745,
+        "8.0": 0.7828
+      },
+      "train_seconds": 37.9,
+      "artifact_sha256": "e1010f7573376156cfe71250de31850b7381687872bfd037133a7c318514ce62",
+      "manifest": "experiments/real/manifests/e1__tfidf_lr.json"
+    },
+    "tfidf_svm": {
+      "macro_f1": 0.771,
+      "accuracy": 0.8167,
+      "per_class": {
+        "banking": {
+          "precision": 0.9098,
+          "recall": 0.9208,
+          "f1": 0.9153,
+          "support": 2956
+        },
+        "delivery": {
+          "precision": 0.9107,
+          "recall": 0.9107,
+          "f1": 0.9107,
+          "support": 784
+        },
+        "government": {
+          "precision": 0.8109,
+          "recall": 0.798,
+          "f1": 0.8044,
+          "support": 693
+        },
+        "telecom": {
+          "precision": 0.7426,
+          "recall": 0.8112,
+          "f1": 0.7754,
+          "support": 466
+        },
+        "wrong number": {
+          "precision": 0.6111,
+          "recall": 0.6567,
+          "f1": 0.6331,
+          "support": 67
+        },
+        "hey mum/dad": {
+          "precision": 0.902,
+          "recall": 0.92,
+          "f1": 0.9109,
+          "support": 50
+        },
+        "others": {
+          "precision": 0.6564,
+          "recall": 0.6124,
+          "f1": 0.6336,
+          "support": 1388
+        },
+        "spam": {
+          "precision": 0.5695,
+          "recall": 0.6,
+          "f1": 0.5844,
+          "support": 355
+        }
+      },
+      "confusion": {
+        "labels": [
+          "banking",
+          "delivery",
+          "government",
+          "telecom",
+          "wrong number",
+          "hey mum/dad",
+          "others",
+          "spam"
+        ],
+        "matrix": [
+          [
+            2722,
+            17,
+            34,
+            22,
+            0,
+            1,
+            144,
+            16
+          ],
+          [
+            21,
+            714,
+            0,
+            5,
+            0,
+            0,
+            40,
+            4
+          ],
+          [
+            23,
+            5,
+            553,
+            15,
+            2,
+            0,
+            86,
+            9
+          ],
+          [
+            23,
+            2,
+            7,
+            378,
+            0,
+            0,
+            44,
+            12
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            44,
+            0,
+            22,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            46,
+            4,
+            0
+          ],
+          [
+            195,
+            42,
+            84,
+            76,
+            20,
+            2,
+            850,
+            119
+          ],
+          [
+            8,
+            4,
+            4,
+            13,
+            6,
+            2,
+            105,
+            213
+          ]
+        ],
+        "rows": "true",
+        "cols": "predicted"
+      },
+      "ece_top_label": 0.0431,
+      "latency": {
+        "p50_ms": 0.635,
+        "p95_ms": 0.921,
+        "n": 300,
+        "mode": "one message per call, CPU, includes feature extraction"
+      },
+      "macro_f1_english_only": 0.8089,
+      "macro_f1_non_english": 0.6083,
+      "features": "word 1-2-gram TF-IDF",
+      "clf": "LinearSVC balanced; probabilities via sigmoid calibration on val (ECE only)",
+      "C_val_macro_f1": {
+        "0.1": 0.78,
+        "0.5": 0.7883,
+        "2.0": 0.7739
+      },
+      "train_seconds": 7.8,
+      "artifact_sha256": "ebafbb91287748b7e11997bf88c840c6023fb9a9426f7481191f47c5194bb014",
+      "manifest": "experiments/real/manifests/e1__tfidf_svm.json"
+    },
+    "chakravyuh_tagger_arch": {
+      "macro_f1": 0.7716,
+      "accuracy": 0.8176,
+      "per_class": {
+        "banking": {
+          "precision": 0.9287,
+          "recall": 0.9032,
+          "f1": 0.9158,
+          "support": 2956
+        },
+        "delivery": {
+          "precision": 0.9061,
+          "recall": 0.9235,
+          "f1": 0.9147,
+          "support": 784
+        },
+        "government": {
+          "precision": 0.8449,
+          "recall": 0.7706,
+          "f1": 0.806,
+          "support": 693
+        },
+        "telecom": {
+          "precision": 0.7415,
+          "recall": 0.794,
+          "f1": 0.7668,
+          "support": 466
+        },
+        "wrong number": {
+          "precision": 0.6049,
+          "recall": 0.7313,
+          "f1": 0.6622,
+          "support": 67
+        },
+        "hey mum/dad": {
+          "precision": 0.898,
+          "recall": 0.88,
+          "f1": 0.8889,
+          "support": 50
+        },
+        "others": {
+          "precision": 0.6377,
+          "recall": 0.6722,
+          "f1": 0.6545,
+          "support": 1388
+        },
+        "spam": {
+          "precision": 0.5596,
+          "recall": 0.569,
+          "f1": 0.5642,
+          "support": 355
+        }
+      },
+      "confusion": {
+        "labels": [
+          "banking",
+          "delivery",
+          "government",
+          "telecom",
+          "wrong number",
+          "hey mum/dad",
+          "others",
+          "spam"
+        ],
+        "matrix": [
+          [
+            2670,
+            14,
+            30,
+            26,
+            0,
+            0,
+            203,
+            13
+          ],
+          [
+            10,
+            724,
+            0,
+            4,
+            0,
+            0,
+            41,
+            5
+          ],
+          [
+            18,
+            14,
+            534,
+            12,
+            3,
+            0,
+            87,
+            25
+          ],
+          [
+            12,
+            5,
+            3,
+            370,
+            0,
+            0,
+            66,
+            10
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            49,
+            1,
+            17,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            44,
+            5,
+            0
+          ],
+          [
+            150,
+            34,
+            63,
+            76,
+            22,
+            4,
+            933,
+            106
+          ],
+          [
+            15,
+            8,
+            2,
+            11,
+            6,
+            0,
+            111,
+            202
+          ]
+        ],
+        "rows": "true",
+        "cols": "predicted"
+      },
+      "ece_top_label": 0.1299,
+      "latency": {
+        "p50_ms": 1.917,
+        "p95_ms": 2.713,
+        "n": 300,
+        "mode": "one message per call, CPU, includes feature extraction"
+      },
+      "macro_f1_english_only": 0.7997,
+      "macro_f1_non_english": 0.6628,
+      "features": "char_wb 2-5 TF-IDF, 60k (identical to TacticTagger)",
+      "clf": "OvR LogisticRegression C=4 balanced",
+      "train_seconds": 14.9,
+      "artifact_sha256": "7b2d5b5d782412aa5be5c8790e3b830d4fe49d4fa2435cb840ef5aaa1e941b70",
+      "manifest": "experiments/real/manifests/e1__chakravyuh_tagger_arch.json"
+    },
+    "char_transformer_scratch": {
+      "macro_f1": 0.4731,
+      "accuracy": 0.507,
+      "per_class": {
+        "banking": {
+          "precision": 0.9081,
+          "recall": 0.5849,
+          "f1": 0.7115,
+          "support": 2956
+        },
+        "delivery": {
+          "precision": 0.3623,
+          "recall": 0.7768,
+          "f1": 0.4941,
+          "support": 784
+        },
+        "government": {
+          "precision": 0.3571,
+          "recall": 0.5642,
+          "f1": 0.4374,
+          "support": 693
+        },
+        "telecom": {
+          "precision": 0.3446,
+          "recall": 0.2854,
+          "f1": 0.3122,
+          "support": 466
+        },
+        "wrong number": {
+          "precision": 0.6,
+          "recall": 0.6269,
+          "f1": 0.6131,
+          "support": 67
+        },
+        "hey mum/dad": {
+          "precision": 0.5667,
+          "recall": 0.68,
+          "f1": 0.6182,
+          "support": 50
+        },
+        "others": {
+          "precision": 0.5116,
+          "recall": 0.1909,
+          "f1": 0.2781,
+          "support": 1388
+        },
+        "spam": {
+          "precision": 0.2144,
+          "recall": 0.631,
+          "f1": 0.32,
+          "support": 355
+        }
+      },
+      "confusion": {
+        "labels": [
+          "banking",
+          "delivery",
+          "government",
+          "telecom",
+          "wrong number",
+          "hey mum/dad",
+          "others",
+          "spam"
+        ],
+        "matrix": [
+          [
+            1729,
+            453,
+            355,
+            99,
+            0,
+            0,
+            133,
+            187
+          ],
+          [
+            25,
+            609,
+            54,
+            15,
+            1,
+            1,
+            19,
+            60
+          ],
+          [
+            26,
+            144,
+            391,
+            33,
+            2,
+            5,
+            36,
+            56
+          ],
+          [
+            20,
+            102,
+            69,
+            133,
+            1,
+            2,
+            27,
+            112
+          ],
+          [
+            0,
+            1,
+            1,
+            1,
+            42,
+            3,
+            8,
+            11
+          ],
+          [
+            0,
+            2,
+            0,
+            1,
+            1,
+            34,
+            3,
+            9
+          ],
+          [
+            93,
+            323,
+            198,
+            88,
+            21,
+            14,
+            265,
+            386
+          ],
+          [
+            11,
+            47,
+            27,
+            16,
+            2,
+            1,
+            27,
+            224
+          ]
+        ],
+        "rows": "true",
+        "cols": "predicted"
+      },
+      "ece_top_label": 0.0918,
+      "latency": {
+        "p50_ms": 2.1,
+        "p95_ms": 2.605,
+        "n": 300,
+        "mode": "one message per call, CPU, includes feature extraction"
+      },
+      "macro_f1_english_only": 0.4854,
+      "macro_f1_non_english": 0.3616,
+      "config": {
+        "max_len": 200,
+        "d": 96,
+        "layers": 2,
+        "heads": 4,
+        "epochs": 5,
+        "lr": 0.002,
+        "batch": 64,
+        "vocab_size": 2500
+      },
+      "history": [
+        {
+          "epoch": 1,
+          "val_macro_f1": 0.3818,
+          "seconds": 221.5
+        },
+        {
+          "epoch": 2,
+          "val_macro_f1": 0.4457,
+          "seconds": 222.7
+        },
+        {
+          "epoch": 3,
+          "val_macro_f1": 0.4418,
+          "seconds": 222.0
+        },
+        {
+          "epoch": 4,
+          "val_macro_f1": 0.4646,
+          "seconds": 219.8
+        },
+        {
+          "epoch": 5,
+          "val_macro_f1": 0.4495,
+          "seconds": 219.2
+        }
+      ],
+      "train_seconds": 1140.6,
+      "note": "trained from scratch on CPU; no pretrained weights",
+      "artifact_sha256": "9e3f386f82345ec3beb279cc451e54269c6d1a80c5304ca11d6225cdfd03c7f2",
+      "manifest": "experiments/real/manifests/e1__char_transformer_scratch.json"
+    }
+  },
+  "provenance": {
+    "datasets": {
+      "imc25_smishing": {
+        "version": "git a6175560b57387199871e51fbef6bc523d2516b4 (2025-09-12)",
+        "license": "CC-BY-4.0 (LICENSE.txt in the repository)",
+        "raw_sha256": {
+          "LICENSE.txt": "7e7170e3cebf88a9f60c7b8421418323c09304da1af4d5e90f4da1dc1c8a2661",
+          "final_dataset_output.csv": "1bbd1e9e82c3ea023112207b80da268a5c4a07d2353c2b0898360ab037fa9a64",
+          "time_day.csv": "a0f9afb70836990109e9ea687384e93b2a60fd7813e13f424ea7a9d062440b11"
+        },
+        "processed_file": "imc25_smishing.msg-v1.jsonl",
+        "processed_sha256": "ca5c4334edcfa9793be46c87f2f1eec6e8db46cee1338a9c8a46216bade3d702",
+        "real_or_synthetic": "REAL"
+      }
+    },
+    "splits": {
+      "imc25_group_v1": {
+        "file": "imc25_group_v1.json",
+        "sha256": "7bfeb0cb8d651a456286418aad17d5acaf017078301061174517009b905c5cb0"
+      }
+    }
+  },
+  "existing_synthetic_tagger": "N/A for E1: the shipped tagger has no scam-type head (it predicts tactics, stage, p_scam).",
+  "environment": {
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "cpus": 2,
+    "memory": "8223868 kB",
+    "gpu": "none",
+    "python": "3.13.16",
+    "numpy": "2.5.3",
+    "sklearn": "1.9.1",
+    "torch": "2.14.1+cu130",
+    "torch_threads": 2,
+    "code_commit": "74ba971fdaa1ac2905e7e2298f90d36220885f6e"
+  },
+  "runtime_seconds": 1208.0
+}

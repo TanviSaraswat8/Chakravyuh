@@ -1,0 +1,546 @@
+{
+  "label": "REAL PUBLIC DATA \u00b7 WEAKLY LABELLED: lures were assigned by GPT-4o (Stajano & Wilson typology); GPT-4o vs humans kappa 0.70 on 150 English messages. Scores measure agreement with GPT-4o, NOT accuracy against human ground truth.",
+  "task": "7-label multi-label lure tagging (scam messages with at least one lure)",
+  "split": "imc25_group_v1",
+  "label_prevalence_test": {
+    "authority": 5170,
+    "time/urgency": 4980,
+    "distraction": 1846,
+    "need and greed": 1135,
+    "kindness": 133,
+    "herd": 28,
+    "dishonesty": 36
+  },
+  "label_prevalence_train": {
+    "authority": 18027,
+    "time/urgency": 17872,
+    "distraction": 7379,
+    "need and greed": 3781,
+    "kindness": 436,
+    "herd": 125,
+    "dishonesty": 86
+  },
+  "sizes": {
+    "train": 21576,
+    "val": 3059,
+    "test": 6154
+  },
+  "models": {
+    "rules": {
+      "micro_f1": 0.4101,
+      "macro_f1": 0.2743,
+      "per_label": {
+        "authority": {
+          "precision": 0.9689,
+          "recall": 0.3193,
+          "f1": 0.4804,
+          "support": 5170,
+          "confusion": {
+            "tp": 1651,
+            "fp": 53,
+            "fn": 3519,
+            "tn": 931
+          }
+        },
+        "time/urgency": {
+          "precision": 0.9466,
+          "recall": 0.3524,
+          "f1": 0.5136,
+          "support": 4980,
+          "confusion": {
+            "tp": 1755,
+            "fp": 99,
+            "fn": 3225,
+            "tn": 1075
+          }
+        },
+        "distraction": {
+          "precision": 0.2859,
+          "recall": 0.3229,
+          "f1": 0.3032,
+          "support": 1846,
+          "confusion": {
+            "tp": 596,
+            "fp": 1489,
+            "fn": 1250,
+            "tn": 2819
+          }
+        },
+        "need and greed": {
+          "precision": 0.5631,
+          "recall": 0.3066,
+          "f1": 0.397,
+          "support": 1135,
+          "confusion": {
+            "tp": 348,
+            "fp": 270,
+            "fn": 787,
+            "tn": 4749
+          }
+        },
+        "kindness": {
+          "precision": 0.0353,
+          "recall": 0.5113,
+          "f1": 0.0661,
+          "support": 133,
+          "confusion": {
+            "tp": 68,
+            "fp": 1856,
+            "fn": 65,
+            "tn": 4165
+          }
+        },
+        "herd": {
+          "precision": 0.0244,
+          "recall": 0.0357,
+          "f1": 0.029,
+          "support": 28,
+          "confusion": {
+            "tp": 1,
+            "fp": 40,
+            "fn": 27,
+            "tn": 6086
+          }
+        },
+        "dishonesty": {
+          "precision": 0.3,
+          "recall": 0.0833,
+          "f1": 0.1304,
+          "support": 36,
+          "confusion": {
+            "tp": 3,
+            "fp": 7,
+            "fn": 33,
+            "tn": 6111
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 0.019,
+        "p95_ms": 0.091,
+        "n": 300,
+        "mode": "one message per call, CPU, includes feature extraction"
+      },
+      "lexicon": "expmodels.LURE_LEXICON"
+    },
+    "tfidf_lr": {
+      "micro_f1": 0.8097,
+      "macro_f1": 0.5433,
+      "per_label": {
+        "authority": {
+          "precision": 0.9363,
+          "recall": 0.8447,
+          "f1": 0.8881,
+          "support": 5170,
+          "confusion": {
+            "tp": 4367,
+            "fp": 297,
+            "fn": 803,
+            "tn": 687
+          }
+        },
+        "time/urgency": {
+          "precision": 0.9465,
+          "recall": 0.853,
+          "f1": 0.8973,
+          "support": 4980,
+          "confusion": {
+            "tp": 4248,
+            "fp": 240,
+            "fn": 732,
+            "tn": 934
+          }
+        },
+        "distraction": {
+          "precision": 0.4549,
+          "recall": 0.5634,
+          "f1": 0.5034,
+          "support": 1846,
+          "confusion": {
+            "tp": 1040,
+            "fp": 1246,
+            "fn": 806,
+            "tn": 3062
+          }
+        },
+        "need and greed": {
+          "precision": 0.6858,
+          "recall": 0.7789,
+          "f1": 0.7294,
+          "support": 1135,
+          "confusion": {
+            "tp": 884,
+            "fp": 405,
+            "fn": 251,
+            "tn": 4614
+          }
+        },
+        "kindness": {
+          "precision": 0.5562,
+          "recall": 0.7068,
+          "f1": 0.6225,
+          "support": 133,
+          "confusion": {
+            "tp": 94,
+            "fp": 75,
+            "fn": 39,
+            "tn": 5946
+          }
+        },
+        "herd": {
+          "precision": 0.1304,
+          "recall": 0.2143,
+          "f1": 0.1622,
+          "support": 28,
+          "confusion": {
+            "tp": 6,
+            "fp": 40,
+            "fn": 22,
+            "tn": 6086
+          }
+        },
+        "dishonesty": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 36,
+          "confusion": {
+            "tp": 0,
+            "fp": 10,
+            "fn": 36,
+            "tn": 6108
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 1.492,
+        "p95_ms": 1.983,
+        "n": 300,
+        "mode": "one message per call, CPU, includes feature extraction"
+      },
+      "clf": "OvR LogisticRegression balanced, threshold 0.5",
+      "C_val_macro_f1": {
+        "0.5": 0.5448,
+        "2.0": 0.5742,
+        "8.0": 0.5666
+      },
+      "train_seconds": 14.5,
+      "artifact_sha256": "a84bb0535fa98026227732c14fcc900da7f2d9e3a22f7687b6cf0b459a7207f0",
+      "manifest": "experiments/real/manifests/e2__tfidf_lr.json"
+    },
+    "tfidf_svm": {
+      "micro_f1": 0.8014,
+      "macro_f1": 0.5436,
+      "per_label": {
+        "authority": {
+          "precision": 0.9416,
+          "recall": 0.8176,
+          "f1": 0.8752,
+          "support": 5170,
+          "confusion": {
+            "tp": 4227,
+            "fp": 262,
+            "fn": 943,
+            "tn": 722
+          }
+        },
+        "time/urgency": {
+          "precision": 0.9541,
+          "recall": 0.8315,
+          "f1": 0.8886,
+          "support": 4980,
+          "confusion": {
+            "tp": 4141,
+            "fp": 199,
+            "fn": 839,
+            "tn": 975
+          }
+        },
+        "distraction": {
+          "precision": 0.4585,
+          "recall": 0.584,
+          "f1": 0.5137,
+          "support": 1846,
+          "confusion": {
+            "tp": 1078,
+            "fp": 1273,
+            "fn": 768,
+            "tn": 3035
+          }
+        },
+        "need and greed": {
+          "precision": 0.6734,
+          "recall": 0.7903,
+          "f1": 0.7272,
+          "support": 1135,
+          "confusion": {
+            "tp": 897,
+            "fp": 435,
+            "fn": 238,
+            "tn": 4584
+          }
+        },
+        "kindness": {
+          "precision": 0.5607,
+          "recall": 0.7293,
+          "f1": 0.634,
+          "support": 133,
+          "confusion": {
+            "tp": 97,
+            "fp": 76,
+            "fn": 36,
+            "tn": 5945
+          }
+        },
+        "herd": {
+          "precision": 0.1364,
+          "recall": 0.2143,
+          "f1": 0.1667,
+          "support": 28,
+          "confusion": {
+            "tp": 6,
+            "fp": 38,
+            "fn": 22,
+            "tn": 6088
+          }
+        },
+        "dishonesty": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 36,
+          "confusion": {
+            "tp": 0,
+            "fp": 12,
+            "fn": 36,
+            "tn": 6106
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 1.829,
+        "p95_ms": 2.276,
+        "n": 300,
+        "mode": "one message per call, CPU, includes feature extraction"
+      },
+      "clf": "OvR LinearSVC balanced, decision 0",
+      "C_val_macro_f1": {
+        "0.1": 0.5686,
+        "0.5": 0.5581,
+        "2.0": 0.5589
+      },
+      "train_seconds": 14.8,
+      "artifact_sha256": "02341941710ecbf4f589f87dd6b75d995c7e5e4baea41beb31553ecfc3e33d8e",
+      "manifest": "experiments/real/manifests/e2__tfidf_svm.json"
+    },
+    "chakravyuh_tagger_arch": {
+      "micro_f1": 0.8061,
+      "macro_f1": 0.5665,
+      "per_label": {
+        "authority": {
+          "precision": 0.9398,
+          "recall": 0.8431,
+          "f1": 0.8889,
+          "support": 5170,
+          "confusion": {
+            "tp": 4359,
+            "fp": 279,
+            "fn": 811,
+            "tn": 705
+          }
+        },
+        "time/urgency": {
+          "precision": 0.9492,
+          "recall": 0.8478,
+          "f1": 0.8956,
+          "support": 4980,
+          "confusion": {
+            "tp": 4222,
+            "fp": 226,
+            "fn": 758,
+            "tn": 948
+          }
+        },
+        "distraction": {
+          "precision": 0.4497,
+          "recall": 0.5791,
+          "f1": 0.5063,
+          "support": 1846,
+          "confusion": {
+            "tp": 1069,
+            "fp": 1308,
+            "fn": 777,
+            "tn": 3000
+          }
+        },
+        "need and greed": {
+          "precision": 0.6506,
+          "recall": 0.7727,
+          "f1": 0.7064,
+          "support": 1135,
+          "confusion": {
+            "tp": 877,
+            "fp": 471,
+            "fn": 258,
+            "tn": 4548
+          }
+        },
+        "kindness": {
+          "precision": 0.5381,
+          "recall": 0.797,
+          "f1": 0.6424,
+          "support": 133,
+          "confusion": {
+            "tp": 106,
+            "fp": 91,
+            "fn": 27,
+            "tn": 5930
+          }
+        },
+        "herd": {
+          "precision": 0.1864,
+          "recall": 0.3929,
+          "f1": 0.2529,
+          "support": 28,
+          "confusion": {
+            "tp": 11,
+            "fp": 48,
+            "fn": 17,
+            "tn": 6078
+          }
+        },
+        "dishonesty": {
+          "precision": 0.1053,
+          "recall": 0.0556,
+          "f1": 0.0727,
+          "support": 36,
+          "confusion": {
+            "tp": 2,
+            "fp": 17,
+            "fn": 34,
+            "tn": 6101
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 1.709,
+        "p95_ms": 2.146,
+        "n": 300,
+        "mode": "one message per call, CPU, includes feature extraction"
+      },
+      "clf": "char_wb 2-5 TF-IDF + OvR LR C=4 balanced (TacticTagger pipeline)",
+      "train_seconds": 18.4,
+      "artifact_sha256": "efc6c319a3f846055c8eb358b7b8a3b6a85223b50c1822b465a753af5d2fc44e",
+      "manifest": "experiments/real/manifests/e2__chakravyuh_tagger_arch.json"
+    },
+    "shipped_synthetic_tagger_zero_shot": {
+      "micro_f1": 0.3928,
+      "macro_f1": 0.1788,
+      "per_label": {
+        "authority": {
+          "precision": 0.984,
+          "recall": 0.1903,
+          "f1": 0.319,
+          "support": 5170,
+          "confusion": {
+            "tp": 984,
+            "fp": 16,
+            "fn": 4186,
+            "tn": 968
+          }
+        },
+        "time/urgency": {
+          "precision": 0.8973,
+          "recall": 0.3703,
+          "f1": 0.5242,
+          "support": 4980,
+          "confusion": {
+            "tp": 1844,
+            "fp": 211,
+            "fn": 3136,
+            "tn": 963
+          }
+        },
+        "need and greed": {
+          "precision": 0.6383,
+          "recall": 0.0264,
+          "f1": 0.0508,
+          "support": 1135,
+          "confusion": {
+            "tp": 30,
+            "fp": 17,
+            "fn": 1105,
+            "tn": 5002
+          }
+        },
+        "kindness": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 133,
+          "confusion": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 133,
+            "tn": 6021
+          }
+        },
+        "herd": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 28,
+          "confusion": {
+            "tp": 0,
+            "fp": 4,
+            "fn": 28,
+            "tn": 6122
+          }
+        }
+      },
+      "label": "SYNTHETIC-TRAINED model (simulator only), evaluated zero-shot on REAL PUBLIC DATA; 5 mapped lures only",
+      "latency": {
+        "p50_ms": 2.551,
+        "p95_ms": 2.873,
+        "n": 300,
+        "mode": "one message per call, CPU, includes feature extraction"
+      }
+    }
+  },
+  "provenance": {
+    "datasets": {
+      "imc25_smishing": {
+        "version": "git a6175560b57387199871e51fbef6bc523d2516b4 (2025-09-12)",
+        "license": "CC-BY-4.0 (LICENSE.txt in the repository)",
+        "raw_sha256": {
+          "LICENSE.txt": "7e7170e3cebf88a9f60c7b8421418323c09304da1af4d5e90f4da1dc1c8a2661",
+          "final_dataset_output.csv": "1bbd1e9e82c3ea023112207b80da268a5c4a07d2353c2b0898360ab037fa9a64",
+          "time_day.csv": "a0f9afb70836990109e9ea687384e93b2a60fd7813e13f424ea7a9d062440b11"
+        },
+        "processed_file": "imc25_smishing.msg-v1.jsonl",
+        "processed_sha256": "ca5c4334edcfa9793be46c87f2f1eec6e8db46cee1338a9c8a46216bade3d702",
+        "real_or_synthetic": "REAL"
+      }
+    },
+    "splits": {
+      "imc25_group_v1": {
+        "file": "imc25_group_v1.json",
+        "sha256": "7bfeb0cb8d651a456286418aad17d5acaf017078301061174517009b905c5cb0"
+      }
+    }
+  },
+  "char_transformer_scratch": "CPU-trained from-scratch char transformer skipped: in E1 it took 1,141 s (5 epochs x ~220 s on 2 CPUs) and reached macro-F1 0.473 vs 0.776 for TF-IDF+LR (no pretrained weights available here). Deferred to GPU with a pretrained model.",
+  "environment": {
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "cpus": 2,
+    "memory": "8223868 kB",
+    "gpu": "none",
+    "python": "3.13.16",
+    "numpy": "2.5.3",
+    "sklearn": "1.9.1",
+    "torch": "2.14.1+cu130",
+    "torch_threads": 2,
+    "code_commit": "74ba971fdaa1ac2905e7e2298f90d36220885f6e"
+  },
+  "runtime_seconds": 53.1
+}

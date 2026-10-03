@@ -1,0 +1,310 @@
+{
+  "label": "REAL PUBLIC DATA",
+  "question": "Does text identify the source dataset (artefact) rather than scam behaviour?",
+  "sizes": {
+    "train": {
+      "imc25": 6000,
+      "india": 1551,
+      "sp24": 6000
+    },
+    "test": {
+      "imc25": 1500,
+      "india": 454,
+      "sp24": 1500
+    }
+  },
+  "probes": {
+    "text_raw": {
+      "balanced_accuracy": 0.964,
+      "macro_f1": 0.9585,
+      "per_source_recall": {
+        "imc25": 0.9593,
+        "india": 0.9427,
+        "sp24": 0.99
+      },
+      "chance_balanced_accuracy": 0.3333,
+      "top_features": {
+        "imc25": [
+          "<url>",
+          "<named_entity>",
+          "<date_time>",
+          "your",
+          "<location>",
+          "<phone_number>",
+          "<us_driver_license>",
+          "de",
+          "you",
+          "uw",
+          "visit <url>",
+          "link"
+        ],
+        "india": [
+          "i",
+          "bit ly",
+          "bit",
+          "\u00e2",
+          "ly",
+          "airtel",
+          "market",
+          "in",
+          "laptop",
+          "team",
+          "it",
+          "ok"
+        ],
+        "sp24": [
+          "com",
+          "https",
+          "info",
+          "http",
+          "net",
+          "www",
+          "visit",
+          "login",
+          "cc",
+          "l0gin",
+          "rom88 p",
+          "rom88"
+        ]
+      }
+    },
+    "text_masked": {
+      "balanced_accuracy": 0.9696,
+      "macro_f1": 0.9632,
+      "per_source_recall": {
+        "imc25": 0.9633,
+        "india": 0.9515,
+        "sp24": 0.994
+      },
+      "chance_balanced_accuracy": 0.3333,
+      "top_features": {
+        "imc25": [
+          "<mask>",
+          "your",
+          "de",
+          "you",
+          "uw",
+          "<mask> to",
+          "link",
+          "visit <mask>",
+          "dear",
+          "payment",
+          "sms",
+          "account"
+        ],
+        "india": [
+          "click <url>",
+          "\u00e2",
+          "i",
+          "market",
+          "laptop",
+          "team",
+          "airtel",
+          "it",
+          "ok",
+          "good",
+          "free",
+          "click"
+        ],
+        "sp24": [
+          "<url>",
+          "visit <url>",
+          "<num> <num>",
+          "here <url>",
+          "via <url>",
+          "<url> to",
+          "at <url>",
+          "package",
+          "optout",
+          "<url> <num>",
+          "optout <url>",
+          "your account"
+        ]
+      }
+    },
+    "text_stripped": {
+      "balanced_accuracy": 0.9072,
+      "macro_f1": 0.8957,
+      "per_source_recall": {
+        "imc25": 0.888,
+        "india": 0.8656,
+        "sp24": 0.968
+      },
+      "chance_balanced_accuracy": 0.3333,
+      "top_features": {
+        "imc25": [
+          "your",
+          "de",
+          "uw",
+          "link",
+          "you",
+          "sms",
+          "bank",
+          "para",
+          "number",
+          "payment",
+          "contact",
+          "en"
+        ],
+        "india": [
+          "click",
+          "\u00e2",
+          "i",
+          "market",
+          "airtel",
+          "laptop",
+          "it",
+          "team",
+          "the",
+          "ok",
+          "vi",
+          "good"
+        ],
+        "sp24": [
+          "optout",
+          "android",
+          "route",
+          "visit",
+          "package",
+          "l",
+          "your account",
+          "p",
+          "code",
+          "login code",
+          "login",
+          "rom p"
+        ]
+      }
+    },
+    "text_clean": {
+      "balanced_accuracy": 0.9184,
+      "macro_f1": 0.9037,
+      "per_source_recall": {
+        "imc25": 0.8907,
+        "india": 0.8965,
+        "sp24": 0.968
+      },
+      "chance_balanced_accuracy": 0.3333,
+      "top_features": {
+        "imc25": [
+          "your",
+          "de",
+          "uw",
+          "link",
+          "sms",
+          "bank",
+          "you",
+          "para",
+          "number",
+          "payment",
+          "contact",
+          "en"
+        ],
+        "india": [
+          "i",
+          "click",
+          "market",
+          "airtel",
+          "laptop",
+          "it",
+          "the",
+          "ok",
+          "team",
+          "vi",
+          "good",
+          "yes"
+        ],
+        "sp24": [
+          "optout",
+          "android",
+          "route",
+          "visit",
+          "l",
+          "p",
+          "code",
+          "package",
+          "login code",
+          "your account",
+          "login",
+          "rom"
+        ]
+      }
+    },
+    "artefact_features_only": {
+      "balanced_accuracy": 0.8838,
+      "macro_f1": 0.8536,
+      "per_source_recall": {
+        "imc25": 0.8253,
+        "india": 0.8326,
+        "sp24": 0.9933
+      },
+      "chance_balanced_accuracy": 0.3333
+    }
+  },
+  "controlled_same_label_probe": {
+    "what": "IMC'25 'spam' (unsolicited) vs India promotional 'spam' \u2014 same label, different source; group split by near-duplicate cluster",
+    "sizes": {
+      "imc25_spam": 1387,
+      "india_spam": 745
+    },
+    "results": {
+      "text_masked": {
+        "balanced_accuracy": 0.9891,
+        "macro_f1": 0.9891,
+        "per_source_recall": {
+          "imc25": 0.9927,
+          "india": 0.9855
+        },
+        "chance_balanced_accuracy": 0.5
+      },
+      "text_stripped": {
+        "balanced_accuracy": 0.9382,
+        "macro_f1": 0.9366,
+        "per_source_recall": {
+          "imc25": 0.9537,
+          "india": 0.9227
+        },
+        "chance_balanced_accuracy": 0.5
+      },
+      "text_clean": {
+        "balanced_accuracy": 0.9382,
+        "macro_f1": 0.9366,
+        "per_source_recall": {
+          "imc25": 0.9537,
+          "india": 0.9227
+        },
+        "chance_balanced_accuracy": 0.5
+      },
+      "text_clean_en": {
+        "balanced_accuracy": 0.9028,
+        "macro_f1": 0.907,
+        "per_source_recall": {
+          "imc25": 0.9524,
+          "india": 0.8532
+        },
+        "chance_balanced_accuracy": 0.5
+      }
+    }
+  },
+  "language_cue": {
+    "imc25_non_english_share_test": 0.3507,
+    "india_language": "English with some romanised Hindi (no language field)"
+  },
+  "excluded_records": {
+    "india_chat_export_artefacts": 35
+  },
+  "mitigation": "'stripped' removes placeholder tokens; 'clean' also repairs mojibake (ftfy) and the 35 chat-export placeholder rows are excluded. E3 is run on 'masked' and 'clean', and on an English-only IMC'25 subset.",
+  "environment": {
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "cpus": 2,
+    "memory": "8223868 kB",
+    "gpu": "none",
+    "python": "3.13.16",
+    "numpy": "2.5.3",
+    "sklearn": "1.9.1",
+    "torch": "2.14.1+cu130",
+    "torch_threads": 2,
+    "code_commit": "74ba971fdaa1ac2905e7e2298f90d36220885f6e"
+  },
+  "runtime_seconds": 11.9
+}

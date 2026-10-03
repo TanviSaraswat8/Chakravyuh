@@ -1,0 +1,75 @@
+{
+  "artifact": "experiments/real/artifacts/e1__char_transformer_scratch.pkl",
+  "sha256": "9e3f386f82345ec3beb279cc451e54269c6d1a80c5304ca11d6225cdfd03c7f2",
+  "bytes": 1376081,
+  "experiment": "e1",
+  "model": "char_transformer_scratch",
+  "track": "REAL PUBLIC DATA",
+  "created_at": "2026-10-03T15:45:17Z",
+  "code_commit": "74ba971fdaa1ac2905e7e2298f90d36220885f6e",
+  "task": "scam_type",
+  "split": "imc25_group_v1",
+  "config": {
+    "config": {
+      "max_len": 200,
+      "d": 96,
+      "layers": 2,
+      "heads": 4,
+      "epochs": 5,
+      "lr": 0.002,
+      "batch": 64,
+      "vocab_size": 2500
+    },
+    "history": [
+      {
+        "epoch": 1,
+        "val_macro_f1": 0.3818,
+        "seconds": 221.5
+      },
+      {
+        "epoch": 2,
+        "val_macro_f1": 0.4457,
+        "seconds": 222.7
+      },
+      {
+        "epoch": 3,
+        "val_macro_f1": 0.4418,
+        "seconds": 222.0
+      },
+      {
+        "epoch": 4,
+        "val_macro_f1": 0.4646,
+        "seconds": 219.8
+      },
+      {
+        "epoch": 5,
+        "val_macro_f1": 0.4495,
+        "seconds": 219.2
+      }
+    ],
+    "train_seconds": 1140.6,
+    "note": "trained from scratch on CPU; no pretrained weights"
+  },
+  "provenance": {
+    "datasets": {
+      "imc25_smishing": {
+        "version": "git a6175560b57387199871e51fbef6bc523d2516b4 (2025-09-12)",
+        "license": "CC-BY-4.0 (LICENSE.txt in the repository)",
+        "raw_sha256": {
+          "LICENSE.txt": "7e7170e3cebf88a9f60c7b8421418323c09304da1af4d5e90f4da1dc1c8a2661",
+          "final_dataset_output.csv": "1bbd1e9e82c3ea023112207b80da268a5c4a07d2353c2b0898360ab037fa9a64",
+          "time_day.csv": "a0f9afb70836990109e9ea687384e93b2a60fd7813e13f424ea7a9d062440b11"
+        },
+        "processed_file": "imc25_smishing.msg-v1.jsonl",
+        "processed_sha256": "ca5c4334edcfa9793be46c87f2f1eec6e8db46cee1338a9c8a46216bade3d702",
+        "real_or_synthetic": "REAL"
+      }
+    },
+    "splits": {
+      "imc25_group_v1": {
+        "file": "imc25_group_v1.json",
+        "sha256": "7bfeb0cb8d651a456286418aad17d5acaf017078301061174517009b905c5cb0"
+      }
+    }
+  }
+}

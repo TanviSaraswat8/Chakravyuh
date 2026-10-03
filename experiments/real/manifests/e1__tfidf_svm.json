@@ -1,0 +1,44 @@
+{
+  "artifact": "experiments/real/artifacts/e1__tfidf_svm.pkl",
+  "sha256": "ebafbb91287748b7e11997bf88c840c6023fb9a9426f7481191f47c5194bb014",
+  "bytes": 5560332,
+  "experiment": "e1",
+  "model": "tfidf_svm",
+  "track": "REAL PUBLIC DATA",
+  "created_at": "2026-10-03T15:25:59Z",
+  "code_commit": "74ba971fdaa1ac2905e7e2298f90d36220885f6e",
+  "task": "scam_type",
+  "split": "imc25_group_v1",
+  "config": {
+    "features": "word 1-2-gram TF-IDF",
+    "clf": "LinearSVC balanced; probabilities via sigmoid calibration on val (ECE only)",
+    "C_val_macro_f1": {
+      "0.1": 0.78,
+      "0.5": 0.7883,
+      "2.0": 0.7739
+    },
+    "train_seconds": 7.8
+  },
+  "provenance": {
+    "datasets": {
+      "imc25_smishing": {
+        "version": "git a6175560b57387199871e51fbef6bc523d2516b4 (2025-09-12)",
+        "license": "CC-BY-4.0 (LICENSE.txt in the repository)",
+        "raw_sha256": {
+          "LICENSE.txt": "7e7170e3cebf88a9f60c7b8421418323c09304da1af4d5e90f4da1dc1c8a2661",
+          "final_dataset_output.csv": "1bbd1e9e82c3ea023112207b80da268a5c4a07d2353c2b0898360ab037fa9a64",
+          "time_day.csv": "a0f9afb70836990109e9ea687384e93b2a60fd7813e13f424ea7a9d062440b11"
+        },
+        "processed_file": "imc25_smishing.msg-v1.jsonl",
+        "processed_sha256": "ca5c4334edcfa9793be46c87f2f1eec6e8db46cee1338a9c8a46216bade3d702",
+        "real_or_synthetic": "REAL"
+      }
+    },
+    "splits": {
+      "imc25_group_v1": {
+        "file": "imc25_group_v1.json",
+        "sha256": "7bfeb0cb8d651a456286418aad17d5acaf017078301061174517009b905c5cb0"
+      }
+    }
+  }
+}

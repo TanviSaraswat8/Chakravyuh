@@ -15,7 +15,9 @@ ignore = ["B008", "B905"]   # FastAPI Depends() defaults; zip() lengths are equa
 [tool.ruff.lint.per-file-ignores]
 "chakravyuh/sim/library.py" = ["E501"]
 "app/services/alert_text.py" = ["E501"]
-"chakravyuh/realdata/textnorm.py" = ["E501"]   # long regex alternations
+"chakravyuh/realdata/textnorm.py" = ["E501"]
+"chakravyuh/realdata/expkit.py" = ["E501"]       # experiment metadata dicts
+"chakravyuh/realdata/expmodels.py" = ["E501"]    # keyword lexicons   # long regex alternations
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

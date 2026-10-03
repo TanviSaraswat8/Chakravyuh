@@ -1,0 +1,1149 @@
+{
+  "label": "REAL PUBLIC DATA (IMC'25 scams + India SMS legitimate/promotional). The legitimate and promotional classes are small and come from a different source than the scams (see E0): treat in-distribution numbers as optimistic.",
+  "task": "3-class scam / legit / promo; scam is the positive class for binary metrics",
+  "splits": [
+    "imc25_group_v1",
+    "india_spam_sms_junioralive_group_v1",
+    "sp24_temporal_v1 (external test only)"
+  ],
+  "class_distribution": {
+    "train": {
+      "scam": 22466,
+      "promo": 507,
+      "legit": 1044
+    },
+    "val": {
+      "scam": 3208,
+      "promo": 94,
+      "legit": 133
+    },
+    "test": {
+      "scam": 6404,
+      "promo": 144,
+      "legit": 310
+    }
+  },
+  "provenance": {
+    "datasets": {
+      "imc25_smishing": {
+        "version": "git a6175560b57387199871e51fbef6bc523d2516b4 (2025-09-12)",
+        "license": "CC-BY-4.0 (LICENSE.txt in the repository)",
+        "raw_sha256": {
+          "LICENSE.txt": "7e7170e3cebf88a9f60c7b8421418323c09304da1af4d5e90f4da1dc1c8a2661",
+          "final_dataset_output.csv": "1bbd1e9e82c3ea023112207b80da268a5c4a07d2353c2b0898360ab037fa9a64",
+          "time_day.csv": "a0f9afb70836990109e9ea687384e93b2a60fd7813e13f424ea7a9d062440b11"
+        },
+        "processed_file": "imc25_smishing.msg-v1.jsonl",
+        "processed_sha256": "ca5c4334edcfa9793be46c87f2f1eec6e8db46cee1338a9c8a46216bade3d702",
+        "real_or_synthetic": "REAL"
+      },
+      "india_spam_sms_junioralive": {
+        "version": "git 09137cc677a7d8d24caef0817de41f55a6b3ed44 (2024-09-06)",
+        "license": "MIT (repository LICENSE, Copyright (c) 2024 JuniorAlive)",
+        "raw_sha256": {
+          "LICENSE": "203ac8eb9e2c16d5cd517c24732f87003f0b9be3e3bfd3ec3253d2cb6b61cb8d",
+          "spam_ham_india.csv": "e6a28126d1c4ec9d805a10cd89f2de2bb63650532102e9f35ab05c909c3a79f3"
+        },
+        "processed_file": "india_spam_sms_junioralive.msg-v1.jsonl",
+        "processed_sha256": "213cc72fd88e3e49582e4a2866f555288581773da84a60691beb8bcd34519b9e",
+        "real_or_synthetic": "REAL"
+      },
+      "sp24_gateway_phishing": {
+        "version": "git a4f18cedc9909cbf8234eea3c2028080a1e95cd4 (2025-12-01)",
+        "license": "MIT (LICENSE file in the repository)",
+        "raw_sha256": {
+          "LICENSE": "1739c7ecb4fa71012827c7e1068ae4eb6dc8c5c9c122f72dba939cc0d930897b",
+          "phishing_campaigns.csv": "f23a56037ca3e4d5aceb34536c11c7fff37174f7618ff943e855820f550600a5",
+          "phishing_messages.csv": "d125c394af792faeb2b71b3f7100cad3b4cece02aff78cb4ec1fb9e7db90f230"
+        },
+        "processed_file": "sp24_gateway_phishing.msg-v1.jsonl",
+        "processed_sha256": "9f7f96d2d81105e34bf69af3eb0feddbd49fa52be1eb0b9a9030ecbe7c7fc1da",
+        "real_or_synthetic": "REAL"
+      }
+    },
+    "splits": {
+      "imc25_group_v1": {
+        "file": "imc25_group_v1.json",
+        "sha256": "7bfeb0cb8d651a456286418aad17d5acaf017078301061174517009b905c5cb0"
+      },
+      "india_spam_sms_junioralive_group_v1": {
+        "file": "india_spam_sms_junioralive_group_v1.json",
+        "sha256": "29231a95347cba9c4ecf8b3a396c024f87bb448357cdbb18bd0ee37c3c86c8ba"
+      },
+      "sp24_temporal_v1": {
+        "file": "sp24_temporal_v1.json",
+        "sha256": "1928e4b5a58ade7dbc42885a2c2d4233eb685db85710748a0d8165bed2f817d5"
+      }
+    }
+  },
+  "variants": {
+    "masked": {
+      "purged_test_near_duplicates_of_train": 352,
+      "purged_sp24_near_duplicates_of_train": 27,
+      "test_distribution_after_purge": {
+        "scam": 6057,
+        "promo": 142,
+        "legit": 307
+      },
+      "models": {
+        "rules": {
+          "argmax_decision": {
+            "n": 6506,
+            "scam": 6057,
+            "legit": 307,
+            "promo": 142,
+            "precision": 0.9963,
+            "recall": 0.3115,
+            "fnr": 0.6885,
+            "f1": 0.4746,
+            "fpr_legit": 0.013,
+            "fpr_legit_95ci": [
+              0.003257328990228013,
+              0.026058631921824105
+            ],
+            "fpr_promo": 0.0211,
+            "fpr_promo_95ci": [
+              0.0,
+              0.04929577464788732
+            ],
+            "pr_auc": 0.9593,
+            "roc_auc": 0.6947,
+            "ece_scam_probability": 0.4269,
+            "recall_95ci": [
+              0.2999793627208189,
+              0.3230972428595014
+            ]
+          },
+          "confusion_3class": {
+            "labels": [
+              "scam",
+              "legit",
+              "promo"
+            ],
+            "matrix": [
+              [
+                1887,
+                3749,
+                421
+              ],
+              [
+                4,
+                293,
+                10
+              ],
+              [
+                3,
+                39,
+                100
+              ]
+            ],
+            "rows": "true",
+            "cols": "predicted"
+          },
+          "subsets_recall": {
+            "imc25_english_only": {
+              "n": 3959,
+              "recall": 0.4572
+            },
+            "imc25_non_english": {
+              "n": 2098,
+              "recall": 0.0367
+            },
+            "imc25_india_network": {
+              "n": 591,
+              "recall": 0.7631
+            }
+          },
+          "external_sp24": {
+            "label": "EXTERNAL TEST (unseen source, scams only: recall/FNR only)",
+            "test_seen_campaign": {
+              "n": 3072,
+              "recall_argmax": 0.0013
+            },
+            "test_novel_campaign": {
+              "n": 10509,
+              "recall_argmax": 0.0048
+            }
+          },
+          "latency": {
+            "p50_ms": 0.013,
+            "p95_ms": 0.048,
+            "n": 300,
+            "mode": "one message per call, CPU, includes feature extraction"
+          },
+          "lexicon": "expmodels.SCAM_LEGIT_PROMO_LEXICON"
+        },
+        "tfidf_lr": {
+          "argmax_decision": {
+            "n": 6506,
+            "scam": 6057,
+            "legit": 307,
+            "promo": 142,
+            "precision": 0.9938,
+            "recall": 0.987,
+            "fnr": 0.013,
+            "f1": 0.9904,
+            "fpr_legit": 0.0912,
+            "fpr_legit_95ci": [
+              0.06188925081433225,
+              0.1237785016286645
+            ],
+            "fpr_promo": 0.0634,
+            "fpr_promo_95ci": [
+              0.028169014084507043,
+              0.1056338028169014
+            ],
+            "pr_auc": 0.9997,
+            "roc_auc": 0.9962,
+            "ece_scam_probability": 0.022,
+            "recall_95ci": [
+              0.9839854713554564,
+              0.9897639095261681
+            ]
+          },
+          "confusion_3class": {
+            "labels": [
+              "scam",
+              "legit",
+              "promo"
+            ],
+            "matrix": [
+              [
+                5978,
+                73,
+                6
+              ],
+              [
+                28,
+                279,
+                0
+              ],
+              [
+                9,
+                0,
+                133
+              ]
+            ],
+            "rows": "true",
+            "cols": "predicted"
+          },
+          "fpr_legit_1pct_on_val": {
+            "threshold": 0.8231,
+            "val_legit_n": 133,
+            "n": 6506,
+            "scam": 6057,
+            "legit": 307,
+            "promo": 142,
+            "precision": 0.9991,
+            "recall": 0.9589,
+            "fnr": 0.0411,
+            "f1": 0.9786,
+            "fpr_legit": 0.0098,
+            "fpr_legit_95ci": [
+              0.0,
+              0.02280130293159609
+            ],
+            "fpr_promo": 0.0141,
+            "fpr_promo_95ci": [
+              0.0,
+              0.035211267605633804
+            ],
+            "pr_auc": 0.9997,
+            "roc_auc": 0.9962,
+            "ece_scam_probability": 0.022,
+            "recall_95ci": [
+              0.9537724946343075,
+              0.9636825160970778
+            ]
+          },
+          "subsets_recall": {
+            "imc25_english_only": {
+              "n": 3959,
+              "recall": 0.9904
+            },
+            "imc25_non_english": {
+              "n": 2098,
+              "recall": 0.9805
+            },
+            "imc25_india_network": {
+              "n": 591,
+              "recall": 0.9983
+            }
+          },
+          "external_sp24": {
+            "label": "EXTERNAL TEST (unseen source, scams only: recall/FNR only)",
+            "test_seen_campaign": {
+              "n": 3072,
+              "recall_argmax": 0.9889
+            },
+            "test_novel_campaign": {
+              "n": 10509,
+              "recall_argmax": 0.0265
+            },
+            "recall_at_val_threshold": 0.0055
+          },
+          "latency": {
+            "p50_ms": 0.61,
+            "p95_ms": 0.757,
+            "n": 300,
+            "mode": "one message per call, CPU, includes feature extraction"
+          },
+          "clf": "LogisticRegression balanced",
+          "C_val_macro_f1": {
+            "0.5": 0.933,
+            "2.0": 0.9488,
+            "8.0": 0.9588
+          },
+          "train_seconds": 7.9,
+          "artifact_sha256": "e6ecebdea4ec934b6b055f18c1a28304ebdf70d490abe99ef1de883290b0e8a6",
+          "manifest": "experiments/real/manifests/e3__masked__tfidf_lr.json"
+        },
+        "tfidf_svm": {
+          "argmax_decision": {
+            "n": 6506,
+            "scam": 6057,
+            "legit": 307,
+            "promo": 142,
+            "precision": 0.9909,
+            "recall": 0.9934,
+            "fnr": 0.0066,
+            "f1": 0.9921,
+            "fpr_legit": 0.1466,
+            "fpr_legit_95ci": [
+              0.10749185667752444,
+              0.18566775244299674
+            ],
+            "fpr_promo": 0.0704,
+            "fpr_promo_95ci": [
+              0.035211267605633804,
+              0.11267605633802817
+            ],
+            "pr_auc": 0.9997,
+            "roc_auc": 0.9959,
+            "ece_scam_probability": 0.0064,
+            "recall_95ci": [
+              0.9912497936272082,
+              0.9953772494634308
+            ]
+          },
+          "confusion_3class": {
+            "labels": [
+              "scam",
+              "legit",
+              "promo"
+            ],
+            "matrix": [
+              [
+                6017,
+                37,
+                3
+              ],
+              [
+                45,
+                262,
+                0
+              ],
+              [
+                10,
+                0,
+                132
+              ]
+            ],
+            "rows": "true",
+            "cols": "predicted"
+          },
+          "fpr_legit_1pct_on_val": {
+            "threshold": 0.9675,
+            "val_legit_n": 133,
+            "n": 6506,
+            "scam": 6057,
+            "legit": 307,
+            "promo": 142,
+            "precision": 0.9991,
+            "recall": 0.9389,
+            "fnr": 0.0611,
+            "f1": 0.9681,
+            "fpr_legit": 0.0098,
+            "fpr_legit_95ci": [
+              0.0,
+              0.02280130293159609
+            ],
+            "fpr_promo": 0.0141,
+            "fpr_promo_95ci": [
+              0.0,
+              0.035211267605633804
+            ],
+            "pr_auc": 0.9997,
+            "roc_auc": 0.9959,
+            "ece_scam_probability": 0.0064,
+            "recall_95ci": [
+              0.9329701172197458,
+              0.9445269935611689
+            ]
+          },
+          "subsets_recall": {
+            "imc25_english_only": {
+              "n": 3959,
+              "recall": 0.9944
+            },
+            "imc25_non_english": {
+              "n": 2098,
+              "recall": 0.9914
+            },
+            "imc25_india_network": {
+              "n": 591,
+              "recall": 1.0
+            }
+          },
+          "external_sp24": {
+            "label": "EXTERNAL TEST (unseen source, scams only: recall/FNR only)",
+            "test_seen_campaign": {
+              "n": 3072,
+              "recall_argmax": 0.9899
+            },
+            "test_novel_campaign": {
+              "n": 10509,
+              "recall_argmax": 0.8546
+            },
+            "recall_at_val_threshold": 0.0027
+          },
+          "latency": {
+            "p50_ms": 1.012,
+            "p95_ms": 1.196,
+            "n": 300,
+            "mode": "one message per call, CPU, includes feature extraction"
+          },
+          "clf": "LinearSVC balanced; probabilities = sigmoid calibration fitted on val (so the val-threshold rule is optimistic)",
+          "C_val_macro_f1": {
+            "0.1": 0.9332,
+            "0.5": 0.9458,
+            "2.0": 0.9435
+          },
+          "train_seconds": 4.2,
+          "artifact_sha256": "596853caefbceeaf07824a335ba5a1c8b2299c0b355a82c32888cfad768868d0",
+          "manifest": "experiments/real/manifests/e3__masked__tfidf_svm.json"
+        },
+        "chakravyuh_tagger_arch": {
+          "argmax_decision": {
+            "n": 6506,
+            "scam": 6057,
+            "legit": 307,
+            "promo": 142,
+            "precision": 0.9953,
+            "recall": 0.9886,
+            "fnr": 0.0114,
+            "f1": 0.9919,
+            "fpr_legit": 0.0847,
+            "fpr_legit_95ci": [
+              0.05537459283387622,
+              0.11726384364820847
+            ],
+            "fpr_promo": 0.0141,
+            "fpr_promo_95ci": [
+              0.0,
+              0.035211267605633804
+            ],
+            "pr_auc": 0.9998,
+            "roc_auc": 0.9977,
+            "ece_scam_probability": 0.026,
+            "recall_95ci": [
+              0.9859625227010071,
+              0.9910846953937593
+            ]
+          },
+          "confusion_3class": {
+            "labels": [
+              "scam",
+              "legit",
+              "promo"
+            ],
+            "matrix": [
+              [
+                5988,
+                60,
+                9
+              ],
+              [
+                26,
+                281,
+                0
+              ],
+              [
+                2,
+                5,
+                135
+              ]
+            ],
+            "rows": "true",
+            "cols": "predicted"
+          },
+          "fpr_legit_1pct_on_val": {
+            "threshold": 0.7721,
+            "val_legit_n": 133,
+            "n": 6506,
+            "scam": 6057,
+            "legit": 307,
+            "promo": 142,
+            "precision": 0.9995,
+            "recall": 0.9605,
+            "fnr": 0.0395,
+            "f1": 0.9796,
+            "fpr_legit": 0.0033,
+            "fpr_legit_95ci": [
+              0.0,
+              0.009771986970684038
+            ],
+            "fpr_promo": 0.0141,
+            "fpr_promo_95ci": [
+              0.0,
+              0.035211267605633804
+            ],
+            "pr_auc": 0.9998,
+            "roc_auc": 0.9977,
+            "ece_scam_probability": 0.026,
+            "recall_95ci": [
+              0.955914644213307,
+              0.9654944692091795
+            ]
+          },
+          "subsets_recall": {
+            "imc25_english_only": {
+              "n": 3959,
+              "recall": 0.9864
+            },
+            "imc25_non_english": {
+              "n": 2098,
+              "recall": 0.9929
+            },
+            "imc25_india_network": {
+              "n": 591,
+              "recall": 0.9882
+            }
+          },
+          "external_sp24": {
+            "label": "EXTERNAL TEST (unseen source, scams only: recall/FNR only)",
+            "test_seen_campaign": {
+              "n": 3072,
+              "recall_argmax": 0.0023
+            },
+            "test_novel_campaign": {
+              "n": 10509,
+              "recall_argmax": 0.0118
+            },
+            "recall_at_val_threshold": 0.0011
+          },
+          "latency": {
+            "p50_ms": 1.201,
+            "p95_ms": 2.12,
+            "n": 300,
+            "mode": "one message per call, CPU, includes feature extraction"
+          },
+          "clf": "TacticTagger pipeline retrained",
+          "train_seconds": 9.5,
+          "artifact_sha256": "31b522afbade1f8217e82cfff4868ab3fa4aa6a71df87590efe2229113f7c635",
+          "manifest": "experiments/real/manifests/e3__masked__chakravyuh_tagger_arch.json"
+        }
+      }
+    },
+    "clean": {
+      "purged_test_near_duplicates_of_train": 518,
+      "purged_sp24_near_duplicates_of_train": 26,
+      "test_distribution_after_purge": {
+        "scam": 5894,
+        "promo": 142,
+        "legit": 304
+      },
+      "models": {
+        "rules": {
+          "argmax_decision": {
+            "n": 6340,
+            "scam": 5894,
+            "legit": 304,
+            "promo": 142,
+            "precision": 0.9962,
+            "recall": 0.312,
+            "fnr": 0.688,
+            "f1": 0.4752,
+            "fpr_legit": 0.0132,
+            "fpr_legit_95ci": [
+              0.003289473684210526,
+              0.02631578947368421
+            ],
+            "fpr_promo": 0.0211,
+            "fpr_promo_95ci": [
+              0.0,
+              0.04929577464788732
+            ],
+            "pr_auc": 0.9585,
+            "roc_auc": 0.6945,
+            "ece_scam_probability": 0.4259,
+            "recall_95ci": [
+              0.3006447234475738,
+              0.32354937224295893
+            ]
+          },
+          "confusion_3class": {
+            "labels": [
+              "scam",
+              "legit",
+              "promo"
+            ],
+            "matrix": [
+              [
+                1839,
+                3632,
+                423
+              ],
+              [
+                4,
+                290,
+                10
+              ],
+              [
+                3,
+                39,
+                100
+              ]
+            ],
+            "rows": "true",
+            "cols": "predicted"
+          },
+          "subsets_recall": {
+            "imc25_english_only": {
+              "n": 3830,
+              "recall": 0.4601
+            },
+            "imc25_non_english": {
+              "n": 2064,
+              "recall": 0.0373
+            },
+            "imc25_india_network": {
+              "n": 548,
+              "recall": 0.7701
+            }
+          },
+          "external_sp24": {
+            "label": "EXTERNAL TEST (unseen source, scams only: recall/FNR only)",
+            "test_seen_campaign": {
+              "n": 3072,
+              "recall_argmax": 0.0013
+            },
+            "test_novel_campaign": {
+              "n": 10510,
+              "recall_argmax": 0.0048
+            }
+          },
+          "latency": {
+            "p50_ms": 0.012,
+            "p95_ms": 0.048,
+            "n": 300,
+            "mode": "one message per call, CPU, includes feature extraction"
+          },
+          "lexicon": "expmodels.SCAM_LEGIT_PROMO_LEXICON"
+        },
+        "tfidf_lr": {
+          "argmax_decision": {
+            "n": 6340,
+            "scam": 5894,
+            "legit": 304,
+            "promo": 142,
+            "precision": 0.9903,
+            "recall": 0.9708,
+            "fnr": 0.0292,
+            "f1": 0.9805,
+            "fpr_legit": 0.1217,
+            "fpr_legit_95ci": [
+              0.08881578947368421,
+              0.15789473684210525
+            ],
+            "fpr_promo": 0.1338,
+            "fpr_promo_95ci": [
+              0.08450704225352113,
+              0.19014084507042253
+            ],
+            "pr_auc": 0.9985,
+            "roc_auc": 0.9832,
+            "ece_scam_probability": 0.0384,
+            "recall_95ci": [
+              0.9664065151001018,
+              0.9752290464879538
+            ]
+          },
+          "confusion_3class": {
+            "labels": [
+              "scam",
+              "legit",
+              "promo"
+            ],
+            "matrix": [
+              [
+                5722,
+                106,
+                66
+              ],
+              [
+                37,
+                267,
+                0
+              ],
+              [
+                19,
+                1,
+                122
+              ]
+            ],
+            "rows": "true",
+            "cols": "predicted"
+          },
+          "fpr_legit_1pct_on_val": {
+            "threshold": 0.9521,
+            "val_legit_n": 133,
+            "n": 6340,
+            "scam": 5894,
+            "legit": 304,
+            "promo": 142,
+            "precision": 0.9986,
+            "recall": 0.8198,
+            "fnr": 0.1802,
+            "f1": 0.9004,
+            "fpr_legit": 0.0164,
+            "fpr_legit_95ci": [
+              0.003289473684210526,
+              0.03289473684210526
+            ],
+            "fpr_promo": 0.0141,
+            "fpr_promo_95ci": [
+              0.0,
+              0.035211267605633804
+            ],
+            "pr_auc": 0.9985,
+            "roc_auc": 0.9832,
+            "ece_scam_probability": 0.0384,
+            "recall_95ci": [
+              0.8098065829657278,
+              0.829657278588395
+            ]
+          },
+          "subsets_recall": {
+            "imc25_english_only": {
+              "n": 3830,
+              "recall": 0.9713
+            },
+            "imc25_non_english": {
+              "n": 2064,
+              "recall": 0.97
+            },
+            "imc25_india_network": {
+              "n": 548,
+              "recall": 0.9909
+            }
+          },
+          "external_sp24": {
+            "label": "EXTERNAL TEST (unseen source, scams only: recall/FNR only)",
+            "test_seen_campaign": {
+              "n": 3072,
+              "recall_argmax": 0.9974
+            },
+            "test_novel_campaign": {
+              "n": 10510,
+              "recall_argmax": 0.9972
+            },
+            "recall_at_val_threshold": 0.2542
+          },
+          "latency": {
+            "p50_ms": 0.66,
+            "p95_ms": 1.102,
+            "n": 300,
+            "mode": "one message per call, CPU, includes feature extraction"
+          },
+          "clf": "LogisticRegression balanced",
+          "C_val_macro_f1": {
+            "0.5": 0.8521,
+            "2.0": 0.8457,
+            "8.0": 0.8573
+          },
+          "train_seconds": 9.7,
+          "artifact_sha256": "44a7e2f0561a1b47b778fce96bc72b3225d8a2a685884810dd74bf1db619a6a7",
+          "manifest": "experiments/real/manifests/e3__clean__tfidf_lr.json"
+        },
+        "tfidf_svm": {
+          "argmax_decision": {
+            "n": 6340,
+            "scam": 5894,
+            "legit": 304,
+            "promo": 142,
+            "precision": 0.985,
+            "recall": 0.9898,
+            "fnr": 0.0102,
+            "f1": 0.9874,
+            "fpr_legit": 0.2138,
+            "fpr_legit_95ci": [
+              0.16776315789473684,
+              0.2598684210526316
+            ],
+            "fpr_promo": 0.169,
+            "fpr_promo_95ci": [
+              0.11267605633802817,
+              0.2323943661971831
+            ],
+            "pr_auc": 0.9981,
+            "roc_auc": 0.981,
+            "ece_scam_probability": 0.0116,
+            "recall_95ci": [
+              0.9871055310485239,
+              0.992365117068205
+            ]
+          },
+          "confusion_3class": {
+            "labels": [
+              "scam",
+              "legit",
+              "promo"
+            ],
+            "matrix": [
+              [
+                5834,
+                37,
+                23
+              ],
+              [
+                65,
+                239,
+                0
+              ],
+              [
+                24,
+                1,
+                117
+              ]
+            ],
+            "rows": "true",
+            "cols": "predicted"
+          },
+          "fpr_legit_1pct_on_val": {
+            "threshold": 0.9877,
+            "val_legit_n": 133,
+            "n": 6340,
+            "scam": 5894,
+            "legit": 304,
+            "promo": 142,
+            "precision": 0.9975,
+            "recall": 0.812,
+            "fnr": 0.188,
+            "f1": 0.8952,
+            "fpr_legit": 0.0164,
+            "fpr_legit_95ci": [
+              0.003289473684210526,
+              0.03289473684210526
+            ],
+            "fpr_promo": 0.0493,
+            "fpr_promo_95ci": [
+              0.014084507042253521,
+              0.09154929577464789
+            ],
+            "pr_auc": 0.9981,
+            "roc_auc": 0.981,
+            "ece_scam_probability": 0.0116,
+            "recall_95ci": [
+              0.8021717000339328,
+              0.8221920597217509
+            ]
+          },
+          "subsets_recall": {
+            "imc25_english_only": {
+              "n": 3830,
+              "recall": 0.988
+            },
+            "imc25_non_english": {
+              "n": 2064,
+              "recall": 0.9932
+            },
+            "imc25_india_network": {
+              "n": 548,
+              "recall": 0.9982
+            }
+          },
+          "external_sp24": {
+            "label": "EXTERNAL TEST (unseen source, scams only: recall/FNR only)",
+            "test_seen_campaign": {
+              "n": 3072,
+              "recall_argmax": 0.999
+            },
+            "test_novel_campaign": {
+              "n": 10510,
+              "recall_argmax": 0.999
+            },
+            "recall_at_val_threshold": 0.6007
+          },
+          "latency": {
+            "p50_ms": 0.582,
+            "p95_ms": 0.723,
+            "n": 300,
+            "mode": "one message per call, CPU, includes feature extraction"
+          },
+          "clf": "LinearSVC balanced; probabilities = sigmoid calibration fitted on val (so the val-threshold rule is optimistic)",
+          "C_val_macro_f1": {
+            "0.1": 0.845,
+            "0.5": 0.8877,
+            "2.0": 0.8987
+          },
+          "train_seconds": 4.2,
+          "artifact_sha256": "aab41e66adf392c8f42436f4c8fd373780ca02105365d63c49263d4e5420f00c",
+          "manifest": "experiments/real/manifests/e3__clean__tfidf_svm.json"
+        },
+        "chakravyuh_tagger_arch": {
+          "argmax_decision": {
+            "n": 6340,
+            "scam": 5894,
+            "legit": 304,
+            "promo": 142,
+            "precision": 0.9903,
+            "recall": 0.9717,
+            "fnr": 0.0283,
+            "f1": 0.9809,
+            "fpr_legit": 0.1283,
+            "fpr_legit_95ci": [
+              0.08881578947368421,
+              0.16447368421052633
+            ],
+            "fpr_promo": 0.1197,
+            "fpr_promo_95ci": [
+              0.07042253521126761,
+              0.176056338028169
+            ],
+            "pr_auc": 0.9989,
+            "roc_auc": 0.9867,
+            "ece_scam_probability": 0.0441,
+            "recall_95ci": [
+              0.96758992195453,
+              0.9759077027485579
+            ]
+          },
+          "confusion_3class": {
+            "labels": [
+              "scam",
+              "legit",
+              "promo"
+            ],
+            "matrix": [
+              [
+                5727,
+                87,
+                80
+              ],
+              [
+                39,
+                265,
+                0
+              ],
+              [
+                17,
+                3,
+                122
+              ]
+            ],
+            "rows": "true",
+            "cols": "predicted"
+          },
+          "fpr_legit_1pct_on_val": {
+            "threshold": 0.9558,
+            "val_legit_n": 133,
+            "n": 6340,
+            "scam": 5894,
+            "legit": 304,
+            "promo": 142,
+            "precision": 0.9993,
+            "recall": 0.7682,
+            "fnr": 0.2318,
+            "f1": 0.8686,
+            "fpr_legit": 0.0033,
+            "fpr_legit_95ci": [
+              0.0,
+              0.009868421052631578
+            ],
+            "fpr_promo": 0.0141,
+            "fpr_promo_95ci": [
+              0.0,
+              0.035211267605633804
+            ],
+            "pr_auc": 0.9989,
+            "roc_auc": 0.9867,
+            "ece_scam_probability": 0.0441,
+            "recall_95ci": [
+              0.7578893790295216,
+              0.7785883949779436
+            ]
+          },
+          "subsets_recall": {
+            "imc25_english_only": {
+              "n": 3830,
+              "recall": 0.9595
+            },
+            "imc25_non_english": {
+              "n": 2064,
+              "recall": 0.9942
+            },
+            "imc25_india_network": {
+              "n": 548,
+              "recall": 0.9854
+            }
+          },
+          "external_sp24": {
+            "label": "EXTERNAL TEST (unseen source, scams only: recall/FNR only)",
+            "test_seen_campaign": {
+              "n": 3072,
+              "recall_argmax": 0.9971
+            },
+            "test_novel_campaign": {
+              "n": 10510,
+              "recall_argmax": 0.998
+            },
+            "recall_at_val_threshold": 0.9743
+          },
+          "latency": {
+            "p50_ms": 1.067,
+            "p95_ms": 1.796,
+            "n": 300,
+            "mode": "one message per call, CPU, includes feature extraction"
+          },
+          "clf": "TacticTagger pipeline retrained",
+          "train_seconds": 6.3,
+          "artifact_sha256": "56cc0133208122649fbbfd1b355543d7ab6e4623a987f6df06471027c18a4755",
+          "manifest": "experiments/real/manifests/e3__clean__chakravyuh_tagger_arch.json"
+        },
+        "shipped_synthetic_tagger_zero_shot": {
+          "argmax_decision": {
+            "n": 6340,
+            "scam": 5894,
+            "legit": 304,
+            "promo": 142,
+            "precision": 0.9366,
+            "recall": 0.7416,
+            "fnr": 0.2584,
+            "f1": 0.8278,
+            "fpr_legit": 0.6053,
+            "fpr_legit_95ci": [
+              0.5493421052631579,
+              0.6578947368421053
+            ],
+            "fpr_promo": 0.7887,
+            "fpr_promo_95ci": [
+              0.7183098591549296,
+              0.852112676056338
+            ],
+            "pr_auc": 0.942,
+            "roc_auc": 0.5567,
+            "ece_scam_probability": 0.2822,
+            "recall_95ci": [
+              0.7305734645402104,
+              0.7526297930098406
+            ]
+          },
+          "confusion_3class": {
+            "labels": [
+              "scam",
+              "legit",
+              "promo"
+            ],
+            "matrix": [
+              [
+                4371,
+                1523,
+                0
+              ],
+              [
+                184,
+                120,
+                0
+              ],
+              [
+                112,
+                30,
+                0
+              ]
+            ],
+            "rows": "true",
+            "cols": "predicted"
+          },
+          "fpr_legit_1pct_on_val": {
+            "threshold": 0.9216,
+            "val_legit_n": 133,
+            "n": 6340,
+            "scam": 5894,
+            "legit": 304,
+            "promo": 142,
+            "precision": 0.9573,
+            "recall": 0.0799,
+            "fnr": 0.9201,
+            "f1": 0.1475,
+            "fpr_legit": 0.0395,
+            "fpr_legit_95ci": [
+              0.019736842105263157,
+              0.0625
+            ],
+            "fpr_promo": 0.0634,
+            "fpr_promo_95ci": [
+              0.028169014084507043,
+              0.1056338028169014
+            ],
+            "pr_auc": 0.942,
+            "roc_auc": 0.5567,
+            "ece_scam_probability": 0.2822,
+            "recall_95ci": [
+              0.07278588394977943,
+              0.08737699355276553
+            ]
+          },
+          "subsets_recall": {
+            "imc25_english_only": {
+              "n": 3830,
+              "recall": 0.7324
+            },
+            "imc25_non_english": {
+              "n": 2064,
+              "recall": 0.7587
+            },
+            "imc25_india_network": {
+              "n": 548,
+              "recall": 0.8066
+            }
+          },
+          "external_sp24": {
+            "label": "EXTERNAL TEST (unseen source, scams only: recall/FNR only)",
+            "test_seen_campaign": {
+              "n": 3072,
+              "recall_argmax": 0.3021
+            },
+            "test_novel_campaign": {
+              "n": 10510,
+              "recall_argmax": 0.1865
+            },
+            "recall_at_val_threshold": 0.0004
+          },
+          "latency": {
+            "p50_ms": 2.731,
+            "p95_ms": 3.477,
+            "n": 300,
+            "mode": "one message per call, CPU, includes feature extraction"
+          },
+          "label": "SYNTHETIC-TRAINED (simulator only) p_scam, zero-shot on REAL PUBLIC DATA; binary, no promo class"
+        }
+      },
+      "char_transformer_scratch": "CPU-trained from-scratch char transformer skipped: in E1 it took 1,141 s (5 epochs x ~220 s on 2 CPUs) and reached macro-F1 0.473 vs 0.776 for TF-IDF+LR (no pretrained weights available here). Deferred to GPU with a pretrained model."
+    }
+  },
+  "moz_smishing": "UNSUPPORTED: not acquired (requires local download) and dataset licence unresolved; not evaluated.",
+  "environment": {
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "cpus": 2,
+    "memory": "8223868 kB",
+    "gpu": "none",
+    "python": "3.13.16",
+    "numpy": "2.5.3",
+    "sklearn": "1.9.1",
+    "torch": "2.14.1+cu130",
+    "torch_threads": 2,
+    "code_commit": "74ba971fdaa1ac2905e7e2298f90d36220885f6e"
+  },
+  "runtime_seconds": 88.7
+}

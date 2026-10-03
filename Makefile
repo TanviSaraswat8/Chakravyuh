@@ -2,7 +2,7 @@
 PY ?= python3
 BACKEND = backend
 
-.PHONY: help setup data train api user web test lint build up down sft data-real validate-real audit-leakage splits-real sft-real
+.PHONY: help setup data train api user web test lint build up down sft data-real validate-real audit-leakage splits-real sft-real experiments-real
 
 help:
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-10s %s\n", $$1, $$2}'
@@ -65,3 +65,6 @@ splits-real: ## Preprocess real data and build leakage-safe splits
 
 sft-real: ## Build Sentinel SFT files from real data (no training)
 	$(PY) sentinel/build_sft_real.py --config sentinel/configs/sentinel_real_v1.json
+
+experiments-real: ## Run real-data CPU experiments E0-E4 (results in experiments/real/results)
+	$(PY) scripts/run_real_experiments.py e0 e1 e2 e3 e4

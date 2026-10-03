@@ -1,0 +1,9 @@
+== e1
+  E1 rules: macro-F1 0.4938
+  E1 tfidf_lr: macro-F1 0.7762
+/usr/local/lib/python3.13/dist-packages/sklearn/svm/_base.py:1295: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  warnings.warn(
+  E1 tfidf_svm: macro-F1 0.771
+  E1 chakravyuh_tagger_arch: macro-F1 0.7716
+  E1 char_transformer_scratch: macro-F1 0.4731
+   wrote /home/claude/chakravyuh/experiments/real/results/e1.json in 1208.0s

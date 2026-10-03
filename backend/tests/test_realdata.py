@@ -123,3 +123,22 @@ def test_single_class_tests_report_recall_only():
 def test_degenerate_texts_do_not_crash(text):
     assert near_dup_clusters([text, text]) == near_dup_clusters([text, text])
     assert isinstance(dedup_key(text), str)
+
+
+def test_experiment_text_variants_and_helpers():
+    import numpy as np
+
+    from chakravyuh.realdata import expkit as K
+    rec = {"text": "Your parcel <NAMED_ENTITY> is held: https://x.ly/1 Itâ€™s urgent", "text_masked":
+           masked("Your parcel <NAMED_ENTITY> is held: https://x.ly/1 Itâ€™s urgent")}
+    assert "<MASK>" in K.variant(rec, "masked")
+    assert "<" not in K.variant(rec, "stripped")
+    assert "<" not in K.variant(rec, "clean")
+    assert K.is_export_artefact({"text": "?image omitted"}) and not K.is_export_artefact({"text": "hello"})
+    keep = K.purge_test_near_dups(["Your SBI account is blocked update KYC now at link"],
+                                  ["Your SBI account is BLOCKED, update KYC now at link", "lunch at one?"])
+    assert keep == [False, True]
+    lo, hi = K.bootstrap_rate(np.array([0.0] * 90 + [1.0] * 10))
+    assert lo < 0.1 < hi
+    P = np.array([[0.9, 0.1], [0.6, 0.4]])
+    assert 0 <= K.ece_top_label(P, np.array([0, 1])) <= 1

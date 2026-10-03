@@ -1,4 +1,6 @@
-# Real-data training plan (awaiting approval; nothing trained yet)
+# Real-data training plan
+
+Status: E0–E4 (CPU) approved and run on 2026-10-03; results in `REAL_EXPERIMENT_RESULTS.md`. E5 (Sentinel, GPU) is not started and awaits approval.
 
 ## Scope
 
