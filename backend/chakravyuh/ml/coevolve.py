@@ -33,6 +33,7 @@ from ..sim.taxonomy import SCAM_FAMILIES
 from . import scamseq as ss
 from .engine import Engine
 from .features import encode_session
+from .tagger import TacticTagger
 
 
 def first_payment_index(events: list[dict]) -> int | None:
@@ -136,8 +137,8 @@ def replay_memory(data_dir: str | Path, n: int = 1500, seed: int = 0) -> list[di
     return [json.loads(x) for x in random.Random(seed).sample(lines, min(n, len(lines)))]
 
 
-def defend(engine: Engine, elite: list[Genome], replay: list[dict], epochs: int = 3, seed: int = 5,
-           train_per_genome: int = 12, test_per_genome: int = 4) -> tuple[Engine, dict]:
+def defend(engine: Engine, elite: list[Genome], replay: list[dict], epochs: int = 4, seed: int = 5,
+           train_per_genome: int = 24, test_per_genome: int = 4, refit_tagger: bool = True) -> tuple[Engine, dict]:
     """Fine-tune the defender on the attackers' newest tricks. Returns the updated engine and a report."""
     gate = alert_gate(engine)
     sim = Chakravyuh(seed=seed)
@@ -149,10 +150,13 @@ def defend(engine: Engine, elite: list[Genome], replay: list[dict], epochs: int 
 
     before, before_far = detection_rate(engine, fresh_test, gate), detection_rate(engine, legit_test, gate)
     train = evolved_train + legit_train + replay
-    tags = engine.tag_events(train)
+    updated = copy.copy(engine)
+    if refit_tagger and replay:
+        # The message tagger learns the new wording too (replay keeps the old families in view).
+        updated.tagger = TacticTagger().fit(train)
+    tags = updated.tag_events(train)
     model = ss.finetune(copy.deepcopy(engine.model), [encode_session(s, tags) for s in train], epochs=epochs,
                         log=lambda *_: None)
-    updated = copy.copy(engine)
     updated.model = model
     if engine.policy:
         updated.policy = copy.deepcopy(engine.policy)
@@ -183,7 +187,7 @@ def main() -> None:
     ap.add_argument("--rounds", type=int, default=3)
     ap.add_argument("--generations", type=int, default=4, help="attacker generations per round")
     ap.add_argument("--population", type=int, default=24)
-    ap.add_argument("--epochs", type=int, default=3, help="defender fine-tuning epochs per round")
+    ap.add_argument("--epochs", type=int, default=4, help="defender fine-tuning epochs per round")
     ap.add_argument("--out", default="reports/coevolution.json")
     ap.add_argument("--persist", action="store_true", help="save the hardened ScamSeq into --artifacts")
     ap.add_argument("--seed", type=int, default=3)
@@ -210,6 +214,9 @@ def main() -> None:
     out.write_text(json.dumps({"rounds": rounds, "seconds": round(time.time() - t0, 1)}, indent=2))
     if args.persist:
         ss.save(engine.model, str(Path(args.artifacts) / "scamseq.pt"))
+        import pickle
+        with open(Path(args.artifacts) / "tagger.pkl", "wb") as f:
+            pickle.dump(engine.tagger, f)
         if engine.policy:
             (Path(args.artifacts) / "policy.json").write_text(json.dumps(engine.policy.to_dict()))
         print(f"saved hardened model and recalibrated gates to {args.artifacts}/")
