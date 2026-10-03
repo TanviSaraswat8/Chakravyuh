@@ -7,6 +7,7 @@ import Benchmark from "./pages/Benchmark";
 import Beta from "./pages/Beta";
 import Campaigns from "./pages/Campaigns";
 import LiveDemo from "./pages/LiveDemo";
+import TryIt from "./pages/TryIt";
 import "./styles.css";
 
 function Mark() {
@@ -32,6 +33,7 @@ function Shell() {
 
   const links: [string, string, string][] = [
     ["/live", "Live session", "Watch a scam unfold"],
+    ["/try", "Try it", "Build your own session"],
     ["/arena", "Arena", "Attackers versus defender"],
     ["/campaigns", "Campaigns", "New scam patterns"],
     ["/benchmark", "Benchmark", "How it compares"],
@@ -63,6 +65,7 @@ function Shell() {
         <Routes>
           <Route path="/" element={<Navigate to="/live" replace />} />
           <Route path="/live" element={<LiveDemo />} />
+          <Route path="/try" element={<TryIt />} />
           <Route path="/arena" element={<Arena />} />
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/benchmark" element={<Benchmark />} />

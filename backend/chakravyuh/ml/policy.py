@@ -8,7 +8,8 @@ budget B (alerts per 1,000 sessions):
     lambda <- max(0, lambda + eta * (alerts_used - B))
 
 Rewards come from the simulator, where we know if a session is a scam and how much is at stake:
-    scam, before payment : amount * (STOP[a] - STOP[current])  - small annoyance
+    scam, before payment : log(1 + amount_k) * (STOP[a] - STOP[current])  - small annoyance
+                           (log scale: a Rs 30k scam and a Rs 10 lakh scam are both clearly worth stopping)
     legit                : -(FRICTION[a] - FRICTION[current])
     scam, after payment  : -0.2 * FRICTION[a]   (too late to help)
 """
@@ -68,9 +69,13 @@ class LinUCBPolicy:
         return 1
 
     def act(self, s: np.ndarray, current: int, p: float, explore: bool = False,
-            payment_pending: bool = True) -> int:
+            payment_pending: bool = True, paying_now: bool = False) -> int:
         sc = self.scores(s, explore)
         best, best_v = current, 0.0
+        # Safety floor: a near-certain scam payment being made right now always gets at least a
+        # cooling-off delay, whatever the learned values say. The bandit may still choose a hold.
+        if paying_now and p > self.level_gates[3] and p > self.min_p_for_hold and current < 3:
+            best, best_v = 3, sc[3]
         cap = self.max_level(payment_pending, float(s[3]))
         for a in range(current + 1, cap + 1):
             if p <= self.level_gates[a] or (a >= 3 and p <= self.min_p_for_hold):
@@ -86,7 +91,7 @@ class LinUCBPolicy:
     @staticmethod
     def reward(level: int, current: int, label: int, paid_already: bool, amount_k: float) -> float:
         if label == 1 and not paid_already:
-            return amount_k * (STOP[level] - STOP[current]) - 0.02 * level
+            return np.log1p(amount_k) * (STOP[level] - STOP[current]) - 0.02 * level
         if label == 1:
             return -0.2 * FRICTION[level]
         return -(FRICTION[level] - FRICTION[current])

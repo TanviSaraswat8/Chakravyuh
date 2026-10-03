@@ -1,5 +1,5 @@
 {
-  "trained_at": "2026-10-03 03:06:33",
+  "trained_at": "2026-10-03 03:40:53",
   "n_train": 3880,
   "report": {
     "payee_model": {
@@ -45,12 +45,12 @@
         "pr_auc": 0.9998,
         "recall_at_1pct_far": 0.9956,
         "false_alerts_per_1000_legit": 11.0,
-        "alerts_per_scam_session": 1.79,
-        "projected_alerts_per_1000_users": 46.5,
+        "alerts_per_scam_session": 2.0,
+        "projected_alerts_per_1000_users": 50.7,
         "legit_interrupted_rate": 0.0,
-        "expected_loss_prevented_share": 0.8899,
-        "alert_utility_rs_per_alert": 34102.0,
-        "mean_lead_stages": 3.65,
+        "expected_loss_prevented_share": 0.9,
+        "alert_utility_rs_per_alert": 30864.0,
+        "mean_lead_stages": 4.86,
         "ece": 0.0567
       },
       "chakravyuh_no_payee_signal": {
@@ -76,12 +76,12 @@
         "pr_auc": 0.9999,
         "recall_at_1pct_far": 1.0,
         "false_alerts_per_1000_legit": 11.0,
-        "alerts_per_scam_session": 1.98,
-        "projected_alerts_per_1000_users": 50.4,
+        "alerts_per_scam_session": 2.0,
+        "projected_alerts_per_1000_users": 50.8,
         "legit_interrupted_rate": 0.0,
         "expected_loss_prevented_share": 0.9,
-        "alert_utility_rs_per_alert": 146892.0,
-        "mean_lead_stages": 4.12,
+        "alert_utility_rs_per_alert": 145381.0,
+        "mean_lead_stages": 4.45,
         "ece": 0.0724
       },
       "chakravyuh_no_payee_signal": {
@@ -107,11 +107,11 @@
         "pr_auc": 1.0,
         "recall_at_1pct_far": 1.0,
         "false_alerts_per_1000_legit": 11.0,
-        "alerts_per_scam_session": 1.99,
-        "projected_alerts_per_1000_users": 50.5,
+        "alerts_per_scam_session": 1.98,
+        "projected_alerts_per_1000_users": 50.4,
         "legit_interrupted_rate": 0.0,
-        "expected_loss_prevented_share": 0.8871,
-        "alert_utility_rs_per_alert": 980.0,
+        "expected_loss_prevented_share": 0.8786,
+        "alert_utility_rs_per_alert": 973.0,
         "mean_lead_stages": 5.0,
         "ece": 0.0763
       },

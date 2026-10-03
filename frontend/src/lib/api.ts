@@ -126,6 +126,12 @@ export const api = {
       method: "POST", body: JSON.stringify({ generations, population, per_genome: 2, fresh }),
     }),
   adapt: () => req<AdaptResult>("/v1/demo/arena/adapt", { method: "POST" }),
+  createSession: (language: string, channel: string) =>
+    req<{ id: string }>("/v1/sessions", { method: "POST", body: JSON.stringify({ language, channel, source: "live" }) }),
+  addEvent: (sid: string, ev: { type: string; t?: number; text?: string; attrs?: Record<string, any>; channel?: string }) =>
+    req<ScoreOut>(`/v1/sessions/${sid}/events`, { method: "POST", body: JSON.stringify(ev) }),
+  respondAlert: (id: string, response: "proceeded" | "cancelled" | "legit") =>
+    req<Alert>(`/v1/alerts/${id}/respond`, { method: "POST", body: JSON.stringify({ response }) }),
   campaigns: () => req<Campaign[]>("/v1/campaigns"),
   refreshCampaigns: () =>
     req<{ created: number; unknown_sessions: number; pool: number; tactic_drift_psi: number; drift_alarm: boolean }>(

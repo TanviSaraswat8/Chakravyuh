@@ -160,6 +160,17 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .compare > div { border: 1px solid var(--line); border-radius: var(--r-sm); padding: var(--s3); }
 .compare strong { display: block; font-family: var(--display); font-size: 1.4rem; }
 
+/* ---------- try it ---------- */
+.try-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s5); align-items: start; }
+.sample {
+  text-align: left; border: 1px solid var(--line); background: var(--paper); border-radius: var(--r-sm);
+  padding: 8px 10px; cursor: pointer; font-size: 0.88rem; color: var(--ink-2);
+}
+.sample:hover { border-color: var(--indigo); color: var(--ink); }
+.action-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2); }
+.alert-card { border-top: 5px solid var(--saffron); }
+.alert-card.l3, .alert-card.l4 { border-top-color: var(--red); }
+
 /* ---------- arena ---------- */
 .arena-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--s5); align-items: start; }
 .gen-chart { width: 100%; height: auto; }
@@ -195,7 +206,7 @@ tr.ours td { background: var(--indigo-wash); font-weight: 700; }
   .nav { flex-direction: row; flex-wrap: wrap; }
   .nav a small, .rail-foot { display: none; }
   .main { padding: var(--s4); }
-  .demo-grid, .arena-grid, .two, .campaign, .demo-side { grid-template-columns: 1fr; }
+  .demo-grid, .arena-grid, .two, .campaign, .demo-side, .try-grid { grid-template-columns: 1fr; }
   .phone { position: static; }
   .phone-screen { height: 520px; }
 }

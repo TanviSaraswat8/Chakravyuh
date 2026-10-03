@@ -111,8 +111,10 @@ class Engine:
             decisions = []
             for i, st in enumerate(raw["steps"]):
                 s = context(float(p[i]), st["stage_pay"], st["tau"], st["amount_ratio"], level)
-                pending = raw["events"][i]["type"] in PAYMENT_EVENTS
-                new = self.policy.act(s, level, float(p[i]), payment_pending=pending) if self.policy else level
+                etype = raw["events"][i]["type"]
+                pending = etype in PAYMENT_EVENTS
+                new = self.policy.act(s, level, float(p[i]), payment_pending=pending,
+                                      paying_now=etype == "PAY") if self.policy else level
                 escalated = new > level
                 level = max(level, new)
                 decisions.append({**st, "p": float(p[i]), "level": level, "escalated": escalated,
