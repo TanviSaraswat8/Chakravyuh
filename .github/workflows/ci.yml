@@ -61,3 +61,33 @@ jobs:
       - name: Logs on failure
         if: failure()
         run: docker compose logs --no-color | tail -200
+
+  validator:
+    # Runs the real scripts/validate_docker.ps1 (PowerShell 7) on a machine set up like a typical dev
+    # laptop: another project's PostgreSQL already publishes 5432 (as a pgvector container does) and
+    # another program holds 8000. The stack must still come up healthy and every check must pass.
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Occupy port 5432 with another PostgreSQL container, and port 8000 with another program
+        run: |
+          docker run -d --name other-project-postgres -p 5432:5432 -e POSTGRES_PASSWORD=x pgvector/pgvector:pg16
+          nohup python3 -m http.server 8000 > /dev/null 2>&1 &
+          sleep 3
+          docker ps --format '{{.Names}} {{.Ports}}'
+          curl -s -o /dev/null -w "port 8000 answered %{http_code}\n" http://localhost:8000/
+      - name: Run the validator
+        run: pwsh -NoProfile -File scripts/validate_docker.ps1 -NoPull
+      - name: The other project's PostgreSQL was left untouched
+        run: test "$(docker inspect -f '{{.State.Running}}' other-project-postgres)" = "true"
+      - name: Report
+        if: always()
+        run: cat validation-report.txt || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation-report
+          path: |
+            validation-report.txt
+            validation-build.log

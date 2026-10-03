@@ -1,6 +1,7 @@
-# Chakravyuh: full local Docker validation (Windows PowerShell 5.1+ or PowerShell 7).
+# Chakravyuh: full local Docker validation (Windows PowerShell 5.1+, or PowerShell 7 on any OS).
 #
-#   powershell -ExecutionPolicy Bypass -File scripts\validate_docker.ps1
+#   powershell -ExecutionPolicy Bypass -File scripts\validate_docker.ps1      (Windows)
+#   pwsh scripts/validate_docker.ps1                                         (macOS / Linux / CI)
 #
 # Runs from the repo root. Needs only Docker Desktop and Git: every Python check runs inside the
 # API container, so no Python is needed on Windows. Builds the real images, starts the real stack
@@ -12,10 +13,13 @@
 
 param(
     [int]$StartTimeout = 300,   # seconds to wait for all containers to become healthy
-    [switch]$SkipBuild          # reuse images already built
+    [switch]$SkipBuild,         # reuse images already built
+    [switch]$NoPull             # test the checked-out commit as-is (CI); default pulls the latest first
 )
 
 $ErrorActionPreference = "Continue"   # docker writes progress to stderr; we check exit codes instead
+# Windows PowerShell 5.1 has no $IsWindows; there it is always Windows.
+$OnWindows = ($PSVersionTable.PSEdition -eq "Desktop") -or [bool]$IsWindows
 Set-Location (Split-Path -Parent $PSScriptRoot)
 $Report = Join-Path (Get-Location) "validation-report.txt"
 $Log = Join-Path (Get-Location) "validation-build.log"
@@ -40,7 +44,8 @@ function Record($name, $status, $detail) {
 function Run($cmdline, [switch]$Quiet) {
     Write-Log "`n>>> $cmdline"
     $lines = New-Object System.Collections.ArrayList
-    cmd /c "$cmdline 2>&1" | ForEach-Object {
+    $shellCmd = if ($OnWindows) { { cmd /c "$cmdline 2>&1" } } else { { sh -c "$cmdline 2>&1" } }
+    & $shellCmd | ForEach-Object {
         $l = "$_"; [void]$lines.Add($l); Write-Log $l
         if (-not $Quiet) { Write-Host $l }
     }
@@ -59,6 +64,19 @@ function Out-Of($cmdline, [int]$Tries = 3) {
 }
 function Sql($query) { return Out-Of ("docker compose exec -T db psql -U chakravyuh -d chakravyuh -tAc ""{0}""" -f $query) }
 function Is-Int($s) { return ("$s" -match '^\s*\d+\s*$') }
+# The lines of a command's output that say what went wrong (Docker puts the reason there, not in exit codes).
+function Err-Lines($out, [int]$Max = 6) {
+    return @("$out" -split "`n" | Where-Object { $_ -match "error|failed|forbidden|denied|allocated|not found|no such|refused|unauthorized|timeout|unhealthy|exited" } |
+             ForEach-Object { $_.Trim() } | Select-Object -Unique -Last $Max)
+}
+function Note-Errors($label, $out) {
+    $lines = Err-Lines $out
+    if ($lines.Count -gt 0) {
+        [void]$diagnosis.Add("${label}:")
+        foreach ($l in $lines) { [void]$diagnosis.Add("    $l"); Write-Host "    $l" -ForegroundColor Yellow }
+    }
+    return ($lines | Select-Object -Last 1)
+}
 function Wait-Http($url, $seconds) {
     $deadline = (Get-Date).AddSeconds($seconds)
     while ((Get-Date) -lt $deadline) {
@@ -186,8 +204,10 @@ Section "2-3. Repository"
 $branch = (git rev-parse --abbrev-ref HEAD 2>$null)
 $dirty = (git status --porcelain 2>$null | Measure-Object).Count
 Record "on a git branch" ([bool]$branch) "branch '$branch', $dirty uncommitted file(s)"
-$r = Run "git pull --ff-only"
-Record "pulled latest from GitHub" ($r.Code -eq 0) "exit $($r.Code) (fast-forward only; local changes are never overwritten)"
+if (-not $NoPull) {
+    $r = Run "git pull --ff-only"
+    Record "pulled latest from GitHub" ($r.Code -eq 0) "exit $($r.Code) (fast-forward only; local changes are never overwritten)"
+}
 Record "commit under test" $true "$(git rev-parse --short HEAD 2>$null)"
 
 # 4. Configuration and a clean start ---------------------------------------------------------------
@@ -223,7 +243,8 @@ if ($SkipBuild) { Record "images built" "SKIP" "-SkipBuild given, reusing existi
 else {
     $t = Get-Date
     $r = Run "docker compose build --progress plain"
-    Record "images built" ($r.Code -eq 0) ("exit $($r.Code) in {0:N0}s" -f ((Get-Date) - $t).TotalSeconds)
+    $why = if ($r.Code -ne 0) { Note-Errors "docker compose build" $r.Out } else { "" }
+    Record "images built" ($r.Code -eq 0) (("exit $($r.Code) in {0:N0}s" -f ((Get-Date) - $t).TotalSeconds) + $(if ($why) { ": $why" } else { "" }))
     if ($r.Code -ne 0) { Diagnose "build failed"; Skip-Rest "image build failed"; Finish }
 }
 
@@ -232,7 +253,8 @@ Section "6-7. Start stack and wait until every container is healthy"
 $t = Get-Date
 $up = Run "docker compose up -d --wait --wait-timeout $StartTimeout"
 $healthy = ($up.Code -eq 0) -and (Wait-Healthy $Services 30)
-Record "stack started and healthy (db, api, web)" $healthy ("exit $($up.Code) in {0:N0}s" -f ((Get-Date) - $t).TotalSeconds)
+$why = if (-not $healthy) { Note-Errors "docker compose up" $up.Out } else { "" }
+Record "stack started and healthy (db, api, web)" $healthy (("exit $($up.Code) in {0:N0}s" -f ((Get-Date) - $t).TotalSeconds) + $(if ($why) { ": $why" } else { "" }))
 foreach ($s in $Services) {
     $st = Container-State $s
     Record "container '$s'" ($st.Status -eq "running" -and $st.Health -eq "healthy") "status=$($st.Status) health=$($st.Health) restarts=$($st.Restarts)"
