@@ -45,7 +45,8 @@ def anonymise(session: dict) -> dict:
 
 
 def card(stats: dict) -> str:
-    rows = "\n".join(f"| {k} | {v['sessions']:,} | {v['scam']:,} | {v['legit']:,} |" for k, v in stats["splits"].items())
+    rows = "\n".join(f"| {k} | {v['sessions']:,} | {v['scam']:,} | {v['legit']:,} |"
+                     for k, v in stats["splits"].items())
     fams = ", ".join(f"{k} ({v})" for k, v in stats["families"].most_common())
     return f"""# Chakravyuh scam-session dataset
 

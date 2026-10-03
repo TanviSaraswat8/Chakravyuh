@@ -15,6 +15,8 @@ Problem statement: *AI-Driven Scam Pattern Recognition. Detect emerging AI-enabl
 | **Fusion + calibration** (`ml/fusion.py`) | Combines the signals, calibrates them (Platt scaling) and sets session-level conformal thresholds: a stated cap on how many legitimate sessions each alert level may touch. |
 | **Alert policy** (`ml/policy.py`) | A LinUCB contextual bandit trained in the simulator to choose the gentlest alert that stops the scam: nudge, check-in, cooling-off, hold. Lagrangian alert budget, and holds only when a payment is pending. |
 | **Emerging-campaign detector** (`ml/campaigns.py`) | Flags risky sessions far from every known scam family, clusters them with HDBSCAN into campaign cards with a draft rule, and tracks tactic drift (PSI). |
+| **Co-evolution loop** (`ml/coevolve.py`) | Attackers evolve against the defender, the defender fine-tunes on their tricks and recalibrates its alert thresholds, and an update ships only if it beats the current model. `make coevolve`. |
+| **Public dataset** (`dataset/`) | 5,920 labelled sessions at tactic level (no message text or payee IDs) with splits for new wording, an unseen scam family and evolved scams. `make dataset` rebuilds it. |
 | **Sentinel SLM kit** (`sentinel/`) | Builds the fine-tuning set and QLoRA-fine-tunes a 0.5–1.5B model (Qwen2.5) to output the same JSON on the phone; exports 4-bit GGUF. |
 | **API** (`backend/app`) | FastAPI + SQLAlchemy (SQLite locally, PostgreSQL in production). Live sessions, alerts, payee risk, campaigns, arena, beta sign-up and feedback. |
 | **Web app** (`frontend`) | React + Vite. Live session demo on a phone, attacker-vs-defender arena, campaign review, benchmark, beta page. |

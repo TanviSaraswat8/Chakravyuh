@@ -125,6 +125,7 @@ def test_public_export_drops_text_and_payees(tmp_path):
     pub = anonymise(s)
     blob = json.dumps(pub)
     assert "text" not in {k for e in pub["events"] for k in e}
-    assert "payee" not in blob and "genome" not in pub
+    assert "@" not in blob, "no UPI handles (payee or victim IDs) may appear"
+    assert all("payee" not in e["attrs"] for e in pub["events"]) and "genome" not in pub
     assert pub["session_id"] != s["session_id"]
     assert gzip  # imported for the module under test

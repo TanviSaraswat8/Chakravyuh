@@ -44,3 +44,6 @@ sft: ## Build the Sentinel SLM fine-tuning set
 
 coevolve: ## Run attacker-defender co-evolution (add PERSIST=1 to save the hardened model)
 	cd $(BACKEND) && $(PY) -m chakravyuh.ml.coevolve --rounds 3 --generations 4 $(if $(PERSIST),--persist,)
+
+dataset: ## Export the public tactic-level dataset to dataset/
+	cd $(BACKEND) && $(PY) -m chakravyuh.sim.export_public --sessions data/sessions.jsonl --out ../dataset
