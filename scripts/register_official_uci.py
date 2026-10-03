@@ -54,7 +54,7 @@ def main() -> int:
     m = registry.load("uci_sms_spam")
     m.update({
         "access_status": "AVAILABLE_NOW",
-        "original_or_mirror": "official UCI download (manual browser download by the project owner; UCI blocked from the build environment)",
+        "original_or_mirror": "official UCI download (downloaded from UCI by the project owner in a browser and supplied to the build environment as a chat upload; UCI is blocked from the build environment, so the download origin is attested by the owner, not independently verified)",
         "license": "CC BY 4.0 (stated on the UCI dataset page: 'This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license.')",
         "license_status": "CLEAR",
         "version": f"UCI dataset 228 (donated 2012-06-21), DOI 10.24432/C5CC84; zip sha256 {zsha}",

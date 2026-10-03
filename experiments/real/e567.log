@@ -1,0 +1,19 @@
+== e5
+  E5[clean] tfidf_lr: UCI ham FPR 0.4428 | UCI spam flag 0.8902 | India legit FPR 0.1217 | IMC recall 0.9708 | SP24 recall 0.9973
+  E5[clean] tfidf_svm: UCI ham FPR 0.6448 | UCI spam flag 0.9384 | India legit FPR 0.2138 | IMC recall 0.9898 | SP24 recall 0.999
+  E5[clean] chakravyuh_tagger_arch: UCI ham FPR 0.3504 | UCI spam flag 0.8005 | India legit FPR 0.1283 | IMC recall 0.9717 | SP24 recall 0.9978
+  E5[masked] tfidf_lr: UCI ham FPR 0.3042 | UCI spam flag 0.6921 | India legit FPR 0.0912 | IMC recall 0.987 | SP24 recall 0.2442
+  E5[masked] tfidf_svm: UCI ham FPR 0.4104 | UCI spam flag 0.7751 | India legit FPR 0.1466 | IMC recall 0.9934 | SP24 recall 0.8852
+  E5[masked] chakravyuh_tagger_arch: UCI ham FPR 0.1907 | UCI spam flag 0.5716 | India legit FPR 0.0847 | IMC recall 0.9886 | SP24 recall 0.0096
+   wrote /home/claude/chakravyuh/experiments/real/results/e5.json in 71.2s
+== e6
+  E6 4-source [masked]: balanced acc 0.9389 {'imc25': 0.961, 'india': 0.8524, 'sp24': 0.989, 'uci': 0.953}
+  E6 4-source [clean]: balanced acc 0.8997 {'imc25': 0.879, 'india': 0.8238, 'sp24': 0.964, 'uci': 0.932}
+  E6 same-label legit_india_vs_legit_uci: balanced acc 0.9082
+  E6 same-label scam_imc25_english_vs_scam_sp24: balanced acc 0.8777
+   wrote /home/claude/chakravyuh/experiments/real/results/e6.json in 12.0s
+== e7
+  E7 tfidf_lr: UCI-cal thr 0.9875 CI [0.9841, 0.9898] -> {'uci_ham_eval_fpr': 0.0112, 'india_legit_fpr': 0.0, 'india_promo_fpr': 0.0141, 'imc25_recall': 0.6103, 'sp24_recall': 0.2405}; India-val thr 0.9518 CI [0.9518, 0.9518]
+  E7 tfidf_svm: UCI-cal thr 0.9976 CI [0.9967, 0.9982] -> {'uci_ham_eval_fpr': 0.0137, 'india_legit_fpr': 0.0, 'india_promo_fpr': 0.0141, 'imc25_recall': 0.3275, 'sp24_recall': 0.232}; India-val thr 0.9877 CI [0.9877, 0.9877]
+  E7 chakravyuh_tagger_arch: UCI-cal thr 0.9658 CI [0.957, 0.972] -> {'uci_ham_eval_fpr': 0.0142, 'india_legit_fpr': 0.0, 'india_promo_fpr': 0.0141, 'imc25_recall': 0.7313, 'sp24_recall': 0.9608}; India-val thr 0.9558 CI [0.9558, 0.9558]
+   wrote /home/claude/chakravyuh/experiments/real/results/e7.json in 29.6s

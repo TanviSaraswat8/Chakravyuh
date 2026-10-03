@@ -9,6 +9,8 @@
 
 Run on 2026-10-03 at code commit `74ba971` (governance), with the frozen security baseline `0e64412` unchanged. Raw JSON is in `experiments/real/results/e{0..4}.json`, and every trained model has a manifest in `experiments/real/manifests/`.
 
+> **Update (E5–E7):** the E3 results below were later shown to be strongly source-dependent. See "Why the original E3 result was misleading" at the end of the E3 section and `REAL_CROSS_SOURCE_VALIDATION.md`. The original numbers are preserved unchanged.
+
 ## Setup
 
 | Item | Value |
@@ -279,6 +281,25 @@ These are **recall only**: there are no Indian scam negatives.
    - At a validation-set threshold, legitimate FPR drops to 0.3–1.6%, at the cost of recall (0.77–0.82 on IMC'25).
    - The confidence intervals are wide (n = 304 legitimate, 142 promotional).
 4. The synthetic-trained tagger flags 60% of legitimate and 79% of promotional messages. **Simulator training does not transfer to real SMS.**
+
+
+### Why the original E3 result was misleading
+
+*Added after cross-source validation (E5–E7, `REAL_CROSS_SOURCE_VALIDATION.md`). The E3 numbers above are kept unchanged as the historical record.*
+
+1. **The masked variant learned the dataset, not the scam.**
+   - IMC'25 masks names as `<NAMED_ENTITY>` (shared masking turns that into `<MASK>`). No other source contains it, so "contains `<MASK>`" became a near-perfect scam cue inside IMC'25 + India data.
+   - The masked models scored F1 ≈ 0.99 in-distribution but caught 1–3% of S&P'24 scams.
+   - Against independent UCI legitimate SMS, the masked tagger ranks legitimate messages *above* real S&P'24 scams (ROC-AUC 0.265).
+2. **The clean variant fixed the masking artefact but not domain shift.**
+   - All legitimate examples came from one small Indian corpus.
+   - The clean models' 99.8% S&P'24 recall partly meant "anything that doesn't look like this Indian corpus is a scam". Official UCI legitimate SMS, never used in training, are flagged at **35–64%** at argmax.
+3. **The 1% operating point was set on only 133 legitimate messages** (with tied scores). On UCI it gives 1.8% (tagger architecture), 5.2% (LR) and 8.2% (SVM) false alarms, not 1%.
+4. **What survives:**
+   - Cross-source *ranking* is real (tagger architecture ROC-AUC 0.965 for IMC'25 vs UCI and 0.992 for S&P'24 vs UCI).
+   - With a threshold calibrated on 2,401 independent legitimate messages, legitimate FPR holds at about 1.4% on held-out UCI, with IMC'25 recall 0.73 and S&P'24 recall 0.96 (tagger architecture only).
+
+**So the honest E3 statement is:** "On public data, a character n-gram model separates reported smishing from legitimate SMS of other sources well in ranking. Its calibration and thresholds do not transfer across sources, and false-alarm rates depend strongly on which legitimate corpus is used." The E3 in-distribution figures (F1 0.98–0.99) should not be quoted on their own.
 
 ---
 

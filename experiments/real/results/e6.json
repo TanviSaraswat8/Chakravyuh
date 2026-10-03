@@ -1,0 +1,340 @@
+{
+  "label": "REAL PUBLIC DATA",
+  "question": "Can text alone identify the source among IMC'25, India SMS, UCI and S&P'24?",
+  "sizes": {
+    "train": {
+      "imc25": 4000,
+      "india": 1551,
+      "sp24": 4000,
+      "uci": 4000
+    },
+    "test": {
+      "imc25": 1000,
+      "india": 454,
+      "sp24": 1000,
+      "uci": 1000
+    }
+  },
+  "chance_balanced_accuracy": 0.25,
+  "probes": {
+    "text_masked": {
+      "balanced_accuracy": 0.9389,
+      "macro_f1": 0.9413,
+      "per_source_recall": {
+        "imc25": 0.961,
+        "india": 0.8524,
+        "sp24": 0.989,
+        "uci": 0.953
+      },
+      "confusion": {
+        "labels": [
+          "imc25",
+          "india",
+          "sp24",
+          "uci"
+        ],
+        "matrix": [
+          [
+            961,
+            13,
+            1,
+            25
+          ],
+          [
+            5,
+            387,
+            2,
+            60
+          ],
+          [
+            3,
+            0,
+            989,
+            8
+          ],
+          [
+            10,
+            35,
+            2,
+            953
+          ]
+        ]
+      },
+      "top_features": {
+        "imc25": [
+          "<mask>",
+          "your",
+          "de",
+          "uw",
+          "please",
+          "via",
+          "link",
+          "account",
+          "payment",
+          "\u3054\u78ba\u8a8d\u304f\u3060\u3055\u3044",
+          "en",
+          "card"
+        ],
+        "india": [
+          "click <url>",
+          "market",
+          "\u00e2",
+          "click",
+          "team",
+          "laptop",
+          "airtel",
+          "join",
+          "stocks",
+          "rs <num>",
+          "\u00e2 \u00e2",
+          "joined"
+        ],
+        "sp24": [
+          "<url>",
+          "<num> <num>",
+          "visit <url>",
+          "here <url>",
+          "package",
+          "via <url>",
+          "votre",
+          "<url> to",
+          "at <url>",
+          "visit",
+          "optout <url>",
+          "your"
+        ],
+        "uci": [
+          "u",
+          "i",
+          "ur",
+          "my",
+          "call",
+          "call <num>",
+          "its",
+          "\u00fc",
+          "come",
+          "me",
+          "lt",
+          "da"
+        ]
+      }
+    },
+    "text_clean": {
+      "balanced_accuracy": 0.8997,
+      "macro_f1": 0.8976,
+      "per_source_recall": {
+        "imc25": 0.879,
+        "india": 0.8238,
+        "sp24": 0.964,
+        "uci": 0.932
+      },
+      "confusion": {
+        "labels": [
+          "imc25",
+          "india",
+          "sp24",
+          "uci"
+        ],
+        "matrix": [
+          [
+            879,
+            52,
+            18,
+            51
+          ],
+          [
+            25,
+            374,
+            0,
+            55
+          ],
+          [
+            22,
+            4,
+            964,
+            10
+          ],
+          [
+            24,
+            44,
+            0,
+            932
+          ]
+        ]
+      },
+      "top_features": {
+        "imc25": [
+          "your",
+          "de",
+          "uw",
+          "link",
+          "card",
+          "en",
+          "payment",
+          "sms",
+          "para",
+          "account",
+          "whatsapp",
+          "bank"
+        ],
+        "india": [
+          "click",
+          "market",
+          "team",
+          "rs",
+          "laptop",
+          "airtel",
+          "stocks",
+          "joined",
+          "vi",
+          "trading",
+          "professor",
+          "stock"
+        ],
+        "sp24": [
+          "optout",
+          "android",
+          "visit",
+          "route",
+          "package",
+          "login",
+          "code",
+          "login code",
+          "l",
+          "rom p",
+          "rom",
+          "your"
+        ],
+        "uci": [
+          "i",
+          "u",
+          "ur",
+          "call",
+          "my",
+          "its",
+          "\u00fc",
+          "come",
+          "that",
+          "da",
+          "me",
+          "txt"
+        ]
+      }
+    },
+    "artefact_features_only": {
+      "balanced_accuracy": 0.7436,
+      "macro_f1": 0.7395,
+      "per_source_recall": {
+        "imc25": 0.842,
+        "india": 0.1982,
+        "sp24": 0.989,
+        "uci": 0.945
+      },
+      "confusion": {
+        "labels": [
+          "imc25",
+          "india",
+          "sp24",
+          "uci"
+        ],
+        "matrix": [
+          [
+            842,
+            14,
+            0,
+            144
+          ],
+          [
+            9,
+            90,
+            56,
+            299
+          ],
+          [
+            0,
+            6,
+            989,
+            5
+          ],
+          [
+            2,
+            36,
+            17,
+            945
+          ]
+        ]
+      }
+    }
+  },
+  "same_label_probes": {
+    "legit_india_vs_legit_uci": {
+      "balanced_accuracy": 0.9082,
+      "macro_f1": 0.9066,
+      "per_source_recall": {
+        "india_legit": 0.866,
+        "uci_ham": 0.9503
+      },
+      "confusion": {
+        "labels": [
+          "india_legit",
+          "uci_ham"
+        ],
+        "matrix": [
+          [
+            362,
+            56
+          ],
+          [
+            61,
+            1166
+          ]
+        ]
+      },
+      "sizes": {
+        "india_legit": 1487,
+        "uci_ham": 4827
+      }
+    },
+    "scam_imc25_english_vs_scam_sp24": {
+      "balanced_accuracy": 0.8777,
+      "macro_f1": 0.894,
+      "per_source_recall": {
+        "imc25_scam_en": 0.9845,
+        "sp24_scam": 0.7708
+      },
+      "confusion": {
+        "labels": [
+          "imc25_scam_en",
+          "sp24_scam"
+        ],
+        "matrix": [
+          [
+            1336,
+            21
+          ],
+          [
+            179,
+            602
+          ]
+        ]
+      },
+      "sizes": {
+        "imc25_scam_en": 6000,
+        "sp24_scam": 6000
+      }
+    }
+  },
+  "environment": {
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "cpus": 2,
+    "memory": "8223868 kB",
+    "gpu": "none",
+    "python": "3.13.16",
+    "numpy": "2.5.3",
+    "sklearn": "1.9.1",
+    "torch": "2.14.1+cu130",
+    "torch_threads": 2,
+    "code_commit": "a5f606cf7473c5bdb74059ea18e2282cee9b7394"
+  },
+  "runtime_seconds": 12.0
+}

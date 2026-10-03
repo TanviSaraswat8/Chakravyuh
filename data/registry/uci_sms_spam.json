@@ -1,7 +1,10 @@
 {
-  "version": "v.1 (2012)",
-  "download_date": null,
-  "sha256": {},
+  "version": "UCI dataset 228 (donated 2012-06-21), DOI 10.24432/C5CC84; zip sha256 1587ea43e58e82b14ff1f5425c88e17f8496bfcdb67a583dbff9eefaf9963ce3",
+  "download_date": "2026-10-03",
+  "sha256": {
+    "SMSSpamCollection": "7d039a24a6083ed9ef0f806ebad56bbb976e3aeb8de05669173bfdc4996c239d",
+    "readme": "8753cd2d3cab68f80c8257851b8c2037778c267f55accb6fd1b5a2e32d36a84e"
+  },
   "mirror_sha256": {
     "SMSSpamCollection": "7d039a24a6083ed9ef0f806ebad56bbb976e3aeb8de05669173bfdc4996c239d"
   },
@@ -12,18 +15,18 @@
     "message_tagger"
   ],
   "training_allowed": true,
-  "training_note": "Use ham as legitimate negatives only after the official file is verified; never use UCI 'spam' as scam positives.",
+  "training_note": "Used ONLY as an independent evaluation source (E5-E7) and for threshold calibration on a held-out half; never as training data for the E3 models.",
   "raw_columns": [
     "label (ham/spam)",
     "text"
   ],
   "schema": "canonical msg-v1 (see docs/REAL_DATA_STRATEGY.md); raw columns listed in 'raw_columns'",
   "label_schema": {
-    "raw": [
-      "ham",
-      "spam"
-    ],
-    "canonical": "ham -> legit; spam -> spam (NOT scam: mixes premium-rate prize scams and marketing)"
+    "raw": {
+      "ham": 4827,
+      "spam": 747
+    },
+    "canonical": "ham -> legit; spam -> spam (NOT scam: the class mixes premium-rate prize scams and marketing)"
   },
   "paper": "Almeida, Gómez Hidalgo, Yamakami. Contributions to the Study of SMS Spam Filtering. DocEng 2011",
   "pii_status": "unmasked; phone numbers and short codes in text",
@@ -37,16 +40,16 @@
     "Ham overlaps the NUS SMS Corpus",
     "Contained (87.6%) in Super SMS and (~85%) in Mishra & Soni: never mix those with UCI across splits"
   ],
-  "provenance": "Official file from UCI (local download). The GitHub copy is used only for the leakage audit.",
+  "provenance": "Official zip from the UCI Machine Learning Repository; SHA-256 recorded at registration. Citation: Almeida & Hidalgo (2011), SMS Spam Collection, UCI, doi:10.24432/C5CC84.",
   "dataset_id": "uci_sms_spam",
   "name": "SMS Spam Collection v.1",
   "source": "Almeida & Gómez Hidalgo (UCI Machine Learning Repository)",
   "official_url": "https://archive.ics.uci.edu/dataset/228/sms+spam+collection",
-  "license": "CC-BY-4.0 (stated on the UCI page; not verified from here because UCI is blocked)",
+  "license": "CC BY 4.0 (stated on the UCI dataset page: 'This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license.')",
   "license_status": "CLEAR",
   "data_type": "messages",
-  "access_status": "REQUIRES_LOCAL_DOWNLOAD",
-  "original_or_mirror": "official via local download; GitHub copy is third-party",
+  "access_status": "AVAILABLE_NOW",
+  "original_or_mirror": "official UCI download (downloaded from UCI by the project owner in a browser and supplied to the build environment as a chat upload; UCI is blocked from the build environment, so the download origin is attested by the owner, not independently verified)",
   "real_or_synthetic": "REAL",
   "fetch": {
     "method": "local",
@@ -54,6 +57,9 @@
     "files": [
       {
         "dest": "SMSSpamCollection"
+      },
+      {
+        "dest": "readme"
       }
     ],
     "mirror": {
@@ -68,5 +74,14 @@
       ],
       "note": "third-party copy; leakage audit only"
     }
+  },
+  "official_download": {
+    "url": "https://archive.ics.uci.edu/static/public/228/sms+spam+collection.zip",
+    "zip_sha256": "1587ea43e58e82b14ff1f5425c88e17f8496bfcdb67a583dbff9eefaf9963ce3",
+    "zip_members": [
+      "SMSSpamCollection",
+      "readme"
+    ],
+    "registered_at": "2026-10-03T17:13:10+00:00"
   }
 }

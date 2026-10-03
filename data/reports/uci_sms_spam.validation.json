@@ -2,7 +2,7 @@
   "dataset_id": "uci_sms_spam",
   "hard_failures": [],
   "warnings": [
-    "raw files are a third-party mirror copy (audit only); the official release is not verified",
+    "readme is not valid UTF-8 (decoded with a fallback encoding)",
     "7 records match aadhaar_like (heuristic); review before any redistribution"
   ],
   "checks": {
@@ -10,14 +10,19 @@
       "problems": []
     },
     "license": {
-      "license": "CC-BY-4.0 (stated on the UCI page; not verified from here because UCI is blocked)",
+      "license": "CC BY 4.0 (stated on the UCI dataset page: 'This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license.')",
       "status": "CLEAR"
     },
     "provenance": {
-      "kind": "mirror",
-      "repo": "https://github.com/MarazMia/SMISH_DT",
-      "commit": "cc54e15c188376d82019631d9198f667b1de862e",
-      "fetched_at": "2026-10-03T13:01:19+00:00"
+      "kind": "local_download",
+      "from": "https://archive.ics.uci.edu/static/public/228/sms+spam+collection.zip",
+      "zip_name": "smsspamcollection.zip",
+      "zip_sha256": "1587ea43e58e82b14ff1f5425c88e17f8496bfcdb67a583dbff9eefaf9963ce3",
+      "zip_members": [
+        "SMSSpamCollection",
+        "readme"
+      ],
+      "fetched_at": "2026-10-03T17:13:10+00:00"
     },
     "files": {
       "SMSSpamCollection": {
@@ -26,6 +31,16 @@
         "encoding": {
           "utf8_valid": true,
           "bom": false
+        },
+        "structure": {}
+      },
+      "readme": {
+        "bytes": 5868,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": false,
+          "first_error_byte": 1741,
+          "replacement_chars_if_utf8": 10
         },
         "structure": {}
       }

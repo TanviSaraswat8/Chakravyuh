@@ -1,0 +1,2973 @@
+{
+  "label": "REAL PUBLIC DATA \u00b7 threshold robustness of FROZEN E3 clean models",
+  "uci_ham_split": {
+    "calibration": 2401,
+    "evaluation": 2402,
+    "rule": "group split by near-duplicate cluster, 50/50, seed 13"
+  },
+  "coverage_definition": "alert volume: share of all evaluated messages (IMC'25 test + S&P'24 test + India test + UCI ham eval) that are flagged",
+  "models": {
+    "tfidf_lr": {
+      "curve": [
+        {
+          "threshold": 0.05,
+          "uci_ham_fpr": 0.8901,
+          "uci_ham_fpr_95ci": [
+            0.877,
+            0.902
+          ],
+          "india_legit_fpr": 0.398,
+          "india_legit_fpr_95ci": [
+            0.3446,
+            0.454
+          ],
+          "india_promo_fpr": 0.2676,
+          "india_promo_fpr_95ci": [
+            0.2016,
+            0.3458
+          ],
+          "imc25_recall": 0.998,
+          "imc25_recall_95ci": [
+            0.9964,
+            0.9988
+          ],
+          "sp24_recall": 0.9993,
+          "sp24_recall_95ci": [
+            0.9987,
+            0.9997
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7334,
+          "coverage_alert_volume": 0.9744
+        },
+        {
+          "threshold": 0.1,
+          "uci_ham_fpr": 0.8222,
+          "uci_ham_fpr_95ci": [
+            0.8064,
+            0.837
+          ],
+          "india_legit_fpr": 0.3092,
+          "india_legit_fpr_95ci": [
+            0.2599,
+            0.3633
+          ],
+          "india_promo_fpr": 0.2394,
+          "india_promo_fpr_95ci": [
+            0.1767,
+            0.3159
+          ],
+          "imc25_recall": 0.9958,
+          "imc25_recall_95ci": [
+            0.9937,
+            0.9971
+          ],
+          "sp24_recall": 0.9992,
+          "sp24_recall_95ci": [
+            0.9986,
+            0.9995
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7482,
+          "coverage_alert_volume": 0.965
+        },
+        {
+          "threshold": 0.15,
+          "uci_ham_fpr": 0.7631,
+          "uci_ham_fpr_95ci": [
+            0.7457,
+            0.7797
+          ],
+          "india_legit_fpr": 0.2796,
+          "india_legit_fpr_95ci": [
+            0.2321,
+            0.3326
+          ],
+          "india_promo_fpr": 0.2183,
+          "india_promo_fpr_95ci": [
+            0.1583,
+            0.2932
+          ],
+          "imc25_recall": 0.9941,
+          "imc25_recall_95ci": [
+            0.9918,
+            0.9957
+          ],
+          "sp24_recall": 0.9992,
+          "sp24_recall_95ci": [
+            0.9986,
+            0.9995
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7617,
+          "coverage_alert_volume": 0.9577
+        },
+        {
+          "threshold": 0.2,
+          "uci_ham_fpr": 0.7127,
+          "uci_ham_fpr_95ci": [
+            0.6943,
+            0.7305
+          ],
+          "india_legit_fpr": 0.2401,
+          "india_legit_fpr_95ci": [
+            0.1955,
+            0.2912
+          ],
+          "india_promo_fpr": 0.1901,
+          "india_promo_fpr_95ci": [
+            0.1341,
+            0.2625
+          ],
+          "imc25_recall": 0.9919,
+          "imc25_recall_95ci": [
+            0.9892,
+            0.9939
+          ],
+          "sp24_recall": 0.9989,
+          "sp24_recall_95ci": [
+            0.9982,
+            0.9993
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7735,
+          "coverage_alert_volume": 0.9508
+        },
+        {
+          "threshold": 0.25,
+          "uci_ham_fpr": 0.6669,
+          "uci_ham_fpr_95ci": [
+            0.6478,
+            0.6855
+          ],
+          "india_legit_fpr": 0.2204,
+          "india_legit_fpr_95ci": [
+            0.1774,
+            0.2703
+          ],
+          "india_promo_fpr": 0.1761,
+          "india_promo_fpr_95ci": [
+            0.1222,
+            0.247
+          ],
+          "imc25_recall": 0.9893,
+          "imc25_recall_95ci": [
+            0.9863,
+            0.9916
+          ],
+          "sp24_recall": 0.9988,
+          "sp24_recall_95ci": [
+            0.9981,
+            0.9993
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7845,
+          "coverage_alert_volume": 0.9448
+        },
+        {
+          "threshold": 0.3,
+          "uci_ham_fpr": 0.6166,
+          "uci_ham_fpr_95ci": [
+            0.597,
+            0.6358
+          ],
+          "india_legit_fpr": 0.2007,
+          "india_legit_fpr_95ci": [
+            0.1595,
+            0.2493
+          ],
+          "india_promo_fpr": 0.162,
+          "india_promo_fpr_95ci": [
+            0.1104,
+            0.2313
+          ],
+          "imc25_recall": 0.9793,
+          "imc25_recall_95ci": [
+            0.9753,
+            0.9826
+          ],
+          "sp24_recall": 0.998,
+          "sp24_recall_95ci": [
+            0.9971,
+            0.9986
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7958,
+          "coverage_alert_volume": 0.9359
+        },
+        {
+          "threshold": 0.35,
+          "uci_ham_fpr": 0.5741,
+          "uci_ham_fpr_95ci": [
+            0.5542,
+            0.5937
+          ],
+          "india_legit_fpr": 0.1908,
+          "india_legit_fpr_95ci": [
+            0.1506,
+            0.2387
+          ],
+          "india_promo_fpr": 0.1549,
+          "india_promo_fpr_95ci": [
+            0.1046,
+            0.2234
+          ],
+          "imc25_recall": 0.9771,
+          "imc25_recall_95ci": [
+            0.973,
+            0.9806
+          ],
+          "sp24_recall": 0.9979,
+          "sp24_recall_95ci": [
+            0.997,
+            0.9986
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8068,
+          "coverage_alert_volume": 0.9305
+        },
+        {
+          "threshold": 0.4,
+          "uci_ham_fpr": 0.5354,
+          "uci_ham_fpr_95ci": [
+            0.5154,
+            0.5553
+          ],
+          "india_legit_fpr": 0.1809,
+          "india_legit_fpr_95ci": [
+            0.1417,
+            0.2281
+          ],
+          "india_promo_fpr": 0.1338,
+          "india_promo_fpr_95ci": [
+            0.0874,
+            0.1995
+          ],
+          "imc25_recall": 0.974,
+          "imc25_recall_95ci": [
+            0.9697,
+            0.9778
+          ],
+          "sp24_recall": 0.9978,
+          "sp24_recall_95ci": [
+            0.9968,
+            0.9985
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.817,
+          "coverage_alert_volume": 0.9251
+        },
+        {
+          "threshold": 0.45,
+          "uci_ham_fpr": 0.4913,
+          "uci_ham_fpr_95ci": [
+            0.4713,
+            0.5112
+          ],
+          "india_legit_fpr": 0.1743,
+          "india_legit_fpr_95ci": [
+            0.1358,
+            0.221
+          ],
+          "india_promo_fpr": 0.1338,
+          "india_promo_fpr_95ci": [
+            0.0874,
+            0.1995
+          ],
+          "imc25_recall": 0.9725,
+          "imc25_recall_95ci": [
+            0.968,
+            0.9764
+          ],
+          "sp24_recall": 0.9972,
+          "sp24_recall_95ci": [
+            0.9962,
+            0.998
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8293,
+          "coverage_alert_volume": 0.9195
+        },
+        {
+          "threshold": 0.5,
+          "uci_ham_fpr": 0.438,
+          "uci_ham_fpr_95ci": [
+            0.4182,
+            0.4579
+          ],
+          "india_legit_fpr": 0.1184,
+          "india_legit_fpr_95ci": [
+            0.0868,
+            0.1596
+          ],
+          "india_promo_fpr": 0.1338,
+          "india_promo_fpr_95ci": [
+            0.0874,
+            0.1995
+          ],
+          "imc25_recall": 0.9698,
+          "imc25_recall_95ci": [
+            0.9651,
+            0.9739
+          ],
+          "sp24_recall": 0.9971,
+          "sp24_recall_95ci": [
+            0.996,
+            0.9978
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8446,
+          "coverage_alert_volume": 0.9122
+        },
+        {
+          "threshold": 0.55,
+          "uci_ham_fpr": 0.3955,
+          "uci_ham_fpr_95ci": [
+            0.3761,
+            0.4152
+          ],
+          "india_legit_fpr": 0.1053,
+          "india_legit_fpr_95ci": [
+            0.0756,
+            0.1448
+          ],
+          "india_promo_fpr": 0.1338,
+          "india_promo_fpr_95ci": [
+            0.0874,
+            0.1995
+          ],
+          "imc25_recall": 0.9657,
+          "imc25_recall_95ci": [
+            0.9608,
+            0.9701
+          ],
+          "sp24_recall": 0.9968,
+          "sp24_recall_95ci": [
+            0.9957,
+            0.9976
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.857,
+          "coverage_alert_volume": 0.9062
+        },
+        {
+          "threshold": 0.6,
+          "uci_ham_fpr": 0.3547,
+          "uci_ham_fpr_95ci": [
+            0.3358,
+            0.3741
+          ],
+          "india_legit_fpr": 0.0954,
+          "india_legit_fpr_95ci": [
+            0.0672,
+            0.1336
+          ],
+          "india_promo_fpr": 0.1268,
+          "india_promo_fpr_95ci": [
+            0.0817,
+            0.1915
+          ],
+          "imc25_recall": 0.9603,
+          "imc25_recall_95ci": [
+            0.955,
+            0.965
+          ],
+          "sp24_recall": 0.9963,
+          "sp24_recall_95ci": [
+            0.9952,
+            0.9972
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8692,
+          "coverage_alert_volume": 0.9
+        },
+        {
+          "threshold": 0.65,
+          "uci_ham_fpr": 0.3201,
+          "uci_ham_fpr_95ci": [
+            0.3018,
+            0.3391
+          ],
+          "india_legit_fpr": 0.0789,
+          "india_legit_fpr_95ci": [
+            0.0536,
+            0.1148
+          ],
+          "india_promo_fpr": 0.1268,
+          "india_promo_fpr_95ci": [
+            0.0817,
+            0.1915
+          ],
+          "imc25_recall": 0.955,
+          "imc25_recall_95ci": [
+            0.9494,
+            0.96
+          ],
+          "sp24_recall": 0.9952,
+          "sp24_recall_95ci": [
+            0.9939,
+            0.9962
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8798,
+          "coverage_alert_volume": 0.894
+        },
+        {
+          "threshold": 0.7,
+          "uci_ham_fpr": 0.2852,
+          "uci_ham_fpr_95ci": [
+            0.2675,
+            0.3036
+          ],
+          "india_legit_fpr": 0.0757,
+          "india_legit_fpr_95ci": [
+            0.0509,
+            0.111
+          ],
+          "india_promo_fpr": 0.1197,
+          "india_promo_fpr_95ci": [
+            0.0761,
+            0.1834
+          ],
+          "imc25_recall": 0.9498,
+          "imc25_recall_95ci": [
+            0.9439,
+            0.9551
+          ],
+          "sp24_recall": 0.9951,
+          "sp24_recall_95ci": [
+            0.9937,
+            0.9961
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.891,
+          "coverage_alert_volume": 0.8886
+        },
+        {
+          "threshold": 0.75,
+          "uci_ham_fpr": 0.2485,
+          "uci_ham_fpr_95ci": [
+            0.2317,
+            0.2662
+          ],
+          "india_legit_fpr": 0.0691,
+          "india_legit_fpr_95ci": [
+            0.0456,
+            0.1033
+          ],
+          "india_promo_fpr": 0.1056,
+          "india_promo_fpr_95ci": [
+            0.0651,
+            0.167
+          ],
+          "imc25_recall": 0.9423,
+          "imc25_recall_95ci": [
+            0.9361,
+            0.948
+          ],
+          "sp24_recall": 0.9837,
+          "sp24_recall_95ci": [
+            0.9815,
+            0.9857
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9029,
+          "coverage_alert_volume": 0.8756
+        },
+        {
+          "threshold": 0.8,
+          "uci_ham_fpr": 0.2011,
+          "uci_ham_fpr_95ci": [
+            0.1855,
+            0.2176
+          ],
+          "india_legit_fpr": 0.0658,
+          "india_legit_fpr_95ci": [
+            0.043,
+            0.0994
+          ],
+          "india_promo_fpr": 0.1056,
+          "india_promo_fpr_95ci": [
+            0.0651,
+            0.167
+          ],
+          "imc25_recall": 0.9315,
+          "imc25_recall_95ci": [
+            0.9247,
+            0.9376
+          ],
+          "sp24_recall": 0.9836,
+          "sp24_recall_95ci": [
+            0.9813,
+            0.9856
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9191,
+          "coverage_alert_volume": 0.8675
+        },
+        {
+          "threshold": 0.85,
+          "uci_ham_fpr": 0.1699,
+          "uci_ham_fpr_95ci": [
+            0.1554,
+            0.1854
+          ],
+          "india_legit_fpr": 0.0362,
+          "india_legit_fpr_95ci": [
+            0.0203,
+            0.0636
+          ],
+          "india_promo_fpr": 0.0845,
+          "india_promo_fpr_95ci": [
+            0.049,
+            0.1419
+          ],
+          "imc25_recall": 0.9164,
+          "imc25_recall_95ci": [
+            0.909,
+            0.9232
+          ],
+          "sp24_recall": 0.9008,
+          "sp24_recall_95ci": [
+            0.8956,
+            0.9057
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9298,
+          "coverage_alert_volume": 0.8093
+        },
+        {
+          "threshold": 0.9,
+          "uci_ham_fpr": 0.1157,
+          "uci_ham_fpr_95ci": [
+            0.1036,
+            0.1291
+          ],
+          "india_legit_fpr": 0.0263,
+          "india_legit_fpr_95ci": [
+            0.0134,
+            0.0511
+          ],
+          "india_promo_fpr": 0.0563,
+          "india_promo_fpr_95ci": [
+            0.0288,
+            0.1072
+          ],
+          "imc25_recall": 0.8877,
+          "imc25_recall_95ci": [
+            0.8794,
+            0.8955
+          ],
+          "sp24_recall": 0.8963,
+          "sp24_recall_95ci": [
+            0.8911,
+            0.9013
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9495,
+          "coverage_alert_volume": 0.7929
+        },
+        {
+          "threshold": 0.95,
+          "uci_ham_fpr": 0.0525,
+          "uci_ham_fpr_95ci": [
+            0.0442,
+            0.0621
+          ],
+          "india_legit_fpr": 0.0164,
+          "india_legit_fpr_95ci": [
+            0.007,
+            0.0379
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.8237,
+          "imc25_recall_95ci": [
+            0.8138,
+            0.8332
+          ],
+          "sp24_recall": 0.2548,
+          "sp24_recall_95ci": [
+            0.2476,
+            0.2622
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9747,
+          "coverage_alert_volume": 0.3785
+        },
+        {
+          "threshold": 0.955,
+          "uci_ham_fpr": 0.0466,
+          "uci_ham_fpr_95ci": [
+            0.0389,
+            0.0558
+          ],
+          "india_legit_fpr": 0.0164,
+          "india_legit_fpr_95ci": [
+            0.007,
+            0.0379
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.8139,
+          "imc25_recall_95ci": [
+            0.8037,
+            0.8236
+          ],
+          "sp24_recall": 0.2537,
+          "sp24_recall_95ci": [
+            0.2465,
+            0.2611
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9772,
+          "coverage_alert_volume": 0.3746
+        },
+        {
+          "threshold": 0.96,
+          "uci_ham_fpr": 0.0412,
+          "uci_ham_fpr_95ci": [
+            0.034,
+            0.0499
+          ],
+          "india_legit_fpr": 0.0164,
+          "india_legit_fpr_95ci": [
+            0.007,
+            0.0379
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.7974,
+          "imc25_recall_95ci": [
+            0.787,
+            0.8075
+          ],
+          "sp24_recall": 0.2529,
+          "sp24_recall_95ci": [
+            0.2457,
+            0.2603
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9794,
+          "coverage_alert_volume": 0.3692
+        },
+        {
+          "threshold": 0.965,
+          "uci_ham_fpr": 0.0358,
+          "uci_ham_fpr_95ci": [
+            0.0291,
+            0.044
+          ],
+          "india_legit_fpr": 0.0164,
+          "india_legit_fpr_95ci": [
+            0.007,
+            0.0379
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.7842,
+          "imc25_recall_95ci": [
+            0.7735,
+            0.7945
+          ],
+          "sp24_recall": 0.2486,
+          "sp24_recall_95ci": [
+            0.2414,
+            0.2559
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9817,
+          "coverage_alert_volume": 0.3624
+        },
+        {
+          "threshold": 0.97,
+          "uci_ham_fpr": 0.0304,
+          "uci_ham_fpr_95ci": [
+            0.0242,
+            0.038
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.7536,
+          "imc25_recall_95ci": [
+            0.7425,
+            0.7645
+          ],
+          "sp24_recall": 0.2469,
+          "sp24_recall_95ci": [
+            0.2398,
+            0.2543
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9838,
+          "coverage_alert_volume": 0.3526
+        },
+        {
+          "threshold": 0.975,
+          "uci_ham_fpr": 0.0271,
+          "uci_ham_fpr_95ci": [
+            0.0213,
+            0.0343
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.7223,
+          "imc25_recall_95ci": [
+            0.7107,
+            0.7335
+          ],
+          "sp24_recall": 0.2444,
+          "sp24_recall_95ci": [
+            0.2372,
+            0.2517
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.985,
+          "coverage_alert_volume": 0.3424
+        },
+        {
+          "threshold": 0.98,
+          "uci_ham_fpr": 0.0187,
+          "uci_ham_fpr_95ci": [
+            0.014,
+            0.025
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.6902,
+          "imc25_recall_95ci": [
+            0.6783,
+            0.7019
+          ],
+          "sp24_recall": 0.2435,
+          "sp24_recall_95ci": [
+            0.2363,
+            0.2508
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9891,
+          "coverage_alert_volume": 0.3325
+        },
+        {
+          "threshold": 0.985,
+          "uci_ham_fpr": 0.0142,
+          "uci_ham_fpr_95ci": [
+            0.0101,
+            0.0197
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.6478,
+          "imc25_recall_95ci": [
+            0.6355,
+            0.6599
+          ],
+          "sp24_recall": 0.2425,
+          "sp24_recall_95ci": [
+            0.2354,
+            0.2498
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9912,
+          "coverage_alert_volume": 0.3202
+        },
+        {
+          "threshold": 0.99,
+          "uci_ham_fpr": 0.0092,
+          "uci_ham_fpr_95ci": [
+            0.0061,
+            0.0138
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.5677,
+          "imc25_recall_95ci": [
+            0.555,
+            0.5803
+          ],
+          "sp24_recall": 0.2387,
+          "sp24_recall_95ci": [
+            0.2316,
+            0.2459
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9935,
+          "coverage_alert_volume": 0.2962
+        },
+        {
+          "threshold": 0.995,
+          "uci_ham_fpr": 0.0058,
+          "uci_ham_fpr_95ci": [
+            0.0035,
+            0.0098
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.4067,
+          "imc25_recall_95ci": [
+            0.3942,
+            0.4193
+          ],
+          "sp24_recall": 0.0068,
+          "sp24_recall_95ci": [
+            0.0056,
+            0.0084
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9942,
+          "coverage_alert_volume": 0.1123
+        },
+        {
+          "threshold": 0.997,
+          "uci_ham_fpr": 0.0029,
+          "uci_ham_fpr_95ci": [
+            0.0014,
+            0.006
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.007,
+          "india_promo_fpr_95ci": [
+            0.0012,
+            0.0388
+          ],
+          "imc25_recall": 0.2976,
+          "imc25_recall_95ci": [
+            0.2861,
+            0.3094
+          ],
+          "sp24_recall": 0.0034,
+          "sp24_recall_95ci": [
+            0.0025,
+            0.0045
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.996,
+          "coverage_alert_volume": 0.081
+        },
+        {
+          "threshold": 0.998,
+          "uci_ham_fpr": 0.0012,
+          "uci_ham_fpr_95ci": [
+            0.0004,
+            0.0037
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.007,
+          "india_promo_fpr_95ci": [
+            0.0012,
+            0.0388
+          ],
+          "imc25_recall": 0.235,
+          "imc25_recall_95ci": [
+            0.2243,
+            0.246
+          ],
+          "sp24_recall": 0.0024,
+          "sp24_recall_95ci": [
+            0.0017,
+            0.0033
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9978,
+          "coverage_alert_volume": 0.0637
+        },
+        {
+          "threshold": 0.999,
+          "uci_ham_fpr": 0.0012,
+          "uci_ham_fpr_95ci": [
+            0.0004,
+            0.0037
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0,
+          "india_promo_fpr_95ci": [
+            0.0,
+            0.0263
+          ],
+          "imc25_recall": 0.1407,
+          "imc25_recall_95ci": [
+            0.132,
+            0.1498
+          ],
+          "sp24_recall": 0.0007,
+          "sp24_recall_95ci": [
+            0.0003,
+            0.0013
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9964,
+          "coverage_alert_volume": 0.0377
+        }
+      ],
+      "threshold_selection": {
+        "uci_ham_calibration_half": {
+          "n": 2401,
+          "selected_threshold": 0.9875,
+          "threshold_95ci": [
+            0.9841,
+            0.9898
+          ],
+          "at_selected": {
+            "uci_ham_eval_fpr": 0.0112,
+            "india_legit_fpr": 0.0,
+            "india_promo_fpr": 0.0141,
+            "imc25_recall": 0.6103,
+            "sp24_recall": 0.2405
+          },
+          "imc25_recall_over_bootstrap_thresholds_95ci": [
+            0.5723,
+            0.6564
+          ],
+          "uci_ham_eval_fpr_over_bootstrap_thresholds_95ci": [
+            0.0092,
+            0.0154
+          ]
+        },
+        "india_val_legit": {
+          "n": 133,
+          "selected_threshold": 0.9518,
+          "threshold_95ci": [
+            0.9518,
+            0.9518
+          ],
+          "at_selected": {
+            "uci_ham_eval_fpr": 0.0508,
+            "india_legit_fpr": 0.0164,
+            "india_promo_fpr": 0.0141,
+            "imc25_recall": 0.8207,
+            "sp24_recall": 0.2542
+          },
+          "imc25_recall_over_bootstrap_thresholds_95ci": [
+            0.8207,
+            0.8207
+          ],
+          "uci_ham_eval_fpr_over_bootstrap_thresholds_95ci": [
+            0.0508,
+            0.0508
+          ]
+        }
+      },
+      "artifact_sha256": "44a7e2f0561a1b47b778fce96bc72b3225d8a2a685884810dd74bf1db619a6a7"
+    },
+    "tfidf_svm": {
+      "curve": [
+        {
+          "threshold": 0.05,
+          "uci_ham_fpr": 0.8951,
+          "uci_ham_fpr_95ci": [
+            0.8822,
+            0.9067
+          ],
+          "india_legit_fpr": 0.4276,
+          "india_legit_fpr_95ci": [
+            0.3733,
+            0.4838
+          ],
+          "india_promo_fpr": 0.4014,
+          "india_promo_fpr_95ci": [
+            0.3244,
+            0.4836
+          ],
+          "imc25_recall": 0.9985,
+          "imc25_recall_95ci": [
+            0.9971,
+            0.9992
+          ],
+          "sp24_recall": 0.9995,
+          "sp24_recall_95ci": [
+            0.9989,
+            0.9998
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7324,
+          "coverage_alert_volume": 0.9764
+        },
+        {
+          "threshold": 0.1,
+          "uci_ham_fpr": 0.8472,
+          "uci_ham_fpr_95ci": [
+            0.8323,
+            0.861
+          ],
+          "india_legit_fpr": 0.352,
+          "india_legit_fpr_95ci": [
+            0.3004,
+            0.4072
+          ],
+          "india_promo_fpr": 0.3028,
+          "india_promo_fpr_95ci": [
+            0.2333,
+            0.3828
+          ],
+          "imc25_recall": 0.9971,
+          "imc25_recall_95ci": [
+            0.9954,
+            0.9982
+          ],
+          "sp24_recall": 0.9993,
+          "sp24_recall_95ci": [
+            0.9987,
+            0.9997
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7428,
+          "coverage_alert_volume": 0.9691
+        },
+        {
+          "threshold": 0.15,
+          "uci_ham_fpr": 0.8231,
+          "uci_ham_fpr_95ci": [
+            0.8073,
+            0.8378
+          ],
+          "india_legit_fpr": 0.3224,
+          "india_legit_fpr_95ci": [
+            0.2723,
+            0.3768
+          ],
+          "india_promo_fpr": 0.2606,
+          "india_promo_fpr_95ci": [
+            0.1954,
+            0.3384
+          ],
+          "imc25_recall": 0.9958,
+          "imc25_recall_95ci": [
+            0.9937,
+            0.9971
+          ],
+          "sp24_recall": 0.9993,
+          "sp24_recall_95ci": [
+            0.9986,
+            0.9996
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.748,
+          "coverage_alert_volume": 0.9655
+        },
+        {
+          "threshold": 0.2,
+          "uci_ham_fpr": 0.7939,
+          "uci_ham_fpr_95ci": [
+            0.7773,
+            0.8096
+          ],
+          "india_legit_fpr": 0.2993,
+          "india_legit_fpr_95ci": [
+            0.2506,
+            0.3531
+          ],
+          "india_promo_fpr": 0.2183,
+          "india_promo_fpr_95ci": [
+            0.1583,
+            0.2932
+          ],
+          "imc25_recall": 0.9951,
+          "imc25_recall_95ci": [
+            0.9929,
+            0.9966
+          ],
+          "sp24_recall": 0.9993,
+          "sp24_recall_95ci": [
+            0.9986,
+            0.9996
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7546,
+          "coverage_alert_volume": 0.9616
+        },
+        {
+          "threshold": 0.25,
+          "uci_ham_fpr": 0.7673,
+          "uci_ham_fpr_95ci": [
+            0.75,
+            0.7837
+          ],
+          "india_legit_fpr": 0.2763,
+          "india_legit_fpr_95ci": [
+            0.2291,
+            0.3291
+          ],
+          "india_promo_fpr": 0.2113,
+          "india_promo_fpr_95ci": [
+            0.1522,
+            0.2856
+          ],
+          "imc25_recall": 0.9951,
+          "imc25_recall_95ci": [
+            0.9929,
+            0.9966
+          ],
+          "sp24_recall": 0.9993,
+          "sp24_recall_95ci": [
+            0.9986,
+            0.9996
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7609,
+          "coverage_alert_volume": 0.9583
+        },
+        {
+          "threshold": 0.3,
+          "uci_ham_fpr": 0.744,
+          "uci_ham_fpr_95ci": [
+            0.7261,
+            0.761
+          ],
+          "india_legit_fpr": 0.2632,
+          "india_legit_fpr_95ci": [
+            0.2168,
+            0.3154
+          ],
+          "india_promo_fpr": 0.1972,
+          "india_promo_fpr_95ci": [
+            0.1401,
+            0.2702
+          ],
+          "imc25_recall": 0.9944,
+          "imc25_recall_95ci": [
+            0.9921,
+            0.996
+          ],
+          "sp24_recall": 0.9993,
+          "sp24_recall_95ci": [
+            0.9986,
+            0.9996
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7663,
+          "coverage_alert_volume": 0.9554
+        },
+        {
+          "threshold": 0.35,
+          "uci_ham_fpr": 0.7215,
+          "uci_ham_fpr_95ci": [
+            0.7032,
+            0.739
+          ],
+          "india_legit_fpr": 0.2467,
+          "india_legit_fpr_95ci": [
+            0.2016,
+            0.2981
+          ],
+          "india_promo_fpr": 0.1901,
+          "india_promo_fpr_95ci": [
+            0.1341,
+            0.2625
+          ],
+          "imc25_recall": 0.9936,
+          "imc25_recall_95ci": [
+            0.9912,
+            0.9953
+          ],
+          "sp24_recall": 0.9991,
+          "sp24_recall_95ci": [
+            0.9985,
+            0.9995
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7716,
+          "coverage_alert_volume": 0.9524
+        },
+        {
+          "threshold": 0.4,
+          "uci_ham_fpr": 0.6998,
+          "uci_ham_fpr_95ci": [
+            0.6812,
+            0.7178
+          ],
+          "india_legit_fpr": 0.2303,
+          "india_legit_fpr_95ci": [
+            0.1865,
+            0.2808
+          ],
+          "india_promo_fpr": 0.1831,
+          "india_promo_fpr_95ci": [
+            0.1281,
+            0.2548
+          ],
+          "imc25_recall": 0.9929,
+          "imc25_recall_95ci": [
+            0.9904,
+            0.9947
+          ],
+          "sp24_recall": 0.999,
+          "sp24_recall_95ci": [
+            0.9983,
+            0.9994
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7768,
+          "coverage_alert_volume": 0.9495
+        },
+        {
+          "threshold": 0.45,
+          "uci_ham_fpr": 0.6803,
+          "uci_ham_fpr_95ci": [
+            0.6613,
+            0.6986
+          ],
+          "india_legit_fpr": 0.2171,
+          "india_legit_fpr_95ci": [
+            0.1744,
+            0.2668
+          ],
+          "india_promo_fpr": 0.1761,
+          "india_promo_fpr_95ci": [
+            0.1222,
+            0.247
+          ],
+          "imc25_recall": 0.9912,
+          "imc25_recall_95ci": [
+            0.9884,
+            0.9933
+          ],
+          "sp24_recall": 0.999,
+          "sp24_recall_95ci": [
+            0.9983,
+            0.9994
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7814,
+          "coverage_alert_volume": 0.9467
+        },
+        {
+          "threshold": 0.5,
+          "uci_ham_fpr": 0.6549,
+          "uci_ham_fpr_95ci": [
+            0.6356,
+            0.6736
+          ],
+          "india_legit_fpr": 0.2105,
+          "india_legit_fpr_95ci": [
+            0.1685,
+            0.2598
+          ],
+          "india_promo_fpr": 0.169,
+          "india_promo_fpr_95ci": [
+            0.1163,
+            0.2392
+          ],
+          "imc25_recall": 0.9897,
+          "imc25_recall_95ci": [
+            0.9867,
+            0.9919
+          ],
+          "sp24_recall": 0.999,
+          "sp24_recall_95ci": [
+            0.9983,
+            0.9994
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7876,
+          "coverage_alert_volume": 0.9435
+        },
+        {
+          "threshold": 0.55,
+          "uci_ham_fpr": 0.6232,
+          "uci_ham_fpr_95ci": [
+            0.6037,
+            0.6424
+          ],
+          "india_legit_fpr": 0.2039,
+          "india_legit_fpr_95ci": [
+            0.1625,
+            0.2528
+          ],
+          "india_promo_fpr": 0.169,
+          "india_promo_fpr_95ci": [
+            0.1163,
+            0.2392
+          ],
+          "imc25_recall": 0.983,
+          "imc25_recall_95ci": [
+            0.9794,
+            0.986
+          ],
+          "sp24_recall": 0.998,
+          "sp24_recall_95ci": [
+            0.9971,
+            0.9986
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7947,
+          "coverage_alert_volume": 0.9376
+        },
+        {
+          "threshold": 0.6,
+          "uci_ham_fpr": 0.597,
+          "uci_ham_fpr_95ci": [
+            0.5772,
+            0.6164
+          ],
+          "india_legit_fpr": 0.1908,
+          "india_legit_fpr_95ci": [
+            0.1506,
+            0.2387
+          ],
+          "india_promo_fpr": 0.169,
+          "india_promo_fpr_95ci": [
+            0.1163,
+            0.2392
+          ],
+          "imc25_recall": 0.9815,
+          "imc25_recall_95ci": [
+            0.9777,
+            0.9846
+          ],
+          "sp24_recall": 0.9979,
+          "sp24_recall_95ci": [
+            0.997,
+            0.9986
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8014,
+          "coverage_alert_volume": 0.9342
+        },
+        {
+          "threshold": 0.65,
+          "uci_ham_fpr": 0.5683,
+          "uci_ham_fpr_95ci": [
+            0.5484,
+            0.588
+          ],
+          "india_legit_fpr": 0.1809,
+          "india_legit_fpr_95ci": [
+            0.1417,
+            0.2281
+          ],
+          "india_promo_fpr": 0.169,
+          "india_promo_fpr_95ci": [
+            0.1163,
+            0.2392
+          ],
+          "imc25_recall": 0.9798,
+          "imc25_recall_95ci": [
+            0.9759,
+            0.9831
+          ],
+          "sp24_recall": 0.9977,
+          "sp24_recall_95ci": [
+            0.9968,
+            0.9984
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8088,
+          "coverage_alert_volume": 0.9304
+        },
+        {
+          "threshold": 0.7,
+          "uci_ham_fpr": 0.5383,
+          "uci_ham_fpr_95ci": [
+            0.5183,
+            0.5582
+          ],
+          "india_legit_fpr": 0.1776,
+          "india_legit_fpr_95ci": [
+            0.1388,
+            0.2245
+          ],
+          "india_promo_fpr": 0.1408,
+          "india_promo_fpr_95ci": [
+            0.0931,
+            0.2076
+          ],
+          "imc25_recall": 0.9746,
+          "imc25_recall_95ci": [
+            0.9702,
+            0.9783
+          ],
+          "sp24_recall": 0.9973,
+          "sp24_recall_95ci": [
+            0.9962,
+            0.998
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8163,
+          "coverage_alert_volume": 0.9253
+        },
+        {
+          "threshold": 0.75,
+          "uci_ham_fpr": 0.5004,
+          "uci_ham_fpr_95ci": [
+            0.4804,
+            0.5204
+          ],
+          "india_legit_fpr": 0.1184,
+          "india_legit_fpr_95ci": [
+            0.0868,
+            0.1596
+          ],
+          "india_promo_fpr": 0.1338,
+          "india_promo_fpr_95ci": [
+            0.0874,
+            0.1995
+          ],
+          "imc25_recall": 0.9706,
+          "imc25_recall_95ci": [
+            0.966,
+            0.9747
+          ],
+          "sp24_recall": 0.9971,
+          "sp24_recall_95ci": [
+            0.996,
+            0.9978
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8264,
+          "coverage_alert_volume": 0.9192
+        },
+        {
+          "threshold": 0.8,
+          "uci_ham_fpr": 0.4538,
+          "uci_ham_fpr_95ci": [
+            0.434,
+            0.4738
+          ],
+          "india_legit_fpr": 0.0987,
+          "india_legit_fpr_95ci": [
+            0.07,
+            0.1374
+          ],
+          "india_promo_fpr": 0.1268,
+          "india_promo_fpr_95ci": [
+            0.0817,
+            0.1915
+          ],
+          "imc25_recall": 0.9679,
+          "imc25_recall_95ci": [
+            0.9631,
+            0.9721
+          ],
+          "sp24_recall": 0.9958,
+          "sp24_recall_95ci": [
+            0.9946,
+            0.9968
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8396,
+          "coverage_alert_volume": 0.9124
+        },
+        {
+          "threshold": 0.85,
+          "uci_ham_fpr": 0.3876,
+          "uci_ham_fpr_95ci": [
+            0.3683,
+            0.4072
+          ],
+          "india_legit_fpr": 0.0789,
+          "india_legit_fpr_95ci": [
+            0.0536,
+            0.1148
+          ],
+          "india_promo_fpr": 0.1197,
+          "india_promo_fpr_95ci": [
+            0.0761,
+            0.1834
+          ],
+          "imc25_recall": 0.9617,
+          "imc25_recall_95ci": [
+            0.9564,
+            0.9663
+          ],
+          "sp24_recall": 0.9957,
+          "sp24_recall_95ci": [
+            0.9944,
+            0.9966
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8589,
+          "coverage_alert_volume": 0.9032
+        },
+        {
+          "threshold": 0.9,
+          "uci_ham_fpr": 0.3193,
+          "uci_ham_fpr_95ci": [
+            0.301,
+            0.3382
+          ],
+          "india_legit_fpr": 0.0724,
+          "india_legit_fpr_95ci": [
+            0.0483,
+            0.1071
+          ],
+          "india_promo_fpr": 0.0845,
+          "india_promo_fpr_95ci": [
+            0.049,
+            0.1419
+          ],
+          "imc25_recall": 0.9523,
+          "imc25_recall_95ci": [
+            0.9466,
+            0.9575
+          ],
+          "sp24_recall": 0.9952,
+          "sp24_recall_95ci": [
+            0.9939,
+            0.9962
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8798,
+          "coverage_alert_volume": 0.8928
+        },
+        {
+          "threshold": 0.95,
+          "uci_ham_fpr": 0.234,
+          "uci_ham_fpr_95ci": [
+            0.2175,
+            0.2513
+          ],
+          "india_legit_fpr": 0.0559,
+          "india_legit_fpr_95ci": [
+            0.0352,
+            0.0877
+          ],
+          "india_promo_fpr": 0.0704,
+          "india_promo_fpr_95ci": [
+            0.0387,
+            0.1248
+          ],
+          "imc25_recall": 0.9294,
+          "imc25_recall_95ci": [
+            0.9226,
+            0.9357
+          ],
+          "sp24_recall": 0.9935,
+          "sp24_recall_95ci": [
+            0.992,
+            0.9947
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.907,
+          "coverage_alert_volume": 0.8762
+        },
+        {
+          "threshold": 0.955,
+          "uci_ham_fpr": 0.2186,
+          "uci_ham_fpr_95ci": [
+            0.2025,
+            0.2355
+          ],
+          "india_legit_fpr": 0.0526,
+          "india_legit_fpr_95ci": [
+            0.0327,
+            0.0838
+          ],
+          "india_promo_fpr": 0.0634,
+          "india_promo_fpr_95ci": [
+            0.0337,
+            0.1161
+          ],
+          "imc25_recall": 0.9255,
+          "imc25_recall_95ci": [
+            0.9185,
+            0.9319
+          ],
+          "sp24_recall": 0.9933,
+          "sp24_recall_95ci": [
+            0.9918,
+            0.9945
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9122,
+          "coverage_alert_volume": 0.8733
+        },
+        {
+          "threshold": 0.96,
+          "uci_ham_fpr": 0.2019,
+          "uci_ham_fpr_95ci": [
+            0.1863,
+            0.2184
+          ],
+          "india_legit_fpr": 0.0296,
+          "india_legit_fpr_95ci": [
+            0.0157,
+            0.0553
+          ],
+          "india_promo_fpr": 0.0563,
+          "india_promo_fpr_95ci": [
+            0.0288,
+            0.1072
+          ],
+          "imc25_recall": 0.9208,
+          "imc25_recall_95ci": [
+            0.9136,
+            0.9274
+          ],
+          "sp24_recall": 0.9933,
+          "sp24_recall_95ci": [
+            0.9918,
+            0.9945
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.918,
+          "coverage_alert_volume": 0.8699
+        },
+        {
+          "threshold": 0.965,
+          "uci_ham_fpr": 0.1869,
+          "uci_ham_fpr_95ci": [
+            0.1718,
+            0.203
+          ],
+          "india_legit_fpr": 0.0296,
+          "india_legit_fpr_95ci": [
+            0.0157,
+            0.0553
+          ],
+          "india_promo_fpr": 0.0563,
+          "india_promo_fpr_95ci": [
+            0.0288,
+            0.1072
+          ],
+          "imc25_recall": 0.9158,
+          "imc25_recall_95ci": [
+            0.9085,
+            0.9227
+          ],
+          "sp24_recall": 0.9926,
+          "sp24_recall_95ci": [
+            0.991,
+            0.9939
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9232,
+          "coverage_alert_volume": 0.8666
+        },
+        {
+          "threshold": 0.97,
+          "uci_ham_fpr": 0.1686,
+          "uci_ham_fpr_95ci": [
+            0.1542,
+            0.1841
+          ],
+          "india_legit_fpr": 0.0296,
+          "india_legit_fpr_95ci": [
+            0.0157,
+            0.0553
+          ],
+          "india_promo_fpr": 0.0563,
+          "india_promo_fpr_95ci": [
+            0.0288,
+            0.1072
+          ],
+          "imc25_recall": 0.9075,
+          "imc25_recall_95ci": [
+            0.8999,
+            0.9147
+          ],
+          "sp24_recall": 0.9248,
+          "sp24_recall_95ci": [
+            0.9202,
+            0.9291
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9296,
+          "coverage_alert_volume": 0.8211
+        },
+        {
+          "threshold": 0.975,
+          "uci_ham_fpr": 0.149,
+          "uci_ham_fpr_95ci": [
+            0.1354,
+            0.1638
+          ],
+          "india_legit_fpr": 0.0263,
+          "india_legit_fpr_95ci": [
+            0.0134,
+            0.0511
+          ],
+          "india_promo_fpr": 0.0493,
+          "india_promo_fpr_95ci": [
+            0.0241,
+            0.0983
+          ],
+          "imc25_recall": 0.8941,
+          "imc25_recall_95ci": [
+            0.886,
+            0.9017
+          ],
+          "sp24_recall": 0.9223,
+          "sp24_recall_95ci": [
+            0.9177,
+            0.9267
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9364,
+          "coverage_alert_volume": 0.8139
+        },
+        {
+          "threshold": 0.98,
+          "uci_ham_fpr": 0.1253,
+          "uci_ham_fpr_95ci": [
+            0.1127,
+            0.1392
+          ],
+          "india_legit_fpr": 0.023,
+          "india_legit_fpr_95ci": [
+            0.0112,
+            0.0468
+          ],
+          "india_promo_fpr": 0.0493,
+          "india_promo_fpr_95ci": [
+            0.0241,
+            0.0983
+          ],
+          "imc25_recall": 0.8746,
+          "imc25_recall_95ci": [
+            0.8659,
+            0.8828
+          ],
+          "sp24_recall": 0.8946,
+          "sp24_recall_95ci": [
+            0.8894,
+            0.8997
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9448,
+          "coverage_alert_volume": 0.7893
+        },
+        {
+          "threshold": 0.985,
+          "uci_ham_fpr": 0.1032,
+          "uci_ham_fpr_95ci": [
+            0.0917,
+            0.1161
+          ],
+          "india_legit_fpr": 0.0197,
+          "india_legit_fpr_95ci": [
+            0.0091,
+            0.0424
+          ],
+          "india_promo_fpr": 0.0493,
+          "india_promo_fpr_95ci": [
+            0.0241,
+            0.0983
+          ],
+          "imc25_recall": 0.8449,
+          "imc25_recall_95ci": [
+            0.8355,
+            0.8539
+          ],
+          "sp24_recall": 0.8924,
+          "sp24_recall_95ci": [
+            0.8871,
+            0.8975
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9526,
+          "coverage_alert_volume": 0.7777
+        },
+        {
+          "threshold": 0.99,
+          "uci_ham_fpr": 0.0758,
+          "uci_ham_fpr_95ci": [
+            0.0659,
+            0.087
+          ],
+          "india_legit_fpr": 0.0164,
+          "india_legit_fpr_95ci": [
+            0.007,
+            0.0379
+          ],
+          "india_promo_fpr": 0.0493,
+          "india_promo_fpr_95ci": [
+            0.0241,
+            0.0983
+          ],
+          "imc25_recall": 0.7825,
+          "imc25_recall_95ci": [
+            0.7718,
+            0.7928
+          ],
+          "sp24_recall": 0.2529,
+          "sp24_recall_95ci": [
+            0.2457,
+            0.2603
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.962,
+          "coverage_alert_volume": 0.3692
+        },
+        {
+          "threshold": 0.995,
+          "uci_ham_fpr": 0.0321,
+          "uci_ham_fpr_95ci": [
+            0.0257,
+            0.0399
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.5835,
+          "imc25_recall_95ci": [
+            0.5708,
+            0.596
+          ],
+          "sp24_recall": 0.2464,
+          "sp24_recall_95ci": [
+            0.2393,
+            0.2537
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9781,
+          "coverage_alert_volume": 0.3075
+        },
+        {
+          "threshold": 0.997,
+          "uci_ham_fpr": 0.0192,
+          "uci_ham_fpr_95ci": [
+            0.0144,
+            0.0254
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.3982,
+          "imc25_recall_95ci": [
+            0.3858,
+            0.4108
+          ],
+          "sp24_recall": 0.2345,
+          "sp24_recall_95ci": [
+            0.2275,
+            0.2417
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9808,
+          "coverage_alert_volume": 0.25
+        },
+        {
+          "threshold": 0.998,
+          "uci_ham_fpr": 0.0092,
+          "uci_ham_fpr_95ci": [
+            0.0061,
+            0.0138
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.2915,
+          "imc25_recall_95ci": [
+            0.28,
+            0.3032
+          ],
+          "sp24_recall": 0.0035,
+          "sp24_recall_95ci": [
+            0.0027,
+            0.0047
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9874,
+          "coverage_alert_volume": 0.0802
+        },
+        {
+          "threshold": 0.999,
+          "uci_ham_fpr": 0.0042,
+          "uci_ham_fpr_95ci": [
+            0.0023,
+            0.0076
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.1807,
+          "imc25_recall_95ci": [
+            0.1711,
+            0.1907
+          ],
+          "sp24_recall": 0.0005,
+          "sp24_recall_95ci": [
+            0.0002,
+            0.0011
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9907,
+          "coverage_alert_volume": 0.0486
+        }
+      ],
+      "threshold_selection": {
+        "uci_ham_calibration_half": {
+          "n": 2401,
+          "selected_threshold": 0.9976,
+          "threshold_95ci": [
+            0.9967,
+            0.9982
+          ],
+          "at_selected": {
+            "uci_ham_eval_fpr": 0.0137,
+            "india_legit_fpr": 0.0,
+            "india_promo_fpr": 0.0141,
+            "imc25_recall": 0.3275,
+            "sp24_recall": 0.232
+          },
+          "imc25_recall_over_bootstrap_thresholds_95ci": [
+            0.2739,
+            0.4415
+          ],
+          "uci_ham_eval_fpr_over_bootstrap_thresholds_95ci": [
+            0.0071,
+            0.0212
+          ]
+        },
+        "india_val_legit": {
+          "n": 133,
+          "selected_threshold": 0.9877,
+          "threshold_95ci": [
+            0.9877,
+            0.9877
+          ],
+          "at_selected": {
+            "uci_ham_eval_fpr": 0.0895,
+            "india_legit_fpr": 0.0164,
+            "india_promo_fpr": 0.0493,
+            "imc25_recall": 0.8124,
+            "sp24_recall": 0.6007
+          },
+          "imc25_recall_over_bootstrap_thresholds_95ci": [
+            0.8124,
+            0.8124
+          ],
+          "uci_ham_eval_fpr_over_bootstrap_thresholds_95ci": [
+            0.0895,
+            0.0895
+          ]
+        }
+      },
+      "artifact_sha256": "aab41e66adf392c8f42436f4c8fd373780ca02105365d63c49263d4e5420f00c"
+    },
+    "chakravyuh_tagger_arch": {
+      "curve": [
+        {
+          "threshold": 0.05,
+          "uci_ham_fpr": 0.8988,
+          "uci_ham_fpr_95ci": [
+            0.8861,
+            0.9103
+          ],
+          "india_legit_fpr": 0.4211,
+          "india_legit_fpr_95ci": [
+            0.3669,
+            0.4772
+          ],
+          "india_promo_fpr": 0.3451,
+          "india_promo_fpr_95ci": [
+            0.2719,
+            0.4264
+          ],
+          "imc25_recall": 0.9975,
+          "imc25_recall_95ci": [
+            0.9958,
+            0.9985
+          ],
+          "sp24_recall": 0.9999,
+          "sp24_recall_95ci": [
+            0.9996,
+            1.0
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7314,
+          "coverage_alert_volume": 0.9763
+        },
+        {
+          "threshold": 0.1,
+          "uci_ham_fpr": 0.811,
+          "uci_ham_fpr_95ci": [
+            0.7948,
+            0.8261
+          ],
+          "india_legit_fpr": 0.3158,
+          "india_legit_fpr_95ci": [
+            0.2661,
+            0.3701
+          ],
+          "india_promo_fpr": 0.2324,
+          "india_promo_fpr_95ci": [
+            0.1705,
+            0.3084
+          ],
+          "imc25_recall": 0.9932,
+          "imc25_recall_95ci": [
+            0.9908,
+            0.995
+          ],
+          "sp24_recall": 0.9999,
+          "sp24_recall_95ci": [
+            0.9996,
+            1.0
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7503,
+          "coverage_alert_volume": 0.9636
+        },
+        {
+          "threshold": 0.15,
+          "uci_ham_fpr": 0.7319,
+          "uci_ham_fpr_95ci": [
+            0.7138,
+            0.7492
+          ],
+          "india_legit_fpr": 0.273,
+          "india_legit_fpr_95ci": [
+            0.226,
+            0.3257
+          ],
+          "india_promo_fpr": 0.1901,
+          "india_promo_fpr_95ci": [
+            0.1341,
+            0.2625
+          ],
+          "imc25_recall": 0.99,
+          "imc25_recall_95ci": [
+            0.9871,
+            0.9922
+          ],
+          "sp24_recall": 0.9992,
+          "sp24_recall_95ci": [
+            0.9986,
+            0.9995
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7685,
+          "coverage_alert_volume": 0.953
+        },
+        {
+          "threshold": 0.2,
+          "uci_ham_fpr": 0.6615,
+          "uci_ham_fpr_95ci": [
+            0.6424,
+            0.6802
+          ],
+          "india_legit_fpr": 0.2303,
+          "india_legit_fpr_95ci": [
+            0.1865,
+            0.2808
+          ],
+          "india_promo_fpr": 0.1761,
+          "india_promo_fpr_95ci": [
+            0.1222,
+            0.247
+          ],
+          "imc25_recall": 0.9878,
+          "imc25_recall_95ci": [
+            0.9846,
+            0.9903
+          ],
+          "sp24_recall": 0.9988,
+          "sp24_recall_95ci": [
+            0.9981,
+            0.9993
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.7856,
+          "coverage_alert_volume": 0.9439
+        },
+        {
+          "threshold": 0.25,
+          "uci_ham_fpr": 0.5945,
+          "uci_ham_fpr_95ci": [
+            0.5747,
+            0.614
+          ],
+          "india_legit_fpr": 0.1974,
+          "india_legit_fpr_95ci": [
+            0.1565,
+            0.2458
+          ],
+          "india_promo_fpr": 0.169,
+          "india_promo_fpr_95ci": [
+            0.1163,
+            0.2392
+          ],
+          "imc25_recall": 0.9847,
+          "imc25_recall_95ci": [
+            0.9813,
+            0.9876
+          ],
+          "sp24_recall": 0.9987,
+          "sp24_recall_95ci": [
+            0.9979,
+            0.9992
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8025,
+          "coverage_alert_volume": 0.9353
+        },
+        {
+          "threshold": 0.3,
+          "uci_ham_fpr": 0.5366,
+          "uci_ham_fpr_95ci": [
+            0.5167,
+            0.5565
+          ],
+          "india_legit_fpr": 0.1809,
+          "india_legit_fpr_95ci": [
+            0.1417,
+            0.2281
+          ],
+          "india_promo_fpr": 0.1479,
+          "india_promo_fpr_95ci": [
+            0.0988,
+            0.2155
+          ],
+          "imc25_recall": 0.9817,
+          "imc25_recall_95ci": [
+            0.9779,
+            0.9848
+          ],
+          "sp24_recall": 0.9987,
+          "sp24_recall_95ci": [
+            0.9979,
+            0.9992
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8178,
+          "coverage_alert_volume": 0.9279
+        },
+        {
+          "threshold": 0.35,
+          "uci_ham_fpr": 0.48,
+          "uci_ham_fpr_95ci": [
+            0.4601,
+            0.5
+          ],
+          "india_legit_fpr": 0.1546,
+          "india_legit_fpr_95ci": [
+            0.1183,
+            0.1995
+          ],
+          "india_promo_fpr": 0.1479,
+          "india_promo_fpr_95ci": [
+            0.0988,
+            0.2155
+          ],
+          "imc25_recall": 0.979,
+          "imc25_recall_95ci": [
+            0.975,
+            0.9823
+          ],
+          "sp24_recall": 0.9985,
+          "sp24_recall_95ci": [
+            0.9976,
+            0.999
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8335,
+          "coverage_alert_volume": 0.9206
+        },
+        {
+          "threshold": 0.4,
+          "uci_ham_fpr": 0.4305,
+          "uci_ham_fpr_95ci": [
+            0.4108,
+            0.4504
+          ],
+          "india_legit_fpr": 0.1382,
+          "india_legit_fpr_95ci": [
+            0.1039,
+            0.1815
+          ],
+          "india_promo_fpr": 0.1197,
+          "india_promo_fpr_95ci": [
+            0.0761,
+            0.1834
+          ],
+          "imc25_recall": 0.9766,
+          "imc25_recall_95ci": [
+            0.9724,
+            0.9801
+          ],
+          "sp24_recall": 0.9982,
+          "sp24_recall_95ci": [
+            0.9973,
+            0.9988
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8477,
+          "coverage_alert_volume": 0.9141
+        },
+        {
+          "threshold": 0.45,
+          "uci_ham_fpr": 0.3834,
+          "uci_ham_fpr_95ci": [
+            0.3642,
+            0.403
+          ],
+          "india_legit_fpr": 0.1316,
+          "india_legit_fpr_95ci": [
+            0.0981,
+            0.1742
+          ],
+          "india_promo_fpr": 0.1197,
+          "india_promo_fpr_95ci": [
+            0.0761,
+            0.1834
+          ],
+          "imc25_recall": 0.9737,
+          "imc25_recall_95ci": [
+            0.9693,
+            0.9775
+          ],
+          "sp24_recall": 0.9978,
+          "sp24_recall_95ci": [
+            0.9968,
+            0.9985
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8617,
+          "coverage_alert_volume": 0.9079
+        },
+        {
+          "threshold": 0.5,
+          "uci_ham_fpr": 0.3451,
+          "uci_ham_fpr_95ci": [
+            0.3264,
+            0.3644
+          ],
+          "india_legit_fpr": 0.125,
+          "india_legit_fpr_95ci": [
+            0.0924,
+            0.1669
+          ],
+          "india_promo_fpr": 0.1197,
+          "india_promo_fpr_95ci": [
+            0.0761,
+            0.1834
+          ],
+          "imc25_recall": 0.9706,
+          "imc25_recall_95ci": [
+            0.966,
+            0.9747
+          ],
+          "sp24_recall": 0.9977,
+          "sp24_recall_95ci": [
+            0.9968,
+            0.9984
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8734,
+          "coverage_alert_volume": 0.9029
+        },
+        {
+          "threshold": 0.55,
+          "uci_ham_fpr": 0.2923,
+          "uci_ham_fpr_95ci": [
+            0.2744,
+            0.3108
+          ],
+          "india_legit_fpr": 0.1184,
+          "india_legit_fpr_95ci": [
+            0.0868,
+            0.1596
+          ],
+          "india_promo_fpr": 0.1056,
+          "india_promo_fpr_95ci": [
+            0.0651,
+            0.167
+          ],
+          "imc25_recall": 0.9661,
+          "imc25_recall_95ci": [
+            0.9611,
+            0.9704
+          ],
+          "sp24_recall": 0.9974,
+          "sp24_recall_95ci": [
+            0.9964,
+            0.9981
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.8902,
+          "coverage_alert_volume": 0.8956
+        },
+        {
+          "threshold": 0.6,
+          "uci_ham_fpr": 0.2548,
+          "uci_ham_fpr_95ci": [
+            0.2378,
+            0.2726
+          ],
+          "india_legit_fpr": 0.1053,
+          "india_legit_fpr_95ci": [
+            0.0756,
+            0.1448
+          ],
+          "india_promo_fpr": 0.0845,
+          "india_promo_fpr_95ci": [
+            0.049,
+            0.1419
+          ],
+          "imc25_recall": 0.9617,
+          "imc25_recall_95ci": [
+            0.9564,
+            0.9663
+          ],
+          "sp24_recall": 0.9971,
+          "sp24_recall_95ci": [
+            0.9961,
+            0.9979
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9025,
+          "coverage_alert_volume": 0.8899
+        },
+        {
+          "threshold": 0.65,
+          "uci_ham_fpr": 0.2165,
+          "uci_ham_fpr_95ci": [
+            0.2005,
+            0.2334
+          ],
+          "india_legit_fpr": 0.0987,
+          "india_legit_fpr_95ci": [
+            0.07,
+            0.1374
+          ],
+          "india_promo_fpr": 0.0775,
+          "india_promo_fpr_95ci": [
+            0.0438,
+            0.1334
+          ],
+          "imc25_recall": 0.9561,
+          "imc25_recall_95ci": [
+            0.9505,
+            0.961
+          ],
+          "sp24_recall": 0.9967,
+          "sp24_recall_95ci": [
+            0.9956,
+            0.9975
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9155,
+          "coverage_alert_volume": 0.8839
+        },
+        {
+          "threshold": 0.7,
+          "uci_ham_fpr": 0.1678,
+          "uci_ham_fpr_95ci": [
+            0.1534,
+            0.1832
+          ],
+          "india_legit_fpr": 0.0789,
+          "india_legit_fpr_95ci": [
+            0.0536,
+            0.1148
+          ],
+          "india_promo_fpr": 0.0775,
+          "india_promo_fpr_95ci": [
+            0.0438,
+            0.1334
+          ],
+          "imc25_recall": 0.9489,
+          "imc25_recall_95ci": [
+            0.943,
+            0.9543
+          ],
+          "sp24_recall": 0.996,
+          "sp24_recall_95ci": [
+            0.9948,
+            0.997
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9328,
+          "coverage_alert_volume": 0.8761
+        },
+        {
+          "threshold": 0.75,
+          "uci_ham_fpr": 0.1378,
+          "uci_ham_fpr_95ci": [
+            0.1246,
+            0.1522
+          ],
+          "india_legit_fpr": 0.0757,
+          "india_legit_fpr_95ci": [
+            0.0509,
+            0.111
+          ],
+          "india_promo_fpr": 0.0352,
+          "india_promo_fpr_95ci": [
+            0.0151,
+            0.0798
+          ],
+          "imc25_recall": 0.941,
+          "imc25_recall_95ci": [
+            0.9346,
+            0.9467
+          ],
+          "sp24_recall": 0.9948,
+          "sp24_recall_95ci": [
+            0.9935,
+            0.9959
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9437,
+          "coverage_alert_volume": 0.8698
+        },
+        {
+          "threshold": 0.8,
+          "uci_ham_fpr": 0.102,
+          "uci_ham_fpr_95ci": [
+            0.0905,
+            0.1147
+          ],
+          "india_legit_fpr": 0.0197,
+          "india_legit_fpr_95ci": [
+            0.0091,
+            0.0424
+          ],
+          "india_promo_fpr": 0.0352,
+          "india_promo_fpr_95ci": [
+            0.0151,
+            0.0798
+          ],
+          "imc25_recall": 0.9321,
+          "imc25_recall_95ci": [
+            0.9254,
+            0.9383
+          ],
+          "sp24_recall": 0.9934,
+          "sp24_recall_95ci": [
+            0.9919,
+            0.9947
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9573,
+          "coverage_alert_volume": 0.862
+        },
+        {
+          "threshold": 0.85,
+          "uci_ham_fpr": 0.0762,
+          "uci_ham_fpr_95ci": [
+            0.0662,
+            0.0875
+          ],
+          "india_legit_fpr": 0.0197,
+          "india_legit_fpr_95ci": [
+            0.0091,
+            0.0424
+          ],
+          "india_promo_fpr": 0.0352,
+          "india_promo_fpr_95ci": [
+            0.0151,
+            0.0798
+          ],
+          "imc25_recall": 0.9102,
+          "imc25_recall_95ci": [
+            0.9027,
+            0.9173
+          ],
+          "sp24_recall": 0.9919,
+          "sp24_recall_95ci": [
+            0.9902,
+            0.9933
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.967,
+          "coverage_alert_volume": 0.8525
+        },
+        {
+          "threshold": 0.9,
+          "uci_ham_fpr": 0.05,
+          "uci_ham_fpr_95ci": [
+            0.0419,
+            0.0594
+          ],
+          "india_legit_fpr": 0.0033,
+          "india_legit_fpr_95ci": [
+            0.0006,
+            0.0184
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.875,
+          "imc25_recall_95ci": [
+            0.8663,
+            0.8832
+          ],
+          "sp24_recall": 0.9859,
+          "sp24_recall_95ci": [
+            0.9838,
+            0.9878
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9773,
+          "coverage_alert_volume": 0.8364
+        },
+        {
+          "threshold": 0.95,
+          "uci_ham_fpr": 0.0233,
+          "uci_ham_fpr_95ci": [
+            0.018,
+            0.0302
+          ],
+          "india_legit_fpr": 0.0033,
+          "india_legit_fpr_95ci": [
+            0.0006,
+            0.0184
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.7878,
+          "imc25_recall_95ci": [
+            0.7771,
+            0.798
+          ],
+          "sp24_recall": 0.9777,
+          "sp24_recall_95ci": [
+            0.9751,
+            0.98
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9881,
+          "coverage_alert_volume": 0.8055
+        },
+        {
+          "threshold": 0.955,
+          "uci_ham_fpr": 0.0212,
+          "uci_ham_fpr_95ci": [
+            0.0162,
+            0.0278
+          ],
+          "india_legit_fpr": 0.0033,
+          "india_legit_fpr_95ci": [
+            0.0006,
+            0.0184
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.771,
+          "imc25_recall_95ci": [
+            0.7601,
+            0.7815
+          ],
+          "sp24_recall": 0.9747,
+          "sp24_recall_95ci": [
+            0.972,
+            0.9773
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9889,
+          "coverage_alert_volume": 0.799
+        },
+        {
+          "threshold": 0.96,
+          "uci_ham_fpr": 0.0187,
+          "uci_ham_fpr_95ci": [
+            0.014,
+            0.025
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.755,
+          "imc25_recall_95ci": [
+            0.7439,
+            0.7658
+          ],
+          "sp24_recall": 0.9718,
+          "sp24_recall_95ci": [
+            0.9689,
+            0.9745
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.99,
+          "coverage_alert_volume": 0.7927
+        },
+        {
+          "threshold": 0.965,
+          "uci_ham_fpr": 0.0142,
+          "uci_ham_fpr_95ci": [
+            0.0101,
+            0.0197
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.7369,
+          "imc25_recall_95ci": [
+            0.7255,
+            0.7479
+          ],
+          "sp24_recall": 0.9626,
+          "sp24_recall_95ci": [
+            0.9593,
+            0.9657
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9922,
+          "coverage_alert_volume": 0.7818
+        },
+        {
+          "threshold": 0.97,
+          "uci_ham_fpr": 0.0129,
+          "uci_ham_fpr_95ci": [
+            0.0091,
+            0.0183
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.7024,
+          "imc25_recall_95ci": [
+            0.6906,
+            0.7139
+          ],
+          "sp24_recall": 0.9312,
+          "sp24_recall_95ci": [
+            0.9268,
+            0.9353
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9926,
+          "coverage_alert_volume": 0.7534
+        },
+        {
+          "threshold": 0.975,
+          "uci_ham_fpr": 0.0083,
+          "uci_ham_fpr_95ci": [
+            0.0054,
+            0.0128
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.6681,
+          "imc25_recall_95ci": [
+            0.656,
+            0.68
+          ],
+          "sp24_recall": 0.7589,
+          "sp24_recall_95ci": [
+            0.7516,
+            0.766
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9949,
+          "coverage_alert_volume": 0.6391
+        },
+        {
+          "threshold": 0.98,
+          "uci_ham_fpr": 0.0067,
+          "uci_ham_fpr_95ci": [
+            0.0041,
+            0.0108
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0141,
+          "india_promo_fpr_95ci": [
+            0.0039,
+            0.0499
+          ],
+          "imc25_recall": 0.6235,
+          "imc25_recall_95ci": [
+            0.6111,
+            0.6358
+          ],
+          "sp24_recall": 0.4502,
+          "sp24_recall_95ci": [
+            0.4418,
+            0.4585
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9957,
+          "coverage_alert_volume": 0.4393
+        },
+        {
+          "threshold": 0.985,
+          "uci_ham_fpr": 0.005,
+          "uci_ham_fpr_95ci": [
+            0.0029,
+            0.0087
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.007,
+          "india_promo_fpr_95ci": [
+            0.0012,
+            0.0388
+          ],
+          "imc25_recall": 0.5633,
+          "imc25_recall_95ci": [
+            0.5506,
+            0.5759
+          ],
+          "sp24_recall": 0.2928,
+          "sp24_recall_95ci": [
+            0.2852,
+            0.3005
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9964,
+          "coverage_alert_volume": 0.3275
+        },
+        {
+          "threshold": 0.99,
+          "uci_ham_fpr": 0.0021,
+          "uci_ham_fpr_95ci": [
+            0.0009,
+            0.0049
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.007,
+          "india_promo_fpr_95ci": [
+            0.0012,
+            0.0388
+          ],
+          "imc25_recall": 0.4678,
+          "imc25_recall_95ci": [
+            0.4551,
+            0.4805
+          ],
+          "sp24_recall": 0.1467,
+          "sp24_recall_95ci": [
+            0.1409,
+            0.1528
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9982,
+          "coverage_alert_volume": 0.213
+        },
+        {
+          "threshold": 0.995,
+          "uci_ham_fpr": 0.0004,
+          "uci_ham_fpr_95ci": [
+            0.0001,
+            0.0024
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0,
+          "india_promo_fpr_95ci": [
+            0.0,
+            0.0263
+          ],
+          "imc25_recall": 0.323,
+          "imc25_recall_95ci": [
+            0.3112,
+            0.3351
+          ],
+          "sp24_recall": 0.0026,
+          "sp24_recall_95ci": [
+            0.0019,
+            0.0036
+          ],
+          "precision_imc25_vs_uci_ham_eval": 0.9995,
+          "coverage_alert_volume": 0.0869
+        },
+        {
+          "threshold": 0.997,
+          "uci_ham_fpr": 0.0,
+          "uci_ham_fpr_95ci": [
+            0.0,
+            0.0016
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0,
+          "india_promo_fpr_95ci": [
+            0.0,
+            0.0263
+          ],
+          "imc25_recall": 0.2216,
+          "imc25_recall_95ci": [
+            0.2112,
+            0.2324
+          ],
+          "sp24_recall": 0.0007,
+          "sp24_recall_95ci": [
+            0.0003,
+            0.0013
+          ],
+          "precision_imc25_vs_uci_ham_eval": 1.0,
+          "coverage_alert_volume": 0.0589
+        },
+        {
+          "threshold": 0.998,
+          "uci_ham_fpr": 0.0,
+          "uci_ham_fpr_95ci": [
+            0.0,
+            0.0016
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0,
+          "india_promo_fpr_95ci": [
+            0.0,
+            0.0263
+          ],
+          "imc25_recall": 0.1624,
+          "imc25_recall_95ci": [
+            0.1532,
+            0.172
+          ],
+          "sp24_recall": 0.0005,
+          "sp24_recall_95ci": [
+            0.0002,
+            0.0011
+          ],
+          "precision_imc25_vs_uci_ham_eval": 1.0,
+          "coverage_alert_volume": 0.0432
+        },
+        {
+          "threshold": 0.999,
+          "uci_ham_fpr": 0.0,
+          "uci_ham_fpr_95ci": [
+            0.0,
+            0.0016
+          ],
+          "india_legit_fpr": 0.0,
+          "india_legit_fpr_95ci": [
+            0.0,
+            0.0125
+          ],
+          "india_promo_fpr": 0.0,
+          "india_promo_fpr_95ci": [
+            0.0,
+            0.0263
+          ],
+          "imc25_recall": 0.0706,
+          "imc25_recall_95ci": [
+            0.0643,
+            0.0774
+          ],
+          "sp24_recall": 0.0001,
+          "sp24_recall_95ci": [
+            0.0,
+            0.0004
+          ],
+          "precision_imc25_vs_uci_ham_eval": 1.0,
+          "coverage_alert_volume": 0.0187
+        }
+      ],
+      "threshold_selection": {
+        "uci_ham_calibration_half": {
+          "n": 2401,
+          "selected_threshold": 0.9658,
+          "threshold_95ci": [
+            0.957,
+            0.972
+          ],
+          "at_selected": {
+            "uci_ham_eval_fpr": 0.0142,
+            "india_legit_fpr": 0.0,
+            "india_promo_fpr": 0.0141,
+            "imc25_recall": 0.7313,
+            "sp24_recall": 0.9608
+          },
+          "imc25_recall_over_bootstrap_thresholds_95ci": [
+            0.6871,
+            0.7649
+          ],
+          "uci_ham_eval_fpr_over_bootstrap_thresholds_95ci": [
+            0.0108,
+            0.0204
+          ]
+        },
+        "india_val_legit": {
+          "n": 133,
+          "selected_threshold": 0.9558,
+          "threshold_95ci": [
+            0.9558,
+            0.9558
+          ],
+          "at_selected": {
+            "uci_ham_eval_fpr": 0.0208,
+            "india_legit_fpr": 0.0033,
+            "india_promo_fpr": 0.0141,
+            "imc25_recall": 0.7682,
+            "sp24_recall": 0.9743
+          },
+          "imc25_recall_over_bootstrap_thresholds_95ci": [
+            0.7682,
+            0.7682
+          ],
+          "uci_ham_eval_fpr_over_bootstrap_thresholds_95ci": [
+            0.0208,
+            0.0208
+          ]
+        }
+      },
+      "artifact_sha256": "56cc0133208122649fbbfd1b355543d7ab6e4623a987f6df06471027c18a4755"
+    }
+  },
+  "environment": {
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "cpus": 2,
+    "memory": "8223868 kB",
+    "gpu": "none",
+    "python": "3.13.16",
+    "numpy": "2.5.3",
+    "sklearn": "1.9.1",
+    "torch": "2.14.1+cu130",
+    "torch_threads": 2,
+    "code_commit": "a5f606cf7473c5bdb74059ea18e2282cee9b7394"
+  },
+  "runtime_seconds": 29.6
+}
