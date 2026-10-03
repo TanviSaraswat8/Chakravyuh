@@ -22,13 +22,13 @@ class EventIn(BaseModel):
     type: EventType
     t: float | None = Field(None, description="seconds since session start; server time used if omitted")
     text: str | None = Field(None, max_length=2000)
-    channel: str | None = None
+    channel: str | None = Field(None, max_length=20)
     attrs: dict = {}
     client_tags: ClientTags | None = None
 
 
 class SessionCreate(BaseModel):
-    channel: str = "whatsapp"
+    channel: str = Field("whatsapp", max_length=20)
     language: Literal["en", "hi", "hinglish"] = "en"
     source: Literal["live", "demo", "sim"] = "live"
 
@@ -69,7 +69,7 @@ class ScoreOut(BaseModel):
 
 class ScoreRequest(BaseModel):
     language: Literal["en", "hi", "hinglish"] = "en"
-    channel: str = "whatsapp"
+    channel: str = Field("whatsapp", max_length=20)
     events: list[EventIn]
 
 
@@ -107,7 +107,7 @@ class AlertResponse(BaseModel):
 class BetaSignup(BaseModel):
     email: EmailStr
     name: str = Field(min_length=1, max_length=120)
-    org: str | None = None
+    org: str | None = Field(None, max_length=160)
     role: Literal["tester", "analyst"] = "tester"
 
 
@@ -115,9 +115,9 @@ class FeedbackIn(BaseModel):
     kind: Literal["general", "bug", "false_alert", "missed_scam"] = "general"
     rating: int | None = Field(None, ge=1, le=5)
     comment: str | None = Field(None, max_length=4000)
-    page: str | None = None
-    session_id: str | None = None
-    alert_id: str | None = None
+    page: str | None = Field(None, max_length=60)
+    session_id: str | None = Field(None, max_length=16)
+    alert_id: str | None = Field(None, max_length=16)
 
 
 class CampaignPatch(BaseModel):

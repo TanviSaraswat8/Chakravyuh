@@ -58,7 +58,13 @@ make test         # backend tests + frontend type-check
 Or run everything in Docker with PostgreSQL:
 
 ```bash
-docker compose up --build    # web on http://localhost:8080, API on http://localhost:8000
+docker compose up --build --wait    # web on http://localhost:8080, API on http://localhost:8000
+```
+
+To check the whole stack end to end (Windows, writes `validation-report.txt`):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\validate_docker.ps1
 ```
 
 ### VS Code

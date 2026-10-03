@@ -33,10 +33,28 @@ The API needs about 1 GB of RAM because it loads PyTorch and the models, so use 
 | `STORE_MESSAGE_TEXT` | `false` in production: text is scored in memory and never stored |
 | `CHAKRAVYUH_LLM_*` | Optional LLM for the simulator's attacker agents |
 
+## Validate the whole stack locally first
+
+On Windows with Docker Desktop running, from the repo folder:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\validate_docker.ps1
+```
+
+It checks Docker, pulls the latest code, builds both images, starts PostgreSQL + API + web and
+waits until all three are healthy, then runs the smoke test through nginx, the regression checks
+(Customs hold, flat deposit), attacker evolution and the defender's update, campaign detection,
+persistence across an API restart, privacy mode checked inside PostgreSQL, and the full test
+suite inside the API image against PostgreSQL. It writes `validation-report.txt` and leaves the
+stack running at http://localhost:8080. The first build downloads about 1 GB.
+
+If a port is taken, set `DB_HOST_PORT`, `API_HOST_PORT` or `WEB_HOST_PORT` first, for example
+`$env:WEB_HOST_PORT = "8081"`.
+
 ## Any Docker host
 
 ```bash
-docker compose up --build -d
+docker compose up --build -d --wait
 ```
 
 This runs PostgreSQL, the API on port 8000 and the web app on port 8080 (nginx proxies `/v1` to the API). Put a reverse proxy with HTTPS in front for anything public.
@@ -47,8 +65,9 @@ Build command `npm run build`, output directory `dist`, root directory `frontend
 
 ## What CI checks on every push
 
-GitHub Actions (`.github/workflows/ci.yml`) lints and tests the backend, builds the frontend,
-then builds both Docker images, starts the API container and runs the smoke test against it.
+GitHub Actions (`.github/workflows/ci.yml`) lints and tests the backend, builds the frontend, then
+runs the same full-stack Docker checks as the validation script: real images, PostgreSQL, nginx,
+smoke test, regression checks, privacy mode in the database and the test suite against PostgreSQL.
 A green run means the images you deploy actually start and work.
 
 ## One process per API instance

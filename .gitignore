@@ -26,3 +26,7 @@ frontend/dist/
 # Sentinel training outputs
 sentinel/outputs/
 sentinel/*.gguf
+
+# Local validation output
+validation-report.txt
+validation-build.log

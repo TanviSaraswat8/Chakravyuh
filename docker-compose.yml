@@ -1,5 +1,6 @@
-# One command to run everything:  docker compose up --build
+# One command to run everything:  docker compose up --build --wait
 # Web app: http://localhost:8080   API docs: http://localhost:8000/docs
+# Full validation on Windows:      powershell -ExecutionPolicy Bypass -File scripts\validate_docker.ps1
 services:
   db:
     image: postgres:16-alpine
@@ -8,7 +9,8 @@ services:
       POSTGRES_PASSWORD: chakravyuh
       POSTGRES_DB: chakravyuh
     volumes: [pgdata:/var/lib/postgresql/data]
-    ports: ["5432:5432"]
+    # Only for connecting from your machine (psql, VS Code). Change DB_HOST_PORT if 5432 is taken.
+    ports: ["127.0.0.1:${DB_HOST_PORT:-5432}:5432"]
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U chakravyuh"]
       interval: 5s
@@ -16,6 +18,7 @@ services:
 
   api:
     build: ./backend
+    image: chakravyuh-api:local
     environment:
       DATABASE_URL: postgresql+psycopg://chakravyuh:chakravyuh@db:5432/chakravyuh
       CORS_ORIGINS: http://localhost:8080,http://localhost:5173
@@ -23,14 +26,29 @@ services:
       CHAKRAVYUH_LLM_BASE_URL: ${CHAKRAVYUH_LLM_BASE_URL:-}
       CHAKRAVYUH_LLM_API_KEY: ${CHAKRAVYUH_LLM_API_KEY:-}
       CHAKRAVYUH_LLM_MODEL: ${CHAKRAVYUH_LLM_MODEL:-}
+      STORE_MESSAGE_TEXT: ${STORE_MESSAGE_TEXT:-true}
     depends_on:
       db: { condition: service_healthy }
-    ports: ["8000:8000"]
+    ports: ["${API_HOST_PORT:-8000}:8000"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(urllib.request.urlopen('http://localhost:8000/health', timeout=5).status != 200)"]
+      interval: 5s
+      timeout: 6s
+      retries: 30
+      start_period: 20s
 
   web:
     build: ./frontend
-    depends_on: [api]
-    ports: ["8080:80"]
+    image: chakravyuh-web:local
+    depends_on:
+      api: { condition: service_healthy }
+    ports: ["${WEB_HOST_PORT:-8080}:80"]
+    healthcheck:
+      # goes through nginx's /health proxy, so a healthy web container proves the API proxy works
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
 volumes:
   pgdata:

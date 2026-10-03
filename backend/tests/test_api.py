@@ -1,20 +1,26 @@
 import os
 
-os.environ["DATABASE_URL"] = "sqlite:///./test_chakravyuh.db"
+# Default: a throwaway SQLite file. Set TEST_DATABASE_URL to run against PostgreSQL (as in Docker),
+# which enforces column lengths and types that SQLite silently ignores.
+SQLITE_FILE = "test_chakravyuh.db"
+os.environ["DATABASE_URL"] = os.getenv("TEST_DATABASE_URL", f"sqlite:///./{SQLITE_FILE}")
 
 import pytest  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 
+from app.db import Base, engine  # noqa: E402
 from app.main import app  # noqa: E402
 
 
 @pytest.fixture(scope="module")
 def client():
-    if os.path.exists("test_chakravyuh.db"):
-        os.remove("test_chakravyuh.db")
+    Base.metadata.drop_all(engine)       # start from an empty database either way
     with TestClient(app) as c:
         yield c
-    os.remove("test_chakravyuh.db")
+    Base.metadata.drop_all(engine)
+    engine.dispose()
+    if os.path.exists(SQLITE_FILE):
+        os.remove(SQLITE_FILE)
 
 
 def test_health(client):
@@ -103,3 +109,20 @@ def test_privacy_mode_keeps_message_evidence(client):
         assert all(e["text"] is None for e in stored if e["type"] == "MSG_RECV")
     finally:
         object.__setattr__(settings, "store_message_text", True)
+
+
+@pytest.mark.parametrize("path,body", [
+    ("/v1/sessions", {"channel": "w" * 40}),
+    ("/v1/beta/signup", {"email": "long@example.com", "name": "L", "org": "o" * 200}),
+    ("/v1/beta/feedback", {"page": "p" * 80}),
+    ("/v1/beta/feedback", {"session_id": "s" * 40}),
+])
+def test_overlong_fields_are_rejected_not_crashing(client, path, body):
+    """Postgres enforces VARCHAR lengths; inputs longer than a column must get 422, never a 500."""
+    assert client.post(path, json=body).status_code == 422
+
+
+def test_overlong_event_channel_rejected(client):
+    sid = client.post("/v1/sessions", json={"language": "en"}).json()["id"]
+    r = client.post(f"/v1/sessions/{sid}/events", json={"type": "UPI_OPEN", "channel": "c" * 30})
+    assert r.status_code == 422

@@ -29,16 +29,35 @@ jobs:
       - run: npm run build
 
   docker:
+    # Full stack in Docker, the same checks as scripts/validate_docker.ps1: real images, PostgreSQL,
+    # nginx proxy, smoke test, regression checks, privacy mode in the database, and the test suite.
     runs-on: ubuntu-latest
     needs: [backend, frontend]
     steps:
       - uses: actions/checkout@v4
-      - name: Build API image
-        run: docker build -t chakravyuh-api backend
-      - name: Build web image
-        run: docker build -t chakravyuh-web frontend
-      - name: Start the API container and smoke-test it
+      - name: Build images
+        run: docker compose build --progress plain
+      - name: Start stack and wait until healthy
+        run: docker compose up -d --wait --wait-timeout 300 && docker compose ps
+      - name: Smoke test through nginx
         run: |
-          docker run -d --name api -p 8000:8000 chakravyuh-api
-          for i in $(seq 1 30); do curl -sf localhost:8000/health && break; sleep 2; done
-          python3 scripts/smoke_test.py http://localhost:8000
+          docker compose cp scripts/smoke_test.py api:/tmp/smoke_test.py
+          docker compose cp scripts/e2e_checks.py api:/tmp/e2e_checks.py
+          docker compose exec -T api python /tmp/smoke_test.py http://web
+      - name: Regression checks (Customs hold, flat deposit)
+        run: docker compose exec -T api python /tmp/e2e_checks.py http://web
+      - name: Privacy mode, checked in PostgreSQL
+        run: |
+          STORE_MESSAGE_TEXT=false docker compose up -d --wait api
+          SINCE=$(docker compose exec -T db psql -U chakravyuh -tAc "select now()")
+          docker compose cp scripts/e2e_checks.py api:/tmp/e2e_checks.py
+          docker compose exec -T api python /tmp/e2e_checks.py http://localhost:8000 --privacy
+          LEAKED=$(docker compose exec -T db psql -U chakravyuh -tAc "select count(*) from events where created_at >= '$SINCE' and type = 'MSG_RECV' and text is not null")
+          echo "message texts stored in privacy mode: $LEAKED"; test "$LEAKED" -eq 0
+      - name: Test suite inside the API image against PostgreSQL
+        run: |
+          docker compose exec -T db psql -U chakravyuh -c "CREATE DATABASE chakravyuh_test"
+          docker compose exec -T -e TEST_DATABASE_URL=postgresql+psycopg://chakravyuh:chakravyuh@db:5432/chakravyuh_test api python -m pytest -q
+      - name: Logs on failure
+        if: failure()
+        run: docker compose logs --no-color | tail -200
