@@ -46,3 +46,6 @@ sentinel/sft_real/
 
 # Real-data experiment models (provenance manifests in experiments/real/manifests are committed)
 experiments/real/artifacts/
+
+# Manually downloaded official datasets awaiting registration (never committed)
+data/incoming/
