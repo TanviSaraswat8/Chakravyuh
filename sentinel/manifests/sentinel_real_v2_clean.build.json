@@ -1,0 +1,98 @@
+{
+  "name": "sentinel_real_v2_clean",
+  "status": "PREPARED \u2014 NOT TRAINED",
+  "config_file": "sentinel/configs/sentinel_real_v2_clean.json",
+  "config_sha256": "bb1769d480e7b05727e3731e06e5fc231c38212cdcc0284641c271350a48f572",
+  "text_variant": "clean",
+  "placeholder_tokens_remaining": 0,
+  "inputs_sha256": {
+    "imc25_smishing.msg-v1.jsonl": "ca5c4334edcfa9793be46c87f2f1eec6e8db46cee1338a9c8a46216bade3d702",
+    "imc25_group_v1.json": "7bfeb0cb8d651a456286418aad17d5acaf017078301061174517009b905c5cb0",
+    "india_spam_sms_junioralive.msg-v1.jsonl": "213cc72fd88e3e49582e4a2866f555288581773da84a60691beb8bcd34519b9e",
+    "india_spam_sms_junioralive_group_v1.json": "29231a95347cba9c4ecf8b3a396c024f87bb448357cdbb18bd0ee37c3c86c8ba",
+    "sp24_gateway_phishing.msg-v1.jsonl": "9f7f96d2d81105e34bf69af3eb0feddbd49fa52be1eb0b9a9030ecbe7c7fc1da",
+    "sp24_temporal_v1.json": "1928e4b5a58ade7dbc42885a2c2d4233eb685db85710748a0d8165bed2f817d5",
+    "uci_sms_spam.msg-v1.jsonl": "769e4123510c1cc0859e93182fc68f23b87c27bcd7936ebf56f0d87acc221229",
+    "uci_ham_calibration_v1.json": "118181eeafcc71daced7db8914384835dcaf8af81857183c981de4dc6b4a402c"
+  },
+  "outputs": {
+    "test_imc25_group_v1_test.jsonl": {
+      "rows": 5767,
+      "sha256": "07744274a026e74f564c2a74da704ed11e3cb98b0ced41b7520eda3fca89e01b",
+      "labels": {
+        "scam": 5767
+      }
+    },
+    "train.jsonl": {
+      "rows": 20000,
+      "sha256": "7ecd1da83077c8ade2b5eefc9696ed95a0506a4b9bd65dde45c19cf609f423a6",
+      "labels": {
+        "scam": 18449,
+        "legit": 1044,
+        "promo": 507
+      }
+    },
+    "val.jsonl": {
+      "rows": 3435,
+      "sha256": "4a016f1fe3d091de9b1107e2b78785d3c0b27c92e8287c93f2fdad6981432610",
+      "labels": {
+        "scam": 3208,
+        "promo": 94,
+        "legit": 133
+      }
+    },
+    "test_india_spam_sms_junioralive_group_v1_test.jsonl": {
+      "rows": 445,
+      "sha256": "f0e148d7184c55ad7daa097265e1435b6de142a095add9e0cb224baab7daf087",
+      "labels": {
+        "promo": 142,
+        "legit": 303
+      }
+    },
+    "test_sp24_temporal_v1_test_novel_campaign.jsonl": {
+      "rows": 10510,
+      "sha256": "019c62f39bd256d70c5fe25cb699fdede7fe65f5996d10bf37754e1abff5035d",
+      "labels": {
+        "scam": 10510
+      }
+    },
+    "test_sp24_temporal_v1_test_seen_campaign.jsonl": {
+      "rows": 3072,
+      "sha256": "f4a77e92ea1c2cdd2a897e2f71775f428d51c43681d8804faf155a9a6a554fc5",
+      "labels": {
+        "scam": 3072
+      }
+    },
+    "test_uci_ham_calibration_v1_evaluation.jsonl": {
+      "rows": 2400,
+      "sha256": "76f931d000b43fe82f208d6f78a7252c67a5049fa1d45122e6f7e4fc268879c9",
+      "labels": {
+        "legit": 2400
+      }
+    },
+    "test_uci_ham_calibration_v1_calibration.jsonl": {
+      "rows": 2393,
+      "sha256": "652defaf85e5dff558ef763c13c7b62b19a5c96268177162e7a1b034ac1d28b7",
+      "labels": {
+        "legit": 2393
+      }
+    },
+    "test_uci_ham_calibration_v1_spam.jsonl": {
+      "rows": 747,
+      "sha256": "746a2bc6b978cf3fde8abb93aa956d4bce049865d796becd2f3cfdde54c13d19",
+      "labels": {
+        "uci_spam": 747
+      }
+    }
+  },
+  "purged_near_duplicates_of_train": {
+    "test_imc25_group_v1_test": 637,
+    "test_india_spam_sms_junioralive_group_v1_test": 9,
+    "test_sp24_temporal_v1_test_novel_campaign": 14,
+    "test_sp24_temporal_v1_test_seen_campaign": 12,
+    "test_uci_ham_calibration_v1_evaluation": 2,
+    "test_uci_ham_calibration_v1_calibration": 8,
+    "test_uci_ham_calibration_v1_spam": 0
+  },
+  "refused": []
+}

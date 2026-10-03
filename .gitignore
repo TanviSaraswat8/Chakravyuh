@@ -49,3 +49,6 @@ experiments/real/artifacts/
 
 # Manually downloaded official datasets awaiting registration (never committed)
 data/incoming/
+
+# Per-message baseline predictions (regenerate with sentinel/score_baseline.py); metrics are committed
+sentinel/baselines/**/*.jsonl

@@ -390,11 +390,38 @@ def e7() -> dict:
     return res
 
 
+def uci_calibration_assignment() -> dict[str, str]:
+    """The exact E7 partition: UCI messages that are not near-duplicates of E3's train+val (clean text);
+    ham split 50/50 by near-duplicate group (seed 13) into calibration / evaluation; spam kept for flag rates."""
+    S = sources("clean")
+    recs = S["uci_all"]["recs"]
+    ham = [r for r in recs if r["label"] == "legit"]
+    side = leakage.group_split(ham, [r["near_dup_cluster"] for r in ham], test_frac=0.5, val_frac=0.0, seed=K.SEED)
+    out = {r["record_id"]: ("calibration" if s == "train" else "evaluation") for r, s in zip(ham, side)}
+    out.update({r["record_id"]: "spam" for r in recs if r["label"] != "legit"})
+    return out
+
+
+def save_uci_split() -> dict:
+    require_official_uci()
+    a = uci_calibration_assignment()
+    path = K.split_path("uci_ham_calibration_v1")
+    path.write_text(json.dumps({"split_id": "uci_ham_calibration_v1", "dataset": "uci_sms_spam",
+                                "purpose": "threshold calibration (calibration half) and independent legitimate-FPR evaluation "
+                                           "(evaluation half); identical to E7; never training data",
+                                "assignment": a}) + "\n")
+    print("uci_ham_calibration_v1:", dict(Counter(a.values())), K.sha_file(path))
+    return {}
+
+
 EXPS = {"e5": e5, "e6": e6, "e7": e7}
 
 
 def main() -> int:
     K.seed_all()
+    if sys.argv[1:] == ["save-uci-split"]:
+        save_uci_split()
+        return 0
     for exp in sys.argv[1:] or list(EXPS):
         t0 = time.time()
         print(f"== {exp}")

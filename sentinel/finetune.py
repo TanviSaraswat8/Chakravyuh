@@ -23,6 +23,9 @@ def main() -> None:
     ap.add_argument("--lr", type=float, default=2e-4)
     ap.add_argument("--max-seq", type=int, default=1024)
     ap.add_argument("--export-gguf", action="store_true")
+    ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--batch", type=int, default=8)
+    ap.add_argument("--grad-accum", type=int, default=2)
     args = ap.parse_args()
 
     from datasets import load_dataset
@@ -34,7 +37,7 @@ def main() -> None:
     model = FastLanguageModel.get_peft_model(
         model, r=args.rank, lora_alpha=2 * args.rank, lora_dropout=0.0,
         target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
-        use_gradient_checkpointing="unsloth", random_state=0,
+        use_gradient_checkpointing="unsloth", random_state=args.seed,
     )
     ds = load_dataset("json", data_files={"train": f"{args.data}/train.jsonl", "val": f"{args.data}/val.jsonl"})
     ds = ds.map(lambda b: {"text": [tok.apply_chat_template(m, tokenize=False) for m in b["messages"]]},
@@ -44,9 +47,9 @@ def main() -> None:
         model=model, tokenizer=tok, train_dataset=ds["train"], eval_dataset=ds["val"],
         args=SFTConfig(
             output_dir=args.out, dataset_text_field="text", max_seq_length=args.max_seq,
-            per_device_train_batch_size=8, gradient_accumulation_steps=2, num_train_epochs=args.epochs,
+            per_device_train_batch_size=args.batch, gradient_accumulation_steps=args.grad_accum, num_train_epochs=args.epochs,
             learning_rate=args.lr, lr_scheduler_type="cosine", warmup_ratio=0.03, logging_steps=20,
-            eval_strategy="steps", eval_steps=200, save_steps=400, fp16=True, seed=0, report_to="none",
+            eval_strategy="steps", eval_steps=200, save_steps=400, fp16=True, seed=args.seed, report_to="none",
         ),
     )
     # Loss only on the assistant's JSON, not on the prompt.

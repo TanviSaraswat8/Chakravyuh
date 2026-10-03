@@ -1,0 +1,5 @@
+{
+  "model": "e3__clean__chakravyuh_tagger_arch",
+  "artifact_sha256": "56cc0133208122649fbbfd1b355543d7ab6e4623a987f6df06471027c18a4755",
+  "label": "REAL PUBLIC DATA baseline (frozen E3 model)"
+}
