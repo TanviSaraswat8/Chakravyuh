@@ -95,6 +95,8 @@ jobs:
           for l in lines:
               if l.startswith("Result:"):
                   print(f"::notice title=validator result::{l}")
+          table = [" ".join(l.split()) for l in lines if re.search(r"\s(PASS|FAIL|SKIP)\s", l)]
+          print("::notice title=validator checks::" + " %0A".join(table)[:8000])
           for l in lines:
               if re.search(r"\sFAIL\s", l):
                   print(f"::error title=FAIL::{' '.join(l.split())[:900]}")
