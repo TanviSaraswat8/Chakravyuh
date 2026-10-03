@@ -145,7 +145,8 @@ def test_07_persist_needs_role_and_fresh_password(app_ready, attackers, tmp_path
     assert analyst.post("/v1/demo/arena/adapt?epochs=1&persist=true").status_code == 403
 
     art = tmp_path / "artifacts"
-    shutil.copytree(settings.artifacts_dir, art)
+    real_dir = settings.artifacts_dir
+    shutil.copytree(real_dir, art)
     object.__setattr__(settings, "artifacts_dir", str(art))
     original = Path(art / "scamseq.pt").read_bytes()
     try:
@@ -163,7 +164,7 @@ def test_07_persist_needs_role_and_fresh_password(app_ready, attackers, tmp_path
             from chakravyuh.ml.engine import Engine
             Engine.load(art)                 # new files were registered in the manifest
     finally:
-        object.__setattr__(settings, "artifacts_dir", str(REPO / "backend" / "artifacts"))
+        object.__setattr__(settings, "artifacts_dir", real_dir)
 
 
 @pytest.mark.parametrize("epochs", [0, -1, MAX_ADAPT_EPOCHS + 1, 1000, 10**9])
@@ -300,6 +301,7 @@ def test_12_tampered_model_artifact_rejected(app_ready, tmp_path):
         Engine.load(nomanifest)
 
     # The API refuses too: it stays in rules-only mode, says why, and audits the failure.
+    real_dir = settings.artifacts_dir
     object.__setattr__(settings, "artifacts_dir", str(bad))
     scoring.get_engine.cache_clear()
     try:
@@ -308,7 +310,7 @@ def test_12_tampered_model_artifact_rejected(app_ready, tmp_path):
         assert status["loaded"] is False and "tagger.pkl" in status["integrity_error"]
         assert audit_rows("MODEL_LOAD_FAILURE")
     finally:
-        object.__setattr__(settings, "artifacts_dir", str(REPO / "backend" / "artifacts"))
+        object.__setattr__(settings, "artifacts_dir", real_dir)
         scoring._LOAD_ERROR.clear()
         scoring.get_engine.cache_clear()
         assert scoring.get_engine() is not None
