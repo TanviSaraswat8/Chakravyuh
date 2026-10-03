@@ -81,9 +81,27 @@ jobs:
         run: pwsh -NoProfile -File scripts/validate_docker.ps1 -NoPull
       - name: The other project's PostgreSQL was left untouched
         run: test "$(docker inspect -f '{{.State.Running}}' other-project-postgres)" = "true"
-      - name: Report
+      - name: Report (failed checks and diagnosis are also posted as annotations on the run)
         if: always()
-        run: cat validation-report.txt || true
+        run: |
+          cat validation-report.txt || true
+          python3 - <<'PY'
+          import re
+          try:
+              text = open("validation-report.txt", encoding="utf-8-sig").read()
+          except FileNotFoundError:
+              print("::error title=validator::no validation-report.txt was written"); raise SystemExit
+          lines = text.splitlines()
+          for l in lines:
+              if l.startswith("Result:"):
+                  print(f"::notice title=validator result::{l}")
+          for l in lines:
+              if re.search(r"\sFAIL\s", l):
+                  print(f"::error title=FAIL::{' '.join(l.split())[:900]}")
+          if "Container diagnosis:" in text:
+              diag = text.split("Container diagnosis:", 1)[1].split("Images:", 1)[0].strip()
+              print(f"::warning title=diagnosis::{' | '.join(x.strip() for x in diag.splitlines() if x.strip())[:3000]}")
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
