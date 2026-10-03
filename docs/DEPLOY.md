@@ -11,6 +11,14 @@ The repo includes a Render blueprint (`render.yaml`) that creates the PostgreSQL
    - `VITE_API_URL` on the web app must be the API's URL.
 4. Deploy. The API image installs CPU-only PyTorch and generates simulator data during the build (a few minutes the first time).
 5. Open `https://<api>.onrender.com/health`. You should see `"loaded": true`.
+6. Run the smoke test against it (standard library only, nothing to install):
+
+   ```bash
+   python3 scripts/smoke_test.py https://<api>.onrender.com
+   ```
+
+   It checks 14 things end to end: models loaded, scams escalate, look-alikes stay quiet, a live
+   session is scored and stored, privacy mode works, beta sign-up and feedback work.
 
 The API needs about 1 GB of RAM because it loads PyTorch and the models, so use the Starter plan or above. The free plan (512 MB) runs out of memory.
 
@@ -36,6 +44,18 @@ This runs PostgreSQL, the API on port 8000 and the web app on port 8080 (nginx p
 ## Vercel or Netlify for the web app only
 
 Build command `npm run build`, output directory `dist`, root directory `frontend`, and set `VITE_API_URL` to the API URL. Add a rewrite of all paths to `/index.html` so page refreshes work.
+
+## What CI checks on every push
+
+GitHub Actions (`.github/workflows/ci.yml`) lints and tests the backend, builds the frontend,
+then builds both Docker images, starts the API container and runs the smoke test against it.
+A green run means the images you deploy actually start and work.
+
+## One process per API instance
+
+Run the API as a single process per instance (the default `CMD`). The arena's attacker population
+and any defender update made from the web arena live in that process's memory; use
+`make coevolve PERSIST=1` to make an update permanent.
 
 ## Updating the models
 

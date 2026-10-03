@@ -3,8 +3,10 @@ FROM python:3.12-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
 WORKDIR /app
 
-# CPU-only PyTorch keeps the image small (~1 GB instead of ~5 GB).
-RUN pip install torch --index-url https://download.pytorch.org/whl/cpu
+# CPU-only PyTorch keeps the image small (~1 GB instead of ~5 GB). If that index is unreachable
+# (some build networks block it), fall back to the standard PyPI build.
+ARG TORCH_INDEX=https://download.pytorch.org/whl/cpu
+RUN pip install torch --index-url ${TORCH_INDEX} || pip install torch
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 

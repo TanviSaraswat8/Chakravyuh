@@ -75,7 +75,7 @@ def score_session(events: list[dict], language: str = "en", channel: str = "what
                       "action": d["action"], "next_stage": d["next_stage"],
                       "p_seq": round(d["p_seq"], 4), "p_msg": round(d["p_msg"], 4),
                       "r_payee": round(d["r_payee"], 4), "tactics": tag.get("tactics", []),
-                      "stage_guess": tag.get("stage")})
+                      "stage_guess": tag.get("stage"), "msg_p": round(float(tag.get("p_scam", 0.0)), 4)})
         if d["escalated"]:
             code = reason_code(tactics_so_far, d["flags"], family if d["p"] > 0.5 else None, evs[: i + 1])
             title, message = render(code, d["level"], language)

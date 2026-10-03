@@ -84,3 +84,22 @@ def test_beta_signup_and_feedback(client):
 def test_metrics_and_meta(client):
     assert "sessions" in client.get("/v1/metrics").json()
     assert client.get("/v1/meta").json()["model"]["loaded"] is True
+
+
+def test_privacy_mode_keeps_message_evidence(client):
+    """With text storage off, earlier messages must still count when later events arrive."""
+    from app.config import settings
+    object.__setattr__(settings, "store_message_text", False)
+    try:
+        sid = client.post("/v1/sessions", json={"language": "en", "channel": "sms"}).json()["id"]
+        events = [{"type": "MSG_RECV", "text": "This is CBI. Your parcel has illegal items. Stay on the line."},
+                  {"type": "CALL", "attrs": {"known": False, "minutes": 60}},
+                  {"type": "SCREEN_SHARE"}, {"type": "UPI_OPEN"}]
+        last = None
+        for i, e in enumerate(events):
+            last = client.post(f"/v1/sessions/{sid}/events", json={**e, "t": i * 120}).json()
+        assert last["latest"]["p"] > 0.5
+        stored = client.get(f"/v1/sessions/{sid}").json()["events"]
+        assert all(e["text"] is None for e in stored if e["type"] == "MSG_RECV")
+    finally:
+        object.__setattr__(settings, "store_message_text", True)

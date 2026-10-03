@@ -109,6 +109,13 @@ def add_event(sid: str, ev: EventIn, db: Session = Depends(get_db),
     for e, step in zip(s.events, out["steps"]):
         e.p, e.level = step["p"], step["level"]
         e.next_stage, e.tactics = step.get("next_stage"), step.get("tactics", [])
+    if not settings.store_message_text and ev.type == "MSG_RECV" and ev.text and not ev.client_tags:
+        # Keep what the text told us (tactics, message risk) so later events can still use it,
+        # exactly like on-device mode. The text itself is never written to the database.
+        last = out["steps"][-1]
+        row.attrs = {**row.attrs, "_client_tags": {"tactics": last.get("tactics", []),
+                                                   "p_scam": last.get("msg_p", 0.0),
+                                                   "stage": last.get("stage_guess")}}
     latest = out["latest"]
     s.max_p = max(s.max_p, latest["p"])
     s.current_level = max(s.current_level, latest["level"])
