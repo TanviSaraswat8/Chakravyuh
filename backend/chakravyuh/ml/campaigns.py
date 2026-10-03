@@ -62,7 +62,8 @@ class CampaignDetector:
         X = _norm(embeddings)
         if X.shape[1] > 10 and len(X) > 12:
             X = PCA(n_components=10, random_state=0).fit_transform(X)
-        labels = HDBSCAN(min_cluster_size=self.min_cluster).fit_predict(X)
+        # allow_single_cluster: one new campaign on its own must still produce a card
+        labels = HDBSCAN(min_cluster_size=self.min_cluster, allow_single_cluster=True, copy=True).fit_predict(X)
         cards = []
         for c in sorted(set(labels) - {-1}):
             members = [s for s, lab in zip(sessions, labels) if lab == c]

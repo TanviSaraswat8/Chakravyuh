@@ -106,7 +106,8 @@ class Victim:
         weights = {"urgency": 0.25, "fear": 0.35, "authority": 0.3, "greed": 0.25,
                    "trust_building": 0.3, "social_proof": 0.2, "isolation": 0.35, "secrecy": 0.25}
         z += sum(weights.get(t, 0.05) for t in tactics_so_far)
-        z -= [0.0, 0.8, 1.4, 2.2, 3.0][min(warned, 4)]
+        # a nudge informs; a cooling-off delay or a hold actually stops the payment flow
+        z -= [0.0, 0.8, 1.5, 3.0, 4.5][min(warned, 4)]
         return 1 / (1 + math.exp(-z))
 
 
@@ -148,7 +149,7 @@ def run_session(genome: Genome, victim: Victim, sandbox: PaymentSandbox, rng: ra
                 warn_fn=None, variant_pool: str = "train") -> dict:
     """Play one session. `warn_fn(events) -> level` lets a defender intervene live (used in evolution)."""
     is_scam = genome.family in SCAM_FAMILIES
-    sid = uuid.uuid4().hex[:12]
+    sid = f"{rng.getrandbits(48):012x}"   # from the seeded rng, so runs are reproducible
     script = build_script(genome)
     lo, hi = AMOUNT_RATIO[genome.family]
     main_amount = round(victim.median_txn * rng.uniform(lo, hi) * genome.amount_scale, -1) or 100.0
