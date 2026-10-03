@@ -111,3 +111,20 @@ def test_run_session_is_deterministic_for_a_seed():
         s = run_session(Genome(family="fake_kyc", genome_id="x"), v, sb, rng, 0.0)
         return [(e["type"], e["text"]) for e in s["events"]]
     assert one() == one()
+
+
+def test_public_export_drops_text_and_payees(tmp_path):
+    import gzip
+    import json
+
+    from chakravyuh.sim.export_public import anonymise
+
+    sim = _sim(8)
+    s = sim.play(Genome(family="investment_group"))
+    s["split_hint"] = "train_pool"
+    pub = anonymise(s)
+    blob = json.dumps(pub)
+    assert "text" not in {k for e in pub["events"] for k in e}
+    assert "payee" not in blob and "genome" not in pub
+    assert pub["session_id"] != s["session_id"]
+    assert gzip  # imported for the module under test
