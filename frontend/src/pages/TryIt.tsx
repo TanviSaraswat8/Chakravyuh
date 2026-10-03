@@ -50,7 +50,7 @@ export default function TryIt() {
       setRows((r) => [...r, { type: ev.type, label, text: ev.text, p: s.p, level: s.level, tactics: s.tactics, escalated: s.escalated }]);
       if (out.alert) setAlert(out.alert);
     } catch (e: any) {
-      setError(`That event wasn't scored: ${e.message}. Is the API running?`);
+      setError(e?.status ? `That event wasn't scored: ${e.message}.` : `That event wasn't scored: ${e.message}. Is the API running?`);
     } finally { setBusy(false); }
   };
 

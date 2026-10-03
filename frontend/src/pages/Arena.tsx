@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { can, useAuth } from "../lib/auth";
 import { api, pct, tacticLabel, type AdaptResult, type ArenaGen } from "../lib/api";
 
 function GenerationChart({ history, defences }: { history: ArenaGen[]; defences: AdaptResult[] }) {
@@ -62,6 +64,7 @@ export default function Arena() {
     catch (e: any) { setError(`The arena didn't run: ${e.message}`); }
     finally { setBusy(null); }
   };
+  const { user } = useAuth();
   const learn = async () => {
     setBusy("adapt"); setError(null);
     try {
@@ -131,9 +134,12 @@ export default function Arena() {
             <section className="panel stack">
               <h2>Defender's turn</h2>
               <p className="muted">Fine-tune the sequence model on the attackers' newest scams, mixed with earlier data so it doesn't forget, and recalibrate the alert thresholds. The update ships only if it catches more attacks without raising false alarms.</p>
-              <button className="btn" onClick={learn} disabled={busy != null}>
+              <button className="btn" onClick={learn} disabled={busy != null || !can(user, "model:adapt")}>
                 {busy === "adapt" ? "Learning from the attackers…" : "Learn from these attacks"}
               </button>
+              {!can(user, "model:adapt") && (
+                <p className="muted">Updating the live defender is limited to accounts with the model engineer role. <NavLink to="/account">{user ? "Your account" : "Sign in"}</NavLink></p>
+              )}
               {adapt && (
                 <>
                   <div className="before-after">

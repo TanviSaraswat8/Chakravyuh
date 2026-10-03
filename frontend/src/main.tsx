@@ -2,6 +2,8 @@ import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, NavLink, Navigate, Route, Routes } from "react-router-dom";
 import { api } from "./lib/api";
+import { AuthProvider, useAuth } from "./lib/auth";
+import Account from "./pages/Account";
 import Arena from "./pages/Arena";
 import Benchmark from "./pages/Benchmark";
 import Beta from "./pages/Beta";
@@ -24,6 +26,7 @@ function Mark() {
 }
 
 function Shell() {
+  const { user } = useAuth();
   const [status, setStatus] = useState<{ ok: boolean; text: string }>({ ok: false, text: "Connecting to the API" });
   useEffect(() => {
     api.health()
@@ -38,6 +41,7 @@ function Shell() {
     ["/campaigns", "Campaigns", "New scam patterns"],
     ["/benchmark", "Benchmark", "How it compares"],
     ["/beta", "Beta", "Sign up and feedback"],
+    ["/account", user ? "Account" : "Sign in", user ? user.email : "For your own live sessions"],
   ];
   return (
     <div className="shell">
@@ -70,6 +74,7 @@ function Shell() {
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/benchmark" element={<Benchmark />} />
           <Route path="/beta" element={<Beta />} />
+          <Route path="/account" element={<Account />} />
           <Route path="*" element={<Navigate to="/live" replace />} />
         </Routes>
       </main>
@@ -80,7 +85,9 @@ function Shell() {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <Shell />
+      <AuthProvider>
+        <Shell />
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>,
 );

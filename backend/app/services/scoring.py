@@ -9,12 +9,14 @@ from pathlib import Path
 import numpy as np
 
 from chakravyuh.ml.engine import Engine
+from chakravyuh.ml.integrity import IntegrityError
 from chakravyuh.sim.simulator import rule_detector
 
 from ..config import settings
 from .alert_text import reason_code, render
 
 log = logging.getLogger("chakravyuh")
+_LOAD_ERROR: dict[str, str] = {}
 
 
 @lru_cache(maxsize=1)
@@ -23,13 +25,25 @@ def get_engine() -> Engine | None:
     if not (path / "scamseq.pt").exists():
         log.warning("No trained artifacts in %s; running in rules-only fallback mode", path)
         return None
-    return Engine.load(path)
+    try:
+        return Engine.load(path)
+    except IntegrityError as e:
+        # Never fall back to loading unverified files. Run rules-only and say why in /health.
+        log.error("Model artifacts refused: %s", e)
+        _LOAD_ERROR["reason"] = str(e)
+        from ..security import audit
+        audit.record("MODEL_LOAD_FAILURE", "failure", resource_type="model", resource_id=str(path)[-64:],
+                     reason=str(e))
+        return None
 
 
 def model_status() -> dict:
     e = get_engine()
     if e is None:
-        return {"loaded": False, "mode": "rules_fallback"}
+        out = {"loaded": False, "mode": "rules_fallback"}
+        if _LOAD_ERROR:
+            out["integrity_error"] = _LOAD_ERROR["reason"]
+        return out
     return {"loaded": True, "mode": "chakravyuh", "trained_at": e.meta.get("trained_at"),
             "n_train": e.meta.get("n_train"), "gates": e.policy.level_gates if e.policy else None}
 

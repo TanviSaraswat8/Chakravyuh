@@ -146,7 +146,7 @@ def save(model: ScamSeq, path: str) -> None:
 
 def load(path: str) -> ScamSeq:
     m = ScamSeq()
-    m.load_state_dict(torch.load(path, map_location="cpu"))
+    m.load_state_dict(torch.load(path, map_location="cpu", weights_only=True))
     m.eval()
     return m
 

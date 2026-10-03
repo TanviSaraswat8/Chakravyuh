@@ -20,8 +20,14 @@ from . import scamseq as ss
 from .campaigns import CampaignDetector
 from .features import encode_session
 from .fusion import Fusion, context_row
+from .integrity import IntegrityError, Sha256Manifest, verify_all
 from .policy import LEVEL_NAMES, LinUCBPolicy, context
 from .tagger import TacticTagger
+
+# Every file the engine reads. All present files must be registered in manifest.json before loading.
+ARTIFACT_FILES = ["tagger.pkl", "scamseq.pt", "payee_scores.json", "fusion.pkl", "policy.json",
+                  "campaigns.json", "meta.json"]
+REQUIRED_FILES = ["tagger.pkl", "scamseq.pt", "payee_scores.json"]
 
 PAY_STAGES = [STAGE_INDEX["payment_ask"], STAGE_INDEX["payment"], STAGE_INDEX["cashout"]]
 PAYEE_PRIOR = 0.05
@@ -139,10 +145,18 @@ class Engine:
         if self.campaigns:
             (d / "campaigns.json").write_text(json.dumps(self.campaigns.to_dict()))
         (d / "meta.json").write_text(json.dumps(self.meta, indent=2))
+        written = [n for n in ARTIFACT_FILES if (d / n).exists()]
+        Sha256Manifest(d).register(written, replace=True)
 
     @classmethod
     def load(cls, d: str | Path) -> Engine:
+        """Load artifacts only after every file present has matched its registered SHA-256."""
         d = Path(d)
+        present = [n for n in ARTIFACT_FILES if (d / n).exists()]
+        missing = [n for n in REQUIRED_FILES if n not in present]
+        if missing:
+            raise IntegrityError(f"required artifacts missing: {', '.join(missing)}")
+        verify_all(d, present)          # raises before anything is unpickled
         with open(d / "tagger.pkl", "rb") as f:
             tagger = pickle.load(f)
         fusion = None

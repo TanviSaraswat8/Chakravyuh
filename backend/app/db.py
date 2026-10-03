@@ -7,7 +7,7 @@ import os
 import time
 from collections.abc import Iterator
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, inspect, text
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
@@ -52,6 +52,7 @@ def init_db(timeout_s: float | None = None) -> None:
         attempt += 1
         try:
             Base.metadata.create_all(engine)
+            _add_missing_columns()
             if attempt > 1:
                 log.info("database ready after %d attempts", attempt)
             return
@@ -61,3 +62,20 @@ def init_db(timeout_s: float | None = None) -> None:
                 raise
             log.warning("database not ready (attempt %d): %s", attempt, str(e.orig).splitlines()[0])
             time.sleep(2)
+
+
+# Columns added after the first release. create_all() creates new tables but never alters existing
+# ones, so databases from before the security update get these added here (no migration tool yet).
+_ADDED_COLUMNS = {("sessions", "owner_id"): "VARCHAR(16)"}
+
+
+def _add_missing_columns() -> None:
+    insp = inspect(engine)
+    for (table, column), ddl in _ADDED_COLUMNS.items():
+        if not insp.has_table(table):
+            continue
+        if column not in {c["name"] for c in insp.get_columns(table)}:
+            with engine.begin() as conn:
+                conn.execute(text(f"ALTER TABLE {table} ADD COLUMN {column} {ddl}"))
+                conn.execute(text(f"CREATE INDEX IF NOT EXISTS ix_{table}_{column} ON {table} ({column})"))
+            log.info("added column %s.%s", table, column)

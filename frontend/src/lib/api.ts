@@ -98,11 +98,27 @@ export interface CampaignCard {
 
 export interface Campaign { id: string; name: string; size: number; status: string; card: CampaignCard; created_at: string }
 
+export interface User { id: string; email: string; role: string; status: string; permissions: string[] }
+
+// Signing in sets an HttpOnly cookie that scripts cannot read. The CSRF token comes back in the
+// response body and is kept only in this module's memory: nothing is written to browser storage.
+let csrfToken: string | null = null;
+
+export class ApiError extends Error {
+  constructor(message: string, public status: number, public stepUp = false) { super(message); }
+}
+
 async function req<T>(path: string, init?: RequestInit): Promise<T> {
-  const key = localStorage.getItem("chakravyuh_api_key");
+  const method = (init?.method ?? "GET").toUpperCase();
+  const unsafe = method !== "GET" && method !== "HEAD";
   const res = await fetch(BASE + path, {
     ...init,
-    headers: { "Content-Type": "application/json", ...(key ? { "X-API-Key": key } : {}), ...(init?.headers ?? {}) },
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      ...(unsafe && csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
+      ...(init?.headers ?? {}),
+    },
   });
   if (!res.ok) {
     let detail = `${res.status} ${res.statusText}`;
@@ -110,10 +126,32 @@ async function req<T>(path: string, init?: RequestInit): Promise<T> {
       const body = await res.json();
       detail = typeof body.detail === "string" ? body.detail : JSON.stringify(body.detail ?? body);
     } catch { /* not JSON */ }
-    throw new Error(detail);
+    if (res.status === 401 && !path.startsWith("/v1/auth/")) detail = "You need to sign in first (Account page)";
+    throw new ApiError(detail, res.status, res.headers.get("X-Step-Up-Required") === "true");
   }
   return res.json() as Promise<T>;
 }
+
+async function session(path: string, body?: unknown): Promise<User | null> {
+  try {
+    const r = await req<{ user: User; csrf_token: string }>(path, body === undefined ? undefined
+      : { method: "POST", body: JSON.stringify(body) });
+    csrfToken = r.csrf_token;
+    return r.user;
+  } catch (e) {
+    if (e instanceof ApiError && e.status === 401 && path === "/v1/auth/me") { csrfToken = null; return null; }
+    throw e;
+  }
+}
+
+export const auth = {
+  me: () => session("/v1/auth/me"),
+  login: (email: string, password: string) => session("/v1/auth/login", { email, password }),
+  register: (email: string, password: string) =>
+    req<{ id: string; email: string; role: string }>("/v1/auth/register", { method: "POST", body: JSON.stringify({ email, password }) }),
+  logout: async () => { await req("/v1/auth/logout", { method: "POST" }); csrfToken = null; },
+  reauth: (password: string) => req<{ valid_seconds: number }>("/v1/auth/reauth", { method: "POST", body: JSON.stringify({ password }) }),
+};
 
 export const api = {
   health: () => req<{ status: string; model: { loaded: boolean; mode: string; trained_at?: string } }>("/health"),
@@ -125,7 +163,7 @@ export const api = {
     req<{ gate: number; round: number; history: ArenaGen[]; defences: AdaptResult[]; error?: string }>("/v1/demo/arena", {
       method: "POST", body: JSON.stringify({ generations, population, per_genome: 2, fresh }),
     }),
-  adapt: () => req<AdaptResult>("/v1/demo/arena/adapt", { method: "POST" }),
+  adapt: (epochs = 3) => req<AdaptResult>(`/v1/demo/arena/adapt?epochs=${epochs}`, { method: "POST" }),
   createSession: (language: string, channel: string) =>
     req<{ id: string }>("/v1/sessions", { method: "POST", body: JSON.stringify({ language, channel, source: "live" }) }),
   addEvent: (sid: string, ev: { type: string; t?: number; text?: string; attrs?: Record<string, any>; channel?: string }) =>
@@ -142,8 +180,10 @@ export const api = {
   metrics: () => req<Record<string, any>>("/v1/metrics"),
   signup: (body: { email: string; name: string; org?: string; role: string }) =>
     req<{ id: string; api_key: string; cohort: string }>("/v1/beta/signup", { method: "POST", body: JSON.stringify(body) }),
-  feedback: (body: { kind: string; rating?: number; comment?: string; page?: string }) =>
-    req<{ id: number }>("/v1/beta/feedback", { method: "POST", body: JSON.stringify(body) }),
+  feedback: (body: { kind: string; rating?: number; comment?: string; page?: string }, testerKey?: string) =>
+    req<{ id: number }>("/v1/beta/feedback", {
+      method: "POST", body: JSON.stringify(body), headers: testerKey ? { "X-API-Key": testerKey } : {},
+    }),
 };
 
 export const pct = (x: number | null | undefined, digits = 0) =>

@@ -107,8 +107,6 @@ def adapt(epochs: int = 3, seed: int = 5, persist: bool = False) -> dict:
     the update only if it catches more attacks without breaking the false-alarm cap."""
     from pathlib import Path
 
-    from chakravyuh.ml import scamseq as ss
-
     from ..config import settings
 
     eng = get_engine()
@@ -121,9 +119,22 @@ def adapt(epochs: int = 3, seed: int = 5, persist: bool = False) -> dict:
         # swap the live engine's parts in place, so every request in this process uses the new defender
         eng.model, eng.policy = updated.model, updated.policy
         if persist:
-            ss.save(eng.model, str(Path(settings.artifacts_dir) / "scamseq.pt"))
+            # Write each file atomically, then register its new SHA-256 so the next start loads it.
+            # If the process dies in between, the digests won't match and the API refuses the files.
+            import io
+
+            import torch
+
+            from chakravyuh.ml.integrity import Sha256Manifest, atomic_write_bytes
+            art = Path(settings.artifacts_dir)
+            buf = io.BytesIO()
+            torch.save(eng.model.state_dict(), buf)
+            atomic_write_bytes(art / "scamseq.pt", buf.getvalue())
+            names = ["scamseq.pt"]
             if eng.policy:
-                (Path(settings.artifacts_dir) / "policy.json").write_text(json.dumps(eng.policy.to_dict()))
+                atomic_write_bytes(art / "policy.json", json.dumps(eng.policy.to_dict()).encode())
+                names.append("policy.json")
+            Sha256Manifest(art).register(names)
     report["persisted"] = bool(persist and report["accepted"])
     report["round"] = len(ARENA_STATE["defences"]) + 1
     ARENA_STATE["defences"].append(report)

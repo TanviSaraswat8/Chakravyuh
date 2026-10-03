@@ -6,25 +6,27 @@ The goal of testing is to answer two questions the simulator can't: do real peop
 
 | Phase | Who | Setup | What we measure |
 | --- | --- | --- | --- |
-| Alpha | The team and 5–10 friends | `REQUIRE_API_KEY=false`, demo scenarios plus the live session API | Bugs, confusing copy, whether alerts are understood |
-| Closed beta | 30–100 invited testers, ideally some fraud analysts | `REQUIRE_API_KEY=true`; testers sign up on the Beta page and get a key | False alerts, missed scams, alert usefulness ratings |
-| Analyst beta | Fraud or risk teams | Analyst keys (`role: analyst`); campaign review | Whether campaign cards and draft rules are worth acting on |
+| Alpha | The team and 5–10 friends | `ALLOW_REGISTRATION=true`; demo scenarios plus live sessions under their own accounts | Bugs, confusing copy, whether alerts are understood |
+| Closed beta | 30–100 invited testers, ideally some fraud analysts | `ALLOW_REGISTRATION=false`; an admin creates accounts (`python -m app.manage create-user`) | False alerts, missed scams, alert usefulness ratings |
+| Analyst beta | Fraud or risk teams | ANALYST accounts; campaign review | Whether campaign cards and draft rules are worth acting on |
 
 ## Running it
 
 1. Deploy (see `DEPLOY.md`) and share the web app link.
-2. Testers open **Beta**, sign up and get a key. It's stored in their browser and sent automatically.
+2. Testers create an account on the **Account** page (or are given one). Their live sessions are private to that account. The **Beta** page's tester key is optional: it is shown once, never stored by the browser, and only links feedback to the tester.
 3. Testers try the live session demo and report through the **Report something** form. Reports have a kind: false alert, missed scam, bug or general.
 4. Alert responses ("This is a scam, end it" or "I know this person") are stored against each alert, so you can measure usefulness without asking.
 
 ## Reading the results
 
-Analyst or admin key required (send it as `X-API-Key`):
+Feedback and the tester list need an ADMIN account (the old shared admin key is retired). Sign in,
+then send the session cookie:
 
 ```bash
-curl -H "X-API-Key: $ADMIN_API_KEY" https://<api>/v1/beta/feedback   # all reports
-curl -H "X-API-Key: $ADMIN_API_KEY" https://<api>/v1/beta/testers    # who signed up
-curl https://<api>/v1/metrics                                        # sessions, alerts, responses by level
+curl -c jar -H "Content-Type: application/json" -d '{"email":"admin@example.com","password":"..."}' https://<api>/v1/auth/login
+curl -b jar https://<api>/v1/beta/feedback      # all reports
+curl -b jar https://<api>/v1/beta/testers       # who signed up
+curl https://<api>/v1/metrics                   # sessions, alerts, responses by level (aggregate, public)
 ```
 
 Numbers worth tracking each week:

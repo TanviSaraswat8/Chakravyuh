@@ -1,0 +1,34 @@
+{
+  "algorithm": "sha256",
+  "updated_at": "2026-10-03T09:08:26+00:00",
+  "files": {
+    "campaigns.json": {
+      "sha256": "c0563a467363180d64bfc7a16e3df454fe8b8d6e36fd25c0c517040bd09d7253",
+      "bytes": 15149
+    },
+    "fusion.pkl": {
+      "sha256": "45bb38b2ce372ae48b63dd9ae9a87edee2cc5cf4b98b8f0f05d8146c5165fd06",
+      "bytes": 1301
+    },
+    "meta.json": {
+      "sha256": "d05e537963a5587a4cab04840d89ba2501d4bffe02b1d54387efcaf170d34c9e",
+      "bytes": 9100
+    },
+    "payee_scores.json": {
+      "sha256": "63cb81962840675c428cd4620735436cf80d62eb8f58b4d16a8004a5b53eb396",
+      "bytes": 44879
+    },
+    "policy.json": {
+      "sha256": "57d76ac775554aabacb9c0784974c5d4bd6b539795c304760ac4b01b73417cf9",
+      "bytes": 5001
+    },
+    "scamseq.pt": {
+      "sha256": "7eaf1d26c69d917c06760d08ce99a078cb8e2e41c2abbc47139403435da43530",
+      "bytes": 958288
+    },
+    "tagger.pkl": {
+      "sha256": "a50401615622a1c137f33229dd0d1f838423356a448097e0061d2138636d2f4d",
+      "bytes": 3200022
+    }
+  }
+}

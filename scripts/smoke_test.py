@@ -4,13 +4,16 @@
     python3 scripts/smoke_test.py http://localhost:8000
     python3 scripts/smoke_test.py https://chakravyuh-api.onrender.com
 
-Exits non-zero if any check fails. Safe to run against production: it creates one test session,
-one beta sign-up (random email) and one feedback entry.
+Exits non-zero if any check fails. Safe to run against production: it creates one account (random
+email, ANALYST role), one test session, one beta sign-up and one feedback entry. Production must allow
+sign-up (ALLOW_REGISTRATION=true) for the session checks to run.
 """
 
 from __future__ import annotations
 
+import http.cookiejar
 import json
+import secrets
 import sys
 import time
 import urllib.error
@@ -19,14 +22,18 @@ import uuid
 
 BASE = (sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8000").rstrip("/")
 failures: list[str] = []
+# Sign-in is an HttpOnly cookie (kept in this cookie jar) plus a CSRF token echoed on writes.
+OPENER = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
+CSRF: dict[str, str] = {}
 
 
-def call(method: str, path: str, body: dict | None = None, headers: dict | None = None) -> tuple[int, dict]:
+def call(method: str, path: str, body: dict | None = None, headers: dict | None = None,
+         anonymous: bool = False) -> tuple[int, dict]:
     data = json.dumps(body).encode() if body is not None else None
-    req = urllib.request.Request(BASE + path, data=data, method=method,
-                                 headers={"Content-Type": "application/json", **(headers or {})})
+    h = {"Content-Type": "application/json", **(CSRF if method != "GET" else {}), **(headers or {})}
+    req = urllib.request.Request(BASE + path, data=data, method=method, headers=h)
     try:
-        with urllib.request.urlopen(req, timeout=120) as r:
+        with (urllib.request.urlopen if anonymous else OPENER.open)(req, timeout=120) as r:
             return r.status, json.loads(r.read() or b"{}")
     except urllib.error.HTTPError as e:
         return e.code, {}
@@ -56,6 +63,16 @@ def main() -> int:
     code, s = call("GET", "/v1/demo/scenarios/big_purchase")
     levels = [x["level"] for x in s.get("scores", [])]
     check("legitimate look-alike stays quiet", code == 200 and max(levels, default=1) == 0, str(levels))
+
+    code, _ = call("GET", "/v1/sessions", anonymous=True)
+    check("sessions refused without sign-in", code == 401, f"HTTP {code}")
+    email, password = f"smoke-{uuid.uuid4().hex[:8]}@example.com", secrets.token_urlsafe(18)
+    code, _ = call("POST", "/v1/auth/register", {"email": email, "password": password})
+    code2, me = call("POST", "/v1/auth/login", {"email": email, "password": password})
+    check("account created and signed in", code == 201 and code2 == 200 and "csrf_token" in me,
+          f"register HTTP {code}, login HTTP {code2}")
+    if "csrf_token" in me:
+        CSRF["X-CSRF-Token"] = me["csrf_token"]
 
     code, sess = call("POST", "/v1/sessions", {"language": "en", "channel": "sms", "source": "live"})
     check("session created", code == 201 and "id" in sess)

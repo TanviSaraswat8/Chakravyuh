@@ -2,7 +2,8 @@ import { useState, type FormEvent } from "react";
 import { api } from "../lib/api";
 
 export default function Beta() {
-  const [key, setKey] = useState<string | null>(() => localStorage.getItem("chakravyuh_api_key"));
+  // The tester key is shown once and kept only in this page's memory (never in browser storage).
+  const [key, setKey] = useState<string | null>(null);
   const [signupMsg, setSignupMsg] = useState<string | null>(null);
   const [fbMsg, setFbMsg] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -16,9 +17,8 @@ export default function Beta() {
         email: String(f.get("email")), name: String(f.get("name")),
         org: String(f.get("org") || "") || undefined, role: String(f.get("role")),
       });
-      localStorage.setItem("chakravyuh_api_key", r.api_key);
       setKey(r.api_key);
-      setSignupMsg(`You're in the ${r.cohort} cohort. Your key is saved in this browser.`);
+      setSignupMsg(`You're in the ${r.cohort} cohort. Copy your key now: it is shown only once and isn't saved anywhere.`);
     } catch (err: any) { setError(`Sign-up failed: ${err.message}`); }
   };
 
@@ -31,7 +31,7 @@ export default function Beta() {
       await api.feedback({
         kind: String(f.get("kind")), rating: Number(f.get("rating")) || undefined,
         comment: String(f.get("comment") || ""), page: String(f.get("page") || ""),
-      });
+      }, key ?? undefined);
       setFbMsg("Feedback sent. Thank you.");
       form.reset();
     } catch (err: any) { setError(`Feedback wasn't sent: ${err.message}`); }
@@ -42,7 +42,7 @@ export default function Beta() {
       <div className="page-head">
         <div>
           <h1>Join the beta</h1>
-          <p>Testers get an API key to stream sessions into Chakravyuh and can report false alerts or missed scams. Every report goes straight to the team.</p>
+          <p>Testers can report false alerts or missed scams. To run your own live sessions, create an account on the Account page. Every report goes straight to the team.</p>
         </div>
       </div>
       {error && <div className="error" role="alert" style={{ marginBottom: 16 }}>{error}</div>}
@@ -51,11 +51,11 @@ export default function Beta() {
           <div className="panel-title"><h2>Sign up</h2></div>
           {key ? (
             <div className="stack">
-              <p>{signupMsg ?? "This browser already has a tester key."}</p>
+              <p>{signupMsg}</p>
               <div className="keybox" aria-label="Your API key">{key}</div>
-              <p className="muted">Send it as the <code>X-API-Key</code> header. Keep it private.</p>
-              <button className="btn ghost" onClick={() => { localStorage.removeItem("chakravyuh_api_key"); setKey(null); setSignupMsg(null); }}>
-                Remove key from this browser
+              <p className="muted">It only links your feedback to you. Send it as the <code>X-API-Key</code> header when reporting; it gives no access to sessions or data.</p>
+              <button className="btn ghost" onClick={() => { setKey(null); setSignupMsg(null); }}>
+                Hide key
               </button>
             </div>
           ) : (

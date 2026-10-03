@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 
 from chakravyuh.ml.features import payment_rows
 
+from ..config import MAX_ADAPT_EPOCHS
+from ..deps import Principal, require_permission, step_up
 from ..schemas import ArenaRequest, SimulateRequest
+from ..security import audit, ratelimit
 from ..services.demo import SCENARIOS, adapt, arena, scenario, simulate
 from ..services.scoring import score_session
 
@@ -18,7 +21,7 @@ def list_scenarios() -> list[dict]:
     return [{"key": k, "title": v["title"], "kind": v["kind"], "blurb": v["blurb"]} for k, v in SCENARIOS.items()]
 
 
-@router.get("/scenarios/{key}")
+@router.get("/scenarios/{key}", dependencies=[Depends(ratelimit.by_ip("scenario_ip"))])
 def get_scenario(key: str) -> dict:
     if key not in SCENARIOS:
         raise HTTPException(404, "Unknown scenario")
@@ -33,7 +36,7 @@ def get_scenario(key: str) -> dict:
             "family_guess": scored["family_guess"], "baseline": baseline}
 
 
-@router.post("/simulate")
+@router.post("/simulate", dependencies=[Depends(ratelimit.by_ip("simulate_ip"))])
 def run_simulation(req: SimulateRequest) -> dict:
     sessions = simulate(req.n, req.families, req.scam_ratio)
     out = []
@@ -47,12 +50,40 @@ def run_simulation(req: SimulateRequest) -> dict:
     return {"n": len(out), "sessions": out}
 
 
-@router.post("/arena")
+@router.post("/arena", dependencies=[Depends(ratelimit.by_ip("arena_ip"))])
 def run_arena(req: ArenaRequest) -> dict:
-    return arena(req.generations, req.population, req.per_genome, fresh=req.fresh)
+    """Attackers evolve against the current defender. Public demo: rate-limited, one run at a time.
+    It only simulates attacks; it never changes the defender model."""
+    with ratelimit.model_ops:
+        return arena(req.generations, req.population, req.per_genome, fresh=req.fresh)
 
 
 @router.post("/arena/adapt")
-def run_adapt(epochs: int = 3, persist: bool = False) -> dict:
-    """Defender's turn: learn from the attackers' newest tricks, then re-test on fresh variants."""
-    return adapt(epochs=epochs, persist=persist)
+def run_adapt(request: Request,
+              epochs: int = Query(3, ge=1, le=MAX_ADAPT_EPOCHS,
+                                  description=f"defender fine-tuning epochs, 1-{MAX_ADAPT_EPOCHS}"),
+              persist: bool = False,
+              p: Principal = Depends(require_permission("model:adapt"))) -> dict:
+    """Defender's turn: learn from the attackers' newest tricks, then re-test on fresh variants.
+
+    MODEL_ENGINEER only. The accepted update replaces the live in-memory defender. persist=true also
+    overwrites the model files on disk and needs model:persist plus a password re-entry within the
+    last few minutes (POST /v1/auth/reauth).
+    """
+    if persist:
+        step_up(request, p, "model:persist")
+    ratelimit.enforce("adapt_user", p.id)
+    with ratelimit.model_ops:
+        report = adapt(epochs=epochs, persist=persist)
+    if "error" not in report:
+        detail = {"epochs": epochs, "accepted": report.get("accepted"),
+                  "detection_before": report.get("detection_before"),
+                  "detection_after": report.get("detection_after")}
+        audit.record("MODEL_ADAPT", request=request, actor=p.user, resource_type="model", resource_id="scamseq",
+                     detail=detail)
+        if persist:
+            audit.record("MODEL_PERSIST", "success" if report.get("persisted") else "failure", request=request,
+                         actor=p.user, resource_type="model", resource_id="scamseq",
+                         reason=None if report.get("persisted") else "update not accepted, nothing written",
+                         detail=detail)
+    return report

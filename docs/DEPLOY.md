@@ -17,8 +17,9 @@ The repo includes a Render blueprint (`render.yaml`) that creates the PostgreSQL
    python3 scripts/smoke_test.py https://<api>.onrender.com
    ```
 
-   It checks 14 things end to end: models loaded, scams escalate, look-alikes stay quiet, a live
-   session is scored and stored, privacy mode works, beta sign-up and feedback work.
+   It checks 16 things end to end: models loaded, scams escalate, look-alikes stay quiet, sessions are
+   refused without sign-in, an account can register and sign in, a live session is scored and stored,
+   privacy mode works, beta sign-up and feedback work.
 
 The API needs about 1 GB of RAM because it loads PyTorch and the models, so use the Starter plan or above. The free plan (512 MB) runs out of memory.
 
@@ -27,9 +28,11 @@ The API needs about 1 GB of RAM because it loads PyTorch and the models, so use 
 | Variable | Purpose |
 | --- | --- |
 | `DATABASE_URL` | PostgreSQL connection string (Render fills this in) |
-| `ADMIN_API_KEY` | Key for analyst-only routes (Render generates it; find it in the dashboard) |
+| `BOOTSTRAP_ADMIN_EMAIL` / `BOOTSTRAP_ADMIN_PASSWORD` | First ADMIN account, created at startup if missing. Set the email in the dashboard; Render generates the password. A weak or default password stops the API from starting. `ADMIN_API_KEY` is retired and ignored. |
+| `COOKIE_SECURE` / `COOKIE_SAMESITE` | Sign-in cookie flags. Production requires `COOKIE_SECURE=true`. `none` is needed only when web and API are on different sites (the default Render URLs). |
+| `ALLOW_REGISTRATION` | `true` lets anyone create an ANALYST account; `false` for an invite-only beta |
+| `TRUST_FORWARDED_FOR` | `true` only behind a proxy you control, so per-client rate limits see real addresses |
 | `CORS_ORIGINS` | Comma-separated web origins allowed to call the API |
-| `REQUIRE_API_KEY` | `true` for the public beta, so only signed-up testers can write data |
 | `STORE_MESSAGE_TEXT` | `false` in production: text is scored in memory and never stored |
 | `CHAKRAVYUH_LLM_*` | Optional LLM for the simulator's attacker agents |
 

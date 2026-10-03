@@ -7,14 +7,16 @@ from collections import Counter
 from pathlib import Path
 
 import numpy as np
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from ..config import settings
 from ..db import get_db
+from ..deps import Principal, require_permission
 from ..models import Alert, BetaTester, Campaign, Feedback, ScamSession
 from ..schemas import CampaignPatch
+from ..security import audit, ratelimit
 from ..services.demo import simulate
 from ..services.scoring import get_engine, model_status
 
@@ -47,8 +49,14 @@ def list_campaigns(db: Session = Depends(get_db)) -> list[dict]:
 
 
 @router.post("/campaigns/refresh")
-def refresh_campaigns(include_simulated: bool = True, db: Session = Depends(get_db)) -> dict:
-    """Cluster risky sessions that match no known scam family into campaign cards."""
+def refresh_campaigns(request: Request, include_simulated: bool = True, db: Session = Depends(get_db),
+                      who: Principal = Depends(require_permission("campaigns:manage"))) -> dict:
+    """Cluster risky sessions that match no known scam family into campaign cards.
+
+    Users' stored sessions contribute to clustering, but campaign cards are readable by anyone, so their
+    message text and payee IDs are removed before cards are built: a card can never quote another
+    user's conversation."""
+    ratelimit.enforce("campaign_refresh_user", who.id)
     eng = get_engine()
     if eng is None or eng.campaigns is None:
         raise HTTPException(503, "Model not loaded")
@@ -59,7 +67,7 @@ def refresh_campaigns(include_simulated: bool = True, db: Session = Depends(get_
         pool += simulate(60, None, 0.0, seed=98)
     stored = db.scalars(select(ScamSession).where(ScamSession.max_p > 0.3)).all()
     for s in stored:
-        pool.append({"session_id": s.id, "language": s.language, "channel": s.channel, "label": 0,
+        pool.append({"_stored": True, "session_id": s.id, "language": s.language, "channel": s.channel, "label": 0,
                      "events": [{"t": e.t, "type": e.type, "text": e.text, "attrs": e.attrs or {},
                                  "tactics": e.tactics or [], "stage": "contact", "channel": e.channel}
                                 for e in s.events]})
@@ -74,6 +82,10 @@ def refresh_campaigns(include_simulated: bool = True, db: Session = Depends(get_
         for e in s["events"]:
             if e.get("text") in r["tags"]:
                 e["tags"] = r["tags"][e["text"]]["tactics"]
+        if s.get("_stored"):
+            for e in s["events"]:
+                e["text"] = None
+                e["attrs"] = {k: v for k, v in e["attrs"].items() if k != "payee" and not k.startswith("_")}
     cards = eng.campaigns.cluster(members, emb[unknown]) if members else []
     psi = eng.campaigns.psi([[t for e in s["events"] for t in e.get("tags", [])] for s in pool])
     created = 0
@@ -81,17 +93,22 @@ def refresh_campaigns(include_simulated: bool = True, db: Session = Depends(get_
         db.add(Campaign(name=c["name"], size=c["size"], card=c))
         created += 1
     db.commit()
+    audit.record("CAMPAIGN_CHANGE", request=request, actor=who.user, resource_type="campaigns",
+                 detail={"op": "refresh", "created": created})
     return {"created": created, "unknown_sessions": int(unknown.sum()), "pool": len(pool),
             "tactic_drift_psi": round(psi, 4), "drift_alarm": psi > 0.2}
 
 
 @router.patch("/campaigns/{cid}")
-def patch_campaign(cid: str, body: CampaignPatch, db: Session = Depends(get_db)) -> dict:
+def patch_campaign(cid: str, body: CampaignPatch, request: Request, db: Session = Depends(get_db),
+                   who: Principal = Depends(require_permission("campaigns:manage"))) -> dict:
     c = db.get(Campaign, cid)
     if not c:
         raise HTTPException(404, "Campaign not found")
     c.status = body.status
     db.commit()
+    audit.record("CAMPAIGN_CHANGE", request=request, actor=who.user, resource_type="campaign", resource_id=cid,
+                 detail={"op": "review", "status": body.status})
     return {"id": c.id, "status": c.status}
 
 

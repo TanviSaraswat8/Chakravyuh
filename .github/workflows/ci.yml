@@ -46,6 +46,14 @@ jobs:
           docker compose exec -T api python /tmp/smoke_test.py http://web
       - name: Regression checks (Customs hold, flat deposit)
         run: docker compose exec -T api python /tmp/e2e_checks.py http://web
+      - name: Model update needs a model-engineer sign-in
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST http://localhost:8000/v1/demo/arena/adapt)
+          echo "anonymous adapt: HTTP $code"; test "$code" = "401"
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST "http://localhost:8000/v1/demo/arena/adapt?epochs=1000")
+          echo "anonymous adapt with 1000 epochs: HTTP $code"; test "$code" = "401"
+          code=$(curl -s -o /dev/null -w "%{http_code}" -H "X-API-Key: change-me-admin" http://localhost:8000/v1/beta/testers)
+          echo "old default admin key: HTTP $code"; test "$code" = "401"
       - name: Privacy mode, checked in PostgreSQL
         run: |
           STORE_MESSAGE_TEXT=false docker compose up -d --wait api

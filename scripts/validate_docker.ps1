@@ -156,8 +156,8 @@ function Copy-Scripts {
     return $ok
 }
 function Skip-Rest($reason) {
-    foreach ($n in @("smoke test (14 checks, via nginx)", "Customs hold", "flat deposit not held", "attacker evolution (arena)",
-                     "defender adapts", "emerging-campaign detection", "data persists across API restart",
+    foreach ($n in @("smoke test (16 checks, via nginx)", "Customs hold", "flat deposit not held", "attacker evolution (arena)",
+                     "adapt refused without model-engineer sign-in", "defender adapts", "emerging-campaign detection", "data persists across API restart",
                      "privacy mode checks (API)", "privacy mode in PostgreSQL", "pytest (all suites, PostgreSQL)")) {
         Record $n "SKIP" "not run: $reason"
     }
@@ -306,7 +306,7 @@ $r = Run "docker compose exec -T api python /tmp/smoke_test.py http://web"
 # smoke_test.py prints "  ok   <check>" for each passing check and "  FAIL <check>" otherwise.
 $n = ([regex]::Matches($r.Out, "(?m)^\s*ok\s")).Count
 $bad = @($r.Out -split "`n" | Where-Object { $_ -match "^\s*FAIL\s" } | ForEach-Object { $_.Trim() })
-Record "smoke test (14 checks, via nginx)" (($r.Code -eq 0) -and ($n -eq 14)) ("exit $($r.Code), $n of 14 checks passed" + $(if ($bad) { ": " + ($bad -join "; ") } else { "" }))
+Record "smoke test (16 checks, via nginx)" (($r.Code -eq 0) -and ($n -eq 16)) ("exit $($r.Code), $n of 16 checks passed" + $(if ($bad) { ": " + ($bad -join "; ") } else { "" }))
 
 # 9-10. End to end: regression checks, evolution, campaigns, persistence --------------------------
 Section "9-10. End to end"
@@ -322,15 +322,32 @@ try {
         -Body '{"generations":4,"population":24,"per_genome":2,"fresh":true}' -TimeoutSec 600
     $rates = ($arena.history | ForEach-Object { "{0:P0}" -f $_.detection_rate }) -join " -> "
     Record "attacker evolution (arena)" ($arena.history.Count -eq 4) "detection by generation: $rates"
+    # Updating the live defender needs a MODEL_ENGINEER account. Create a throwaway one inside the API
+    # container (password passed through the environment, never on a command line) and sign in.
+    $code = 0
+    try { Invoke-RestMethod -Method Post -Uri "$Api/v1/demo/arena/adapt" -TimeoutSec 60 | Out-Null }
+    catch { $code = [int]$_.Exception.Response.StatusCode }
+    Record "adapt refused without model-engineer sign-in" ($code -eq 401) "anonymous request got HTTP $code (expected 401)"
+    $engEmail = "validator-engineer-{0}@example.com" -f ([guid]::NewGuid().ToString("N").Substring(0, 8))
+    $env:CHAKRAVYUH_NEW_USER_PASSWORD = [guid]::NewGuid().ToString("N") + [guid]::NewGuid().ToString("N")
+    $r = Run "docker compose exec -T -e CHAKRAVYUH_NEW_USER_PASSWORD api python -m app.manage create-user --email $engEmail --role MODEL_ENGINEER"
+    $script:Web = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+    $script:Csrf = @{}
     try {
-        $d = Invoke-RestMethod -Method Post -Uri "$Api/v1/demo/arena/adapt" -TimeoutSec 900
+        $login = Invoke-RestMethod -Method Post -Uri "$Api/v1/auth/login" -ContentType "application/json" -WebSession $script:Web `
+            -Body (@{ email = $engEmail; password = $env:CHAKRAVYUH_NEW_USER_PASSWORD } | ConvertTo-Json) -TimeoutSec 30
+        $script:Csrf = @{ "X-CSRF-Token" = $login.csrf_token }
+    } catch { Note-Errors "model engineer sign-in (create-user exit $($r.Code))" "$($_.Exception.Message)`n$($r.Out)" | Out-Null }
+    Remove-Item Env:\CHAKRAVYUH_NEW_USER_PASSWORD -ErrorAction SilentlyContinue
+    try {
+        $d = Invoke-RestMethod -Method Post -Uri "$Api/v1/demo/arena/adapt" -WebSession $script:Web -Headers $script:Csrf -TimeoutSec 900
         Record "defender adapts" ($null -ne $d.detection_after) ("caught {0:P0} -> {1:P0}, false alarms {2:P1}, shipped={3}" -f `
             $d.detection_before, $d.detection_after, $d.legit_false_alarm_after, $d.accepted)
     } catch { Record "defender adapts" $false "$($_.Exception.Message)"; Diagnose "defender update request failed" }
 } catch { Record "attacker evolution (arena)" $false "$($_.Exception.Message)"; Record "defender adapts" "SKIP" "arena failed"; Diagnose "arena request failed" }
 
 try {
-    $c = Invoke-RestMethod -Method Post -Uri "$Api/v1/campaigns/refresh" -TimeoutSec 300
+    $c = Invoke-RestMethod -Method Post -Uri "$Api/v1/campaigns/refresh" -WebSession $script:Web -Headers $script:Csrf -TimeoutSec 300
     Record "emerging-campaign detection" ($c.created -ge 1) "$($c.created) campaign(s) from $($c.unknown_sessions) unexplained sessions"
 } catch { Record "emerging-campaign detection" $false "$($_.Exception.Message)"; Diagnose "campaign refresh failed" }
 

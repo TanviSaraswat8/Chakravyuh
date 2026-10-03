@@ -14,20 +14,33 @@
 
 from __future__ import annotations
 
+import http.cookiejar
 import json
+import secrets
 import sys
 import urllib.request
+import uuid
 
 BASE = next((a for a in sys.argv[1:] if not a.startswith("--")), "http://localhost:8000").rstrip("/")
 PRIVACY = "--privacy" in sys.argv
 failures: list[str] = []
+OPENER = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
+CSRF: dict[str, str] = {}
 
 
 def call(method: str, path: str, body: dict | None = None) -> dict:
+    h = {"Content-Type": "application/json", **(CSRF if method != "GET" else {})}
     req = urllib.request.Request(BASE + path, data=json.dumps(body).encode() if body is not None else None,
-                                 method=method, headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=120) as r:
+                                 method=method, headers=h)
+    with OPENER.open(req, timeout=120) as r:
         return json.loads(r.read())
+
+
+def sign_in() -> None:
+    """Sessions are private to an account: register a throwaway ANALYST and sign in."""
+    email, password = f"e2e-{uuid.uuid4().hex[:8]}@example.com", secrets.token_urlsafe(18)
+    call("POST", "/v1/auth/register", {"email": email, "password": password})
+    CSRF["X-CSRF-Token"] = call("POST", "/v1/auth/login", {"email": email, "password": password})["csrf_token"]
 
 
 def run(events: list[dict]) -> tuple[str, list[tuple[str, int, float]]]:
@@ -47,6 +60,7 @@ def check(name: str, ok: bool, detail: str) -> None:
 
 def main() -> int:
     print(f"Regression checks against {BASE}")
+    sign_in()
     _, out = run([
         {"type": "MSG_RECV", "attrs": {"known_sender": False},
          "text": "This is the Customs Department. A parcel in your name contains illegal items. Stay on the line."},

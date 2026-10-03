@@ -79,12 +79,23 @@ cd backend && python -m venv .venv && source .venv/bin/activate && pip install -
 
 ## API in one minute
 
+Stored sessions belong to an account, so sign in first. The session is an HttpOnly cookie; every
+write also sends the `csrf_token` returned by login as `X-CSRF-Token`. Stateless scoring
+(`POST /v1/score`) and the demo endpoints need no account.
+
 ```bash
+# Create an account (ANALYST) and sign in; the cookie goes into ./jar
+curl -X POST localhost:8000/v1/auth/register -H 'Content-Type: application/json' -d '{"email":"me@example.com","password":"a long passphrase"}'
+CSRF=$(curl -s -c jar -X POST localhost:8000/v1/auth/login -H 'Content-Type: application/json' \
+  -d '{"email":"me@example.com","password":"a long passphrase"}' | python3 -c 'import sys,json;print(json.load(sys.stdin)["csrf_token"])')
 # Start a session, stream events into it, get a decision back for each event
-curl -X POST localhost:8000/v1/sessions -H 'Content-Type: application/json' -d '{"language":"en"}'
-curl -X POST localhost:8000/v1/sessions/<id>/events -H 'Content-Type: application/json' \
+curl -b jar -X POST localhost:8000/v1/sessions -H "X-CSRF-Token: $CSRF" -H 'Content-Type: application/json' -d '{"language":"en"}'
+curl -b jar -X POST localhost:8000/v1/sessions/<id>/events -H "X-CSRF-Token: $CSRF" -H 'Content-Type: application/json' \
   -d '{"type":"MSG_RECV","text":"This is CBI. A parcel in your name contains illegal items."}'
 ```
+
+Roles: VIEWER, ANALYST (default for sign-ups), MODEL_ENGINEER (may update the defender model) and
+ADMIN (accounts, audit log). Create accounts with `make user EMAIL=... ROLE=...`.
 
 Privacy mode: send `client_tags` (tactics and scam probability computed on the phone by the Sentinel SLM) instead of `text`, and the raw message never leaves the device. Set `STORE_MESSAGE_TEXT=false` so text is scored in memory only.
 
@@ -106,4 +117,6 @@ The attacker engine is for defenders. Generated data is released at the tactic l
 - `docs/DEPLOY.md`: deploying to Render (or any Docker host)
 - `docs/BETA_TESTING.md`: running the alpha and beta
 - `docs/SECURITY.md`: threat model and responsible release
+- `docs/SECURITY_REMEDIATION.md`: authentication, authorization, model integrity, rate limits, audit log
+- `docs/CHAKRAVYUH_CURRENT_ARCHITECTURE.md`: architecture audit
 - `sentinel/README.md`: fine-tuning the on-device SLM

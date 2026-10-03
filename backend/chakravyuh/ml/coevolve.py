@@ -213,12 +213,17 @@ def main() -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps({"rounds": rounds, "seconds": round(time.time() - t0, 1)}, indent=2))
     if args.persist:
-        ss.save(engine.model, str(Path(args.artifacts) / "scamseq.pt"))
+        from .integrity import Sha256Manifest
+        art = Path(args.artifacts)
+        ss.save(engine.model, str(art / "scamseq.pt"))
         import pickle
-        with open(Path(args.artifacts) / "tagger.pkl", "wb") as f:
+        with open(art / "tagger.pkl", "wb") as f:
             pickle.dump(engine.tagger, f)
+        names = ["scamseq.pt", "tagger.pkl"]
         if engine.policy:
-            (Path(args.artifacts) / "policy.json").write_text(json.dumps(engine.policy.to_dict()))
+            (art / "policy.json").write_text(json.dumps(engine.policy.to_dict()))
+            names.append("policy.json")
+        Sha256Manifest(art).register(names)      # register the new digests so the API will load them
         print(f"saved hardened model and recalibrated gates to {args.artifacts}/")
     print(f"wrote {out} in {time.time() - t0:.0f}s")
 

@@ -136,3 +136,24 @@ class ArenaRequest(BaseModel):
     population: int = Field(16, ge=4, le=60)
     per_genome: int = Field(2, ge=1, le=5)
     fresh: bool = True   # False continues the current arms race against the (possibly updated) defender
+
+
+# --- Accounts -------------------------------------------------------------------------------------
+
+class RegisterIn(BaseModel):
+    email: EmailStr
+    password: str = Field(min_length=1, max_length=128)
+
+
+class LoginIn(BaseModel):
+    email: EmailStr
+    password: str = Field(min_length=1, max_length=128)
+
+
+class ReauthIn(BaseModel):
+    password: str = Field(min_length=1, max_length=128)
+
+
+class UserPatch(BaseModel):
+    role: Literal["VIEWER", "ANALYST", "MODEL_ENGINEER", "ADMIN"] | None = None
+    status: Literal["active", "disabled"] | None = None

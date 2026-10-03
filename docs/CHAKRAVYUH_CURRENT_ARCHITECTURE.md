@@ -2,6 +2,7 @@
 
 Audit of commit `58438cb` (main), 2026-10-03. This document describes what exists **today**, before the
 real-data, agent-canvas and security-hardening work. Nothing was changed while writing it.
+The access-control findings in §8 and §13 have since been fixed: see `SECURITY_REMEDIATION.md`.
 
 Status words used below:
 

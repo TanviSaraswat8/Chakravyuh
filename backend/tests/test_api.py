@@ -10,12 +10,14 @@ from fastapi.testclient import TestClient  # noqa: E402
 
 from app.db import Base, engine  # noqa: E402
 from app.main import app  # noqa: E402
+from tests.helpers import sign_in  # noqa: E402
 
 
 @pytest.fixture(scope="module")
 def client():
     Base.metadata.drop_all(engine)       # start from an empty database either way
     with TestClient(app) as c:
+        sign_in(c)            # session routes need a signed-in ANALYST (see test_security.py)
         yield c
     Base.metadata.drop_all(engine)
     engine.dispose()
@@ -84,7 +86,8 @@ def test_beta_signup_and_feedback(client):
     f = client.post("/v1/beta/feedback", json={"kind": "false_alert", "rating": 4, "comment": "ok"},
                     headers={"X-API-Key": key})
     assert f.status_code == 201
-    assert client.get("/v1/beta/testers").status_code == 403
+    assert client.get("/v1/beta/testers").status_code == 403          # ANALYST is not ADMIN
+    assert client.get("/v1/beta/testers", headers={"X-API-Key": key}).status_code == 403
 
 
 def test_metrics_and_meta(client):

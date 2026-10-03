@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import secrets
 import uuid
 from datetime import UTC, datetime
 
@@ -28,7 +27,9 @@ class BetaTester(Base):
     org: Mapped[str | None] = mapped_column(String(160), nullable=True)
     role: Mapped[str] = mapped_column(String(40), default="tester")      # tester | analyst | admin
     cohort: Mapped[str] = mapped_column(String(20), default="alpha")     # alpha | beta
-    api_key: Mapped[str] = mapped_column(String(64), unique=True, default=lambda: "ck_" + secrets.token_hex(20))
+    # Transitional tester key, used only to attribute beta feedback. Only its SHA-256 is stored (column
+    # name kept for existing databases); the raw key is shown once at sign-up.
+    api_key_hash: Mapped[str] = mapped_column("api_key", String(64), unique=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
 
 
@@ -36,6 +37,9 @@ class ScamSession(Base):
     __tablename__ = "sessions"
     id: Mapped[str] = mapped_column(String(16), primary_key=True, default=_id)
     tester_id: Mapped[str | None] = mapped_column(ForeignKey("beta_testers.id"), nullable=True)
+    # Owner: only this user can read or change the session. NULL = created before accounts existed
+    # (or a demo-only row) and is visible to no one through the API.
+    owner_id: Mapped[str | None] = mapped_column(String(16), index=True, nullable=True)
     source: Mapped[str] = mapped_column(String(20), default="live")       # live | demo | sim
     channel: Mapped[str] = mapped_column(String(20), default="whatsapp")
     language: Mapped[str] = mapped_column(String(12), default="en")
@@ -113,3 +117,44 @@ class Campaign(Base):
     status: Mapped[str] = mapped_column(String(20), default="new")        # new | approved | rejected
     card: Mapped[dict] = mapped_column(JSON, default=dict)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
+class User(Base):
+    __tablename__ = "users"
+    id: Mapped[str] = mapped_column(String(16), primary_key=True, default=_id)
+    email: Mapped[str] = mapped_column(String(255), unique=True, index=True)
+    password_hash: Mapped[str] = mapped_column(String(255))                # Argon2id, never the password
+    role: Mapped[str] = mapped_column(String(32), default="ANALYST")       # see app/security/rbac.py
+    status: Mapped[str] = mapped_column(String(16), default="active")      # active | disabled
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, onupdate=_now)
+
+
+class AuthSession(Base):
+    """A signed-in browser/client. The cookie holds a random token; only its SHA-256 is stored."""
+    __tablename__ = "auth_sessions"
+    id: Mapped[str] = mapped_column(String(16), primary_key=True, default=_id)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
+    token_hash: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    last_seen_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    reauth_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    revoked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class AuditEvent(Base):
+    """Security audit trail. Never holds passwords, tokens, keys or message text."""
+    __tablename__ = "audit_events"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, index=True)
+    request_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    action: Mapped[str] = mapped_column(String(40), index=True)
+    result: Mapped[str] = mapped_column(String(16))                        # success | denied | failure
+    actor_id: Mapped[str | None] = mapped_column(String(16), nullable=True, index=True)
+    actor_role: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    resource_type: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    resource_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    reason: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    source_ip: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    detail: Mapped[dict] = mapped_column(JSON, default=dict)

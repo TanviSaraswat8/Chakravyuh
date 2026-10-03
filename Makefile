@@ -2,7 +2,7 @@
 PY ?= python3
 BACKEND = backend
 
-.PHONY: help setup data train api web test lint build up down sft
+.PHONY: help setup data train api user web test lint build up down sft
 
 help:
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-10s %s\n", $$1, $$2}'
@@ -19,6 +19,9 @@ train: ## Train every model and write the benchmark to backend/artifacts/metrics
 
 api: ## Start the API with auto-reload on :8000
 	cd $(BACKEND) && $(PY) -m uvicorn app.main:app --reload --port 8000
+
+user: ## Create an account: make user EMAIL=you@example.com ROLE=ADMIN (prompts for the password)
+	cd $(BACKEND) && $(PY) -m app.manage create-user --email $(EMAIL) --role $(or $(ROLE),ANALYST)
 
 web: ## Start the web app on :5173 (proxies the API)
 	cd frontend && npm run dev
