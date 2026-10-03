@@ -303,8 +303,10 @@ Record "database tables created by API" ($missT.Count -eq 0) "$tables"
 Section "8. Smoke test"
 if (-not (Copy-Scripts)) { Diagnose "could not copy test scripts into the API container"; Skip-Rest "test scripts not copied"; Finish }
 $r = Run "docker compose exec -T api python /tmp/smoke_test.py http://web"
-$n = ([regex]::Matches($r.Out, "(?m)^\s*PASS")).Count
-Record "smoke test (14 checks, via nginx)" ($r.Code -eq 0) "exit $($r.Code), $n checks passed"
+# smoke_test.py prints "  ok   <check>" for each passing check and "  FAIL <check>" otherwise.
+$n = ([regex]::Matches($r.Out, "(?m)^\s*ok\s")).Count
+$bad = @($r.Out -split "`n" | Where-Object { $_ -match "^\s*FAIL\s" } | ForEach-Object { $_.Trim() })
+Record "smoke test (14 checks, via nginx)" (($r.Code -eq 0) -and ($n -eq 14)) ("exit $($r.Code), $n of 14 checks passed" + $(if ($bad) { ": " + ($bad -join "; ") } else { "" }))
 
 # 9-10. End to end: regression checks, evolution, campaigns, persistence --------------------------
 Section "9-10. End to end"
