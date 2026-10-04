@@ -78,7 +78,73 @@ def example(r: dict, typed: bool) -> dict:
                          {"role": "assistant", "content": json.dumps(target(r, typed), ensure_ascii=False)}],
             "meta": {"record_id": r["record_id"], "dataset_id": r["dataset_id"], "label": label_of(r),
                      "scam_type": r["scam_type"], "language": r["language"], "country": r.get("country"),
-                     "typed": typed}}
+                     "typed": typed},
+            # Sampling-only fields: used by stratified_scam_sample, never written (keeps v2 bytes unchanged).
+            "_s": {"cluster": r.get("near_dup_cluster"), "lures": r.get("lures") or []}}
+
+
+def stratified_scam_sample(rows: list[dict], n: int, seed: int, floor: int) -> tuple[list[dict], dict]:
+    """Pick n scam examples preserving diversity.
+
+    Strata: scam_type x language bucket (english / other). Allocation is proportional, with every stratum
+    guaranteed min(size, floor); the largest strata give up the excess. Within a stratum the picks go
+    round-robin over near-duplicate clusters (one per cluster before any second), and inside each round the
+    example whose lure combination is least represented so far is taken first. Deterministic given seed.
+    """
+    rng = random.Random(seed)
+    strata: dict[tuple, list[dict]] = {}
+    for x in rows:
+        m = x["meta"]
+        strata.setdefault((m["scam_type"] or "none", "english" if m["language"] == "english" else "other"), []).append(x)
+    total = len(rows)
+    alloc = {k: max(round(n * len(v) / total), min(len(v), floor)) for k, v in strata.items()}
+    while sum(alloc.values()) != n:                      # trim / top up the largest strata to hit n exactly
+        k = max(alloc, key=lambda key: alloc[key] - min(len(strata[key]), floor))
+        step = 1 if sum(alloc.values()) < n else -1
+        if step > 0:
+            k = max((key for key in alloc if alloc[key] < len(strata[key])), key=lambda key: len(strata[key]))
+        alloc[k] += step
+    picked: list[dict] = []
+    for key in sorted(strata):
+        by_cluster: dict[str, list[dict]] = {}
+        for x in strata[key]:
+            by_cluster.setdefault(x["_s"]["cluster"], []).append(x)
+        clusters = sorted(by_cluster)
+        rng.shuffle(clusters)
+        for c in clusters:
+            rng.shuffle(by_cluster[c])
+        combo_count: Counter = Counter()
+        chosen: list[dict] = []
+        while len(chosen) < alloc[key]:
+            progressed = False
+            for c in clusters:
+                if len(chosen) >= alloc[key]:
+                    break
+                if not by_cluster[c]:
+                    continue
+                cands = by_cluster[c]
+                best = min(range(len(cands)), key=lambda i: combo_count[tuple(sorted(cands[i]["_s"]["lures"]))])
+                x = cands.pop(best)
+                combo_count[tuple(sorted(x["_s"]["lures"]))] += 1
+                chosen.append(x)
+                progressed = True
+            if not progressed:
+                break
+        picked += chosen
+    def dist(xs, f):
+        c = Counter(v for x in xs for v in f(x))
+        return {k: round(v / max(len(xs), 1), 4) for k, v in sorted(c.items())}
+    report = {"n": len(picked), "seed": seed, "floor": floor,
+              "allocation": {f"{k[0]}|{k[1]}": {"pool": len(strata[k]), "sampled": alloc[k]} for k in sorted(strata)},
+              "distinct_clusters_pool": len({x["_s"]["cluster"] for x in rows}),
+              "distinct_clusters_sampled": len({x["_s"]["cluster"] for x in picked}),
+              "lure_combos_pool": len({tuple(sorted(x["_s"]["lures"])) for x in rows}),
+              "lure_combos_sampled": len({tuple(sorted(x["_s"]["lures"])) for x in picked}),
+              "lure_share_pool": dist(rows, lambda x: x["_s"]["lures"]),
+              "lure_share_sampled": dist(picked, lambda x: x["_s"]["lures"]),
+              "scam_type_share_pool": dist(rows, lambda x: [x["meta"]["scam_type"]]),
+              "scam_type_share_sampled": dist(picked, lambda x: [x["meta"]["scam_type"]])}
+    return picked, report
 
 
 def main() -> None:
@@ -155,13 +221,22 @@ def main() -> None:
             # Cap only the majority (scam) class: every scarce legitimate / promotional example is kept.
             minority = [x for x in rows if x["meta"]["label"] != "scam"]
             scam = [x for x in rows if x["meta"]["label"] == "scam"]
-            rng.shuffle(scam)
-            rows = minority + scam[: max(0, cfg.get("max_train", len(rows)) - len(minority))]
+            cap = cfg.get("scam_cap")
+            if cap:
+                scam, rep = stratified_scam_sample(scam, cap["n"], cfg["seed"], cap.get("min_per_stratum", 150))
+                manifest["scam_sample"] = rep
+                ids = sorted(x["meta"]["record_id"] for x in scam)
+                (out / "sampled_scam_ids.json").write_text(json.dumps(ids) + "\n")
+                manifest["scam_sample"]["sampled_ids_sha256"] = hashlib.sha256((json.dumps(ids) + "\n").encode()).hexdigest()
+                rows = minority + scam
+            else:
+                rng.shuffle(scam)
+                rows = minority + scam[: max(0, cfg.get("max_train", len(rows)) - len(minority))]
             rng.shuffle(rows)
         p = out / f"{name}.jsonl"
         with open(p, "w", encoding="utf-8") as f:
             for x in rows:
-                f.write(json.dumps(x, ensure_ascii=False) + "\n")
+                f.write(json.dumps({k: v for k, v in x.items() if k != "_s"}, ensure_ascii=False) + "\n")
         manifest["outputs"][p.name] = {"rows": len(rows), "sha256": sha(p),
                                        "labels": dict(Counter(x["meta"]["label"] for x in rows))}
         print(f"{name}: {len(rows)} {manifest['outputs'][p.name]['labels']}")

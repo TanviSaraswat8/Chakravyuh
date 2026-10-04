@@ -33,12 +33,16 @@ def main() -> None:
     ap.add_argument("--batch", type=int, default=32)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--generate", nargs="*", default=["test_imc25_group_v1_test.jsonl"])
+    ap.add_argument("--gen-batch", type=int, default=32)
+    ap.add_argument("--latency-n", type=int, default=100, help="messages timed one at a time (batch 1)")
     a = ap.parse_args()
     import torch
     from unsloth import FastLanguageModel
     model, tok = FastLanguageModel.from_pretrained(a.model, max_seq_length=a.max_seq, load_in_4bit=True)
     FastLanguageModel.for_inference(model)
     tok.padding_side = "left"
+    if tok.pad_token is None:
+        tok.pad_token = tok.eos_token
     first = {lab: tok.encode(lab, add_special_tokens=False)[0] for lab in LABELS}
     print("label first-token ids:", first)
     if len(set(first.values())) != 3:
@@ -51,9 +55,11 @@ def main() -> None:
         rows = rows[: a.limit] if a.limit else rows
         prompts = [tok.apply_chat_template(r["messages"][:2], tokenize=False, add_generation_prompt=True) for r in rows]
         results = []
+        over_max = 0
         for b in range(0, len(rows), a.batch):
-            enc = tok([p + PREFIX for p in prompts[b: b + a.batch]], return_tensors="pt", padding=True,
-                      truncation=True, max_length=a.max_seq).to(model.device)
+            # No truncation: cutting the prompt would drop the forced prefix. SMS prompts are far below max-seq.
+            enc = tok([p + PREFIX for p in prompts[b: b + a.batch]], return_tensors="pt", padding=True).to(model.device)
+            over_max += int((enc["attention_mask"].sum(1) > a.max_seq).sum())
             t0 = time.perf_counter()
             with torch.no_grad():
                 logits = model(**enc).logits[:, -1, :]
@@ -65,19 +71,38 @@ def main() -> None:
                                 "label_pred": max(p, key=p.get), "parsed": None, "json_valid": None,
                                 "latency_ms": ms})
         if f.name in a.generate:
-            for r, res, prompt in zip(rows, results, prompts):
-                enc = tok(prompt, return_tensors="pt").to(model.device)
-                gen = model.generate(**enc, max_new_tokens=96, do_sample=False)
-                raw = tok.decode(gen[0][enc["input_ids"].shape[1]:], skip_special_tokens=True).strip()
-                try:
-                    res["parsed"] = json.loads(raw[raw.find("{"): raw.rfind("}") + 1])
-                    res["json_valid"] = True
-                except ValueError:
-                    res["json_valid"] = False
+            for b in range(0, len(rows), a.gen_batch):
+                enc = tok(prompts[b: b + a.gen_batch], return_tensors="pt", padding=True).to(model.device)
+                with torch.no_grad():
+                    gen = model.generate(**enc, max_new_tokens=96, do_sample=False, pad_token_id=tok.pad_token_id)
+                for k, res in enumerate(results[b: b + a.gen_batch]):
+                    raw = tok.decode(gen[k][enc["input_ids"].shape[1]:], skip_special_tokens=True).strip()
+                    res["raw"] = raw
+                    try:
+                        obj = json.loads(raw)            # strict: the whole output must be one JSON object
+                        ok = isinstance(obj, dict) and obj.get("label") in LABELS
+                    except ValueError:
+                        obj, ok = None, False
+                    res["parsed"], res["json_valid"] = obj, ok
+            if a.latency_n:
+                single = []
+                for prompt in prompts[: a.latency_n]:
+                    enc = tok(prompt + PREFIX, return_tensors="pt").to(model.device)
+                    torch.cuda.synchronize()
+                    t0 = time.perf_counter()
+                    with torch.no_grad():
+                        model(**enc)
+                    torch.cuda.synchronize()
+                    single.append((time.perf_counter() - t0) * 1000)
+                single.sort()
+                (out / "latency_single.json").write_text(json.dumps({
+                    "n": len(single), "batch": 1, "what": "one forward pass for p_scam (no generation)",
+                    "gpu": torch.cuda.get_device_name(0), "p50_ms": single[len(single) // 2],
+                    "p95_ms": single[int(len(single) * 0.95) - 1]}, indent=2) + "\n")
         with open(out / f.name, "w", encoding="utf-8") as w:
             for res in results:
                 w.write(json.dumps(res) + "\n")
-        print(f"{f.name}: {len(results)} predictions")
+        print(f"{f.name}: {len(results)} predictions; prompts over max-seq: {over_max}")
 
 
 if __name__ == "__main__":

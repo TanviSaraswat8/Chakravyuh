@@ -1,0 +1,2291 @@
+{
+  "track": "REAL PUBLIC DATA",
+  "predictions": "sentinel/baselines/sentinel_real_v3_scam8k/chakravyuh_tagger_arch",
+  "threshold": {
+    "rule": "smallest threshold with <= floor(1% n) UCI-calibration ham flagged (tie-aware)",
+    "value": 0.9680699150935076,
+    "bootstrap_95ci": [
+      0.956683120501791,
+      0.9744251755619386
+    ],
+    "calibration_n": 2393
+  },
+  "per_source": {
+    "imc25_test": {
+      "argmax": {
+        "n": 5767,
+        "classes": {
+          "scam": 5767
+        },
+        "recall": 0.971,
+        "fnr": 0.029,
+        "recall_95ci": [
+          0.9667071267556788,
+          0.975208080457777
+        ],
+        "confusion": {
+          "rows_true": [
+            "scam"
+          ],
+          "cols_pred": [
+            "scam",
+            "legit",
+            "promo"
+          ],
+          "matrix": [
+            [
+              5600,
+              87,
+              80
+            ]
+          ]
+        },
+        "mean_p_scam": 0.9406
+      },
+      "calibrated_threshold": {
+        "n": 5767,
+        "classes": {
+          "scam": 5767
+        },
+        "recall": 0.7231,
+        "fnr": 0.2769,
+        "recall_95ci": [
+          0.7109415640714409,
+          0.7343506155713543
+        ],
+        "confusion": {
+          "rows_true": [
+            "scam"
+          ],
+          "cols_pred": [
+            "scam",
+            "legit",
+            "promo"
+          ],
+          "matrix": [
+            [
+              4170,
+              1517,
+              80
+            ]
+          ]
+        },
+        "mean_p_scam": 0.9406
+      },
+      "flag_rate_at_threshold_ci_ends": {
+        "threshold_ci_low": {
+          "threshold": 0.956683120501791,
+          "flag_rate": 0.7716
+        },
+        "threshold_ci_high": {
+          "threshold": 0.9744251755619386,
+          "flag_rate": 0.6806
+        }
+      },
+      "india_network_subset_recall": 0.8552
+    },
+    "india_test": {
+      "argmax": {
+        "n": 445,
+        "classes": {
+          "promo": 142,
+          "legit": 303
+        },
+        "fpr_legit": 0.1287,
+        "fpr_legit_95ci": [
+          0.0924092409240924,
+          0.1716171617161716
+        ],
+        "fpr_promo": 0.1197,
+        "fpr_promo_95ci": [
+          0.07042253521126761,
+          0.176056338028169
+        ],
+        "confusion": {
+          "rows_true": [
+            "legit",
+            "promo"
+          ],
+          "cols_pred": [
+            "scam",
+            "legit",
+            "promo"
+          ],
+          "matrix": [
+            [
+              39,
+              264,
+              0
+            ],
+            [
+              17,
+              3,
+              122
+            ]
+          ]
+        },
+        "mean_p_scam": 0.1464
+      },
+      "calibrated_threshold": {
+        "n": 445,
+        "classes": {
+          "promo": 142,
+          "legit": 303
+        },
+        "fpr_legit": 0.0,
+        "fpr_legit_95ci": [
+          0.0,
+          0.0
+        ],
+        "fpr_promo": 0.0141,
+        "fpr_promo_95ci": [
+          0.0,
+          0.035211267605633804
+        ],
+        "confusion": {
+          "rows_true": [
+            "legit",
+            "promo"
+          ],
+          "cols_pred": [
+            "scam",
+            "legit",
+            "promo"
+          ],
+          "matrix": [
+            [
+              0,
+              303,
+              0
+            ],
+            [
+              2,
+              18,
+              122
+            ]
+          ]
+        },
+        "mean_p_scam": 0.1464
+      },
+      "flag_rate_at_threshold_ci_ends": {
+        "threshold_ci_low": {
+          "threshold": 0.956683120501791,
+          "flag_rate": 0.0067
+        },
+        "threshold_ci_high": {
+          "threshold": 0.9744251755619386,
+          "flag_rate": 0.0045
+        }
+      }
+    },
+    "uci_ham_calibration": {
+      "argmax": {
+        "n": 2393,
+        "classes": {
+          "legit": 2393
+        },
+        "fpr_legit": 0.3443,
+        "fpr_legit_95ci": [
+          0.3242791475135813,
+          0.36273506059339733
+        ],
+        "confusion": {
+          "rows_true": [
+            "legit"
+          ],
+          "cols_pred": [
+            "scam",
+            "legit",
+            "promo"
+          ],
+          "matrix": [
+            [
+              824,
+              1554,
+              15
+            ]
+          ]
+        },
+        "mean_p_scam": 0.3773
+      },
+      "calibrated_threshold": {
+        "n": 2393,
+        "classes": {
+          "legit": 2393
+        },
+        "fpr_legit": 0.0088,
+        "fpr_legit_95ci": [
+          0.005432511491851233,
+          0.012954450480568324
+        ],
+        "confusion": {
+          "rows_true": [
+            "legit"
+          ],
+          "cols_pred": [
+            "scam",
+            "legit",
+            "promo"
+          ],
+          "matrix": [
+            [
+              21,
+              2357,
+              15
+            ]
+          ]
+        },
+        "mean_p_scam": 0.3773
+      },
+      "flag_rate_at_threshold_ci_ends": {
+        "threshold_ci_low": {
+          "threshold": 0.956683120501791,
+          "flag_rate": 0.0142
+        },
+        "threshold_ci_high": {
+          "threshold": 0.9744251755619386,
+          "flag_rate": 0.0063
+        }
+      }
+    },
+    "uci_ham_evaluation": {
+      "argmax": {
+        "n": 2400,
+        "classes": {
+          "legit": 2400
+        },
+        "fpr_legit": 0.3563,
+        "fpr_legit_95ci": [
+          0.3375,
+          0.375
+        ],
+        "confusion": {
+          "rows_true": [
+            "legit"
+          ],
+          "cols_pred": [
+            "scam",
+            "legit",
+            "promo"
+          ],
+          "matrix": [
+            [
+              855,
+              1530,
+              15
+            ]
+          ]
+        },
+        "mean_p_scam": 0.385
+      },
+      "calibrated_threshold": {
+        "n": 2400,
+        "classes": {
+          "legit": 2400
+        },
+        "fpr_legit": 0.0133,
+        "fpr_legit_95ci": [
+          0.009166666666666667,
+          0.018333333333333333
+        ],
+        "confusion": {
+          "rows_true": [
+            "legit"
+          ],
+          "cols_pred": [
+            "scam",
+            "legit",
+            "promo"
+          ],
+          "matrix": [
+            [
+              32,
+              2353,
+              15
+            ]
+          ]
+        },
+        "mean_p_scam": 0.385
+      },
+      "flag_rate_at_threshold_ci_ends": {
+        "threshold_ci_low": {
+          "threshold": 0.956683120501791,
+          "flag_rate": 0.0208
+        },
+        "threshold_ci_high": {
+          "threshold": 0.9744251755619386,
+          "flag_rate": 0.0096
+        }
+      }
+    },
+    "uci_spam": {
+      "argmax": {
+        "n": 747,
+        "classes": {
+          "uci_spam": 747
+        },
+        "uci_spam_flag_rate": 0.8005,
+        "uci_spam_note": "UCI 'spam' mixes prize scams and marketing: a flag rate, not recall or FPR",
+        "confusion": {
+          "rows_true": [
+            "uci_spam"
+          ],
+          "cols_pred": [
+            "scam",
+            "legit",
+            "promo"
+          ],
+          "matrix": [
+            [
+              598,
+              63,
+              86
+            ]
+          ]
+        },
+        "mean_p_scam": 0.6965
+      },
+      "calibrated_threshold": {
+        "n": 747,
+        "classes": {
+          "uci_spam": 747
+        },
+        "uci_spam_flag_rate": 0.1245,
+        "uci_spam_note": "UCI 'spam' mixes prize scams and marketing: a flag rate, not recall or FPR",
+        "confusion": {
+          "rows_true": [
+            "uci_spam"
+          ],
+          "cols_pred": [
+            "scam",
+            "legit",
+            "promo"
+          ],
+          "matrix": [
+            [
+              93,
+              568,
+              86
+            ]
+          ]
+        },
+        "mean_p_scam": 0.6965
+      },
+      "flag_rate_at_threshold_ci_ends": {
+        "threshold_ci_low": {
+          "threshold": 0.956683120501791,
+          "flag_rate": 0.1647
+        },
+        "threshold_ci_high": {
+          "threshold": 0.9744251755619386,
+          "flag_rate": 0.0884
+        }
+      }
+    },
+    "sp24_seen": {
+      "argmax": {
+        "n": 3072,
+        "classes": {
+          "scam": 3072
+        },
+        "recall": 0.9971,
+        "fnr": 0.0029,
+        "recall_95ci": [
+          0.9951171875,
+          0.9990234375
+        ],
+        "confusion": {
+          "rows_true": [
+            "scam"
+          ],
+          "cols_pred": [
+            "scam",
+            "legit",
+            "promo"
+          ],
+          "matrix": [
+            [
+              3063,
+              4,
+              5
+            ]
+          ]
+        },
+        "mean_p_scam": 0.9867
+      },
+      "calibrated_threshold": {
+        "n": 3072,
+        "classes": {
+          "scam": 3072
+        },
+        "recall": 0.9899,
+        "fnr": 0.0101,
+        "recall_95ci": [
+          0.986328125,
+          0.9931640625
+        ],
+        "confusion": {
+          "rows_true": [
+            "scam"
+          ],
+          "cols_pred": [
+            "scam",
+            "legit",
+            "promo"
+          ],
+          "matrix": [
+            [
+              3041,
+              26,
+              5
+            ]
+          ]
+        },
+        "mean_p_scam": 0.9867
+      },
+      "flag_rate_at_threshold_ci_ends": {
+        "threshold_ci_low": {
+          "threshold": 0.956683120501791,
+          "flag_rate": 0.9909
+        },
+        "threshold_ci_high": {
+          "threshold": 0.9744251755619386,
+          "flag_rate": 0.987
+        }
+      }
+    },
+    "sp24_novel": {
+      "argmax": {
+        "n": 10510,
+        "classes": {
+          "scam": 10510
+        },
+        "recall": 0.998,
+        "fnr": 0.002,
+        "recall_95ci": [
+          0.9970504281636536,
+          0.9988582302568982
+        ],
+        "confusion": {
+          "rows_true": [
+            "scam"
+          ],
+          "cols_pred": [
+            "scam",
+            "legit",
+            "promo"
+          ],
+          "matrix": [
+            [
+              10489,
+              7,
+              14
+            ]
+          ]
+        },
+        "mean_p_scam": 0.9734
+      },
+      "calibrated_threshold": {
+        "n": 10510,
+        "classes": {
+          "scam": 10510
+        },
+        "recall": 0.9358,
+        "fnr": 0.0642,
+        "recall_95ci": [
+          0.9308277830637488,
+          0.9405328258801142
+        ],
+        "confusion": {
+          "rows_true": [
+            "scam"
+          ],
+          "cols_pred": [
+            "scam",
+            "legit",
+            "promo"
+          ],
+          "matrix": [
+            [
+              9835,
+              661,
+              14
+            ]
+          ]
+        },
+        "mean_p_scam": 0.9734
+      },
+      "flag_rate_at_threshold_ci_ends": {
+        "threshold_ci_low": {
+          "threshold": 0.956683120501791,
+          "flag_rate": 0.9688
+        },
+        "threshold_ci_high": {
+          "threshold": 0.9744251755619386,
+          "flag_rate": 0.7393
+        }
+      }
+    }
+  },
+  "curve": [
+    {
+      "threshold": 0.05,
+      "imc25_test": {
+        "flag_rate": 0.9974,
+        "wilson_95ci": [
+          0.9957,
+          0.9984
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9997,
+        "wilson_95ci": [
+          0.9982,
+          0.9999
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 1.0,
+        "wilson_95ci": [
+          0.9996,
+          1.0
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.8996,
+        "wilson_95ci": [
+          0.8869,
+          0.911
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.9946,
+        "wilson_95ci": [
+          0.9863,
+          0.9979
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.4224,
+        "wilson_95ci": [
+          0.3681,
+          0.4787
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.3451,
+        "wilson_95ci": [
+          0.2719,
+          0.4264
+        ]
+      }
+    },
+    {
+      "threshold": 0.1,
+      "imc25_test": {
+        "flag_rate": 0.9931,
+        "wilson_95ci": [
+          0.9906,
+          0.9949
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9997,
+        "wilson_95ci": [
+          0.9982,
+          0.9999
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 1.0,
+        "wilson_95ci": [
+          0.9996,
+          1.0
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.8117,
+        "wilson_95ci": [
+          0.7955,
+          0.8268
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.9598,
+        "wilson_95ci": [
+          0.9432,
+          0.9717
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.3168,
+        "wilson_95ci": [
+          0.267,
+          0.3712
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.2324,
+        "wilson_95ci": [
+          0.1705,
+          0.3084
+        ]
+      }
+    },
+    {
+      "threshold": 0.15,
+      "imc25_test": {
+        "flag_rate": 0.9898,
+        "wilson_95ci": [
+          0.9868,
+          0.9921
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9987,
+        "wilson_95ci": [
+          0.9967,
+          0.9995
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9993,
+        "wilson_95ci": [
+          0.9986,
+          0.9997
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.7325,
+        "wilson_95ci": [
+          0.7144,
+          0.7498
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.9411,
+        "wilson_95ci": [
+          0.9218,
+          0.9558
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.2739,
+        "wilson_95ci": [
+          0.2268,
+          0.3267
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.1901,
+        "wilson_95ci": [
+          0.1341,
+          0.2625
+        ]
+      }
+    },
+    {
+      "threshold": 0.2,
+      "imc25_test": {
+        "flag_rate": 0.9875,
+        "wilson_95ci": [
+          0.9843,
+          0.9901
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9987,
+        "wilson_95ci": [
+          0.9967,
+          0.9995
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9989,
+        "wilson_95ci": [
+          0.998,
+          0.9993
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.6621,
+        "wilson_95ci": [
+          0.6429,
+          0.6807
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.9157,
+        "wilson_95ci": [
+          0.8935,
+          0.9335
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.231,
+        "wilson_95ci": [
+          0.1871,
+          0.2817
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.1761,
+        "wilson_95ci": [
+          0.1222,
+          0.247
+        ]
+      }
+    },
+    {
+      "threshold": 0.25,
+      "imc25_test": {
+        "flag_rate": 0.9844,
+        "wilson_95ci": [
+          0.9809,
+          0.9873
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9987,
+        "wilson_95ci": [
+          0.9967,
+          0.9995
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9987,
+        "wilson_95ci": [
+          0.9978,
+          0.9992
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.595,
+        "wilson_95ci": [
+          0.5752,
+          0.6145
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.8929,
+        "wilson_95ci": [
+          0.8687,
+          0.9131
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.198,
+        "wilson_95ci": [
+          0.1571,
+          0.2466
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.169,
+        "wilson_95ci": [
+          0.1163,
+          0.2392
+        ]
+      }
+    },
+    {
+      "threshold": 0.3,
+      "imc25_test": {
+        "flag_rate": 0.9813,
+        "wilson_95ci": [
+          0.9774,
+          0.9845
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9987,
+        "wilson_95ci": [
+          0.9967,
+          0.9995
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9987,
+        "wilson_95ci": [
+          0.9978,
+          0.9992
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.5371,
+        "wilson_95ci": [
+          0.5171,
+          0.557
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.8688,
+        "wilson_95ci": [
+          0.8427,
+          0.8911
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.1815,
+        "wilson_95ci": [
+          0.1422,
+          0.2288
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.1479,
+        "wilson_95ci": [
+          0.0988,
+          0.2155
+        ]
+      }
+    },
+    {
+      "threshold": 0.35,
+      "imc25_test": {
+        "flag_rate": 0.9785,
+        "wilson_95ci": [
+          0.9744,
+          0.9819
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9987,
+        "wilson_95ci": [
+          0.9967,
+          0.9995
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9984,
+        "wilson_95ci": [
+          0.9974,
+          0.999
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.4804,
+        "wilson_95ci": [
+          0.4605,
+          0.5004
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.8581,
+        "wilson_95ci": [
+          0.8312,
+          0.8813
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.1551,
+        "wilson_95ci": [
+          0.1187,
+          0.2002
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.1479,
+        "wilson_95ci": [
+          0.0988,
+          0.2155
+        ]
+      }
+    },
+    {
+      "threshold": 0.4,
+      "imc25_test": {
+        "flag_rate": 0.9761,
+        "wilson_95ci": [
+          0.9718,
+          0.9797
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9974,
+        "wilson_95ci": [
+          0.9949,
+          0.9987
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9984,
+        "wilson_95ci": [
+          0.9974,
+          0.999
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.4308,
+        "wilson_95ci": [
+          0.4111,
+          0.4507
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.8206,
+        "wilson_95ci": [
+          0.7915,
+          0.8465
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.1386,
+        "wilson_95ci": [
+          0.1042,
+          0.1821
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.1197,
+        "wilson_95ci": [
+          0.0761,
+          0.1834
+        ]
+      }
+    },
+    {
+      "threshold": 0.45,
+      "imc25_test": {
+        "flag_rate": 0.9731,
+        "wilson_95ci": [
+          0.9686,
+          0.977
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9971,
+        "wilson_95ci": [
+          0.9944,
+          0.9985
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.998,
+        "wilson_95ci": [
+          0.9969,
+          0.9987
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.3837,
+        "wilson_95ci": [
+          0.3645,
+          0.4034
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.8005,
+        "wilson_95ci": [
+          0.7704,
+          0.8276
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.132,
+        "wilson_95ci": [
+          0.0985,
+          0.1748
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.1197,
+        "wilson_95ci": [
+          0.0761,
+          0.1834
+        ]
+      }
+    },
+    {
+      "threshold": 0.5,
+      "imc25_test": {
+        "flag_rate": 0.97,
+        "wilson_95ci": [
+          0.9653,
+          0.9741
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9967,
+        "wilson_95ci": [
+          0.994,
+          0.9982
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.998,
+        "wilson_95ci": [
+          0.9969,
+          0.9987
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.3454,
+        "wilson_95ci": [
+          0.3267,
+          0.3647
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.7764,
+        "wilson_95ci": [
+          0.7452,
+          0.8049
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.1254,
+        "wilson_95ci": [
+          0.0927,
+          0.1675
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.1197,
+        "wilson_95ci": [
+          0.0761,
+          0.1834
+        ]
+      }
+    },
+    {
+      "threshold": 0.55,
+      "imc25_test": {
+        "flag_rate": 0.9651,
+        "wilson_95ci": [
+          0.9601,
+          0.9696
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9967,
+        "wilson_95ci": [
+          0.994,
+          0.9982
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9976,
+        "wilson_95ci": [
+          0.9965,
+          0.9984
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.2925,
+        "wilson_95ci": [
+          0.2746,
+          0.311
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.7242,
+        "wilson_95ci": [
+          0.6911,
+          0.7551
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.1188,
+        "wilson_95ci": [
+          0.0871,
+          0.1601
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.1056,
+        "wilson_95ci": [
+          0.0651,
+          0.167
+        ]
+      }
+    },
+    {
+      "threshold": 0.6,
+      "imc25_test": {
+        "flag_rate": 0.9605,
+        "wilson_95ci": [
+          0.9551,
+          0.9652
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9967,
+        "wilson_95ci": [
+          0.994,
+          0.9982
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9972,
+        "wilson_95ci": [
+          0.996,
+          0.9981
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.255,
+        "wilson_95ci": [
+          0.238,
+          0.2728
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.6988,
+        "wilson_95ci": [
+          0.6649,
+          0.7306
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.1056,
+        "wilson_95ci": [
+          0.0758,
+          0.1453
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0845,
+        "wilson_95ci": [
+          0.049,
+          0.1419
+        ]
+      }
+    },
+    {
+      "threshold": 0.65,
+      "imc25_test": {
+        "flag_rate": 0.9542,
+        "wilson_95ci": [
+          0.9485,
+          0.9593
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9958,
+        "wilson_95ci": [
+          0.9928,
+          0.9975
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.997,
+        "wilson_95ci": [
+          0.9957,
+          0.9978
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.2167,
+        "wilson_95ci": [
+          0.2006,
+          0.2336
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.6466,
+        "wilson_95ci": [
+          0.6116,
+          0.68
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.099,
+        "wilson_95ci": [
+          0.0702,
+          0.1378
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0775,
+        "wilson_95ci": [
+          0.0438,
+          0.1334
+        ]
+      }
+    },
+    {
+      "threshold": 0.7,
+      "imc25_test": {
+        "flag_rate": 0.9464,
+        "wilson_95ci": [
+          0.9403,
+          0.9519
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9951,
+        "wilson_95ci": [
+          0.992,
+          0.997
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9963,
+        "wilson_95ci": [
+          0.9949,
+          0.9973
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.1679,
+        "wilson_95ci": [
+          0.1535,
+          0.1834
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.6104,
+        "wilson_95ci": [
+          0.575,
+          0.6448
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0792,
+        "wilson_95ci": [
+          0.0538,
+          0.1151
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0775,
+        "wilson_95ci": [
+          0.0438,
+          0.1334
+        ]
+      }
+    },
+    {
+      "threshold": 0.75,
+      "imc25_test": {
+        "flag_rate": 0.9377,
+        "wilson_95ci": [
+          0.9312,
+          0.9437
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9948,
+        "wilson_95ci": [
+          0.9916,
+          0.9968
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9949,
+        "wilson_95ci": [
+          0.9933,
+          0.9961
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.1379,
+        "wilson_95ci": [
+          0.1247,
+          0.1523
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.5489,
+        "wilson_95ci": [
+          0.513,
+          0.5842
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0759,
+        "wilson_95ci": [
+          0.0511,
+          0.1113
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0352,
+        "wilson_95ci": [
+          0.0151,
+          0.0798
+        ]
+      }
+    },
+    {
+      "threshold": 0.8,
+      "imc25_test": {
+        "flag_rate": 0.9284,
+        "wilson_95ci": [
+          0.9214,
+          0.9348
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9948,
+        "wilson_95ci": [
+          0.9916,
+          0.9968
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9931,
+        "wilson_95ci": [
+          0.9913,
+          0.9945
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.1021,
+        "wilson_95ci": [
+          0.0906,
+          0.1148
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.4886,
+        "wilson_95ci": [
+          0.4529,
+          0.5244
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0198,
+        "wilson_95ci": [
+          0.0091,
+          0.0425
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0352,
+        "wilson_95ci": [
+          0.0151,
+          0.0798
+        ]
+      }
+    },
+    {
+      "threshold": 0.85,
+      "imc25_test": {
+        "flag_rate": 0.9058,
+        "wilson_95ci": [
+          0.898,
+          0.9131
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9945,
+        "wilson_95ci": [
+          0.9912,
+          0.9965
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9912,
+        "wilson_95ci": [
+          0.9892,
+          0.9928
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.0762,
+        "wilson_95ci": [
+          0.0663,
+          0.0876
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.3976,
+        "wilson_95ci": [
+          0.3631,
+          0.4331
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0198,
+        "wilson_95ci": [
+          0.0091,
+          0.0425
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0352,
+        "wilson_95ci": [
+          0.0151,
+          0.0798
+        ]
+      }
+    },
+    {
+      "threshold": 0.9,
+      "imc25_test": {
+        "flag_rate": 0.8713,
+        "wilson_95ci": [
+          0.8624,
+          0.8797
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9932,
+        "wilson_95ci": [
+          0.9896,
+          0.9955
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9838,
+        "wilson_95ci": [
+          0.9812,
+          0.9861
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.05,
+        "wilson_95ci": [
+          0.042,
+          0.0595
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.3106,
+        "wilson_95ci": [
+          0.2784,
+          0.3447
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0033,
+        "wilson_95ci": [
+          0.0006,
+          0.0185
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0141,
+        "wilson_95ci": [
+          0.0039,
+          0.0499
+        ]
+      }
+    },
+    {
+      "threshold": 0.95,
+      "imc25_test": {
+        "flag_rate": 0.7942,
+        "wilson_95ci": [
+          0.7835,
+          0.8044
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9912,
+        "wilson_95ci": [
+          0.9872,
+          0.994
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9737,
+        "wilson_95ci": [
+          0.9705,
+          0.9766
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.0233,
+        "wilson_95ci": [
+          0.018,
+          0.0302
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.1821,
+        "wilson_95ci": [
+          0.156,
+          0.2113
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0033,
+        "wilson_95ci": [
+          0.0006,
+          0.0185
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0141,
+        "wilson_95ci": [
+          0.0039,
+          0.0499
+        ]
+      }
+    },
+    {
+      "threshold": 0.955,
+      "imc25_test": {
+        "flag_rate": 0.7775,
+        "wilson_95ci": [
+          0.7666,
+          0.7881
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9909,
+        "wilson_95ci": [
+          0.9869,
+          0.9937
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.97,
+        "wilson_95ci": [
+          0.9666,
+          0.9731
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.0213,
+        "wilson_95ci": [
+          0.0162,
+          0.0278
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.1673,
+        "wilson_95ci": [
+          0.1423,
+          0.1958
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0033,
+        "wilson_95ci": [
+          0.0006,
+          0.0185
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0141,
+        "wilson_95ci": [
+          0.0039,
+          0.0499
+        ]
+      }
+    },
+    {
+      "threshold": 0.96,
+      "imc25_test": {
+        "flag_rate": 0.7616,
+        "wilson_95ci": [
+          0.7504,
+          0.7724
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9902,
+        "wilson_95ci": [
+          0.9861,
+          0.9932
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9664,
+        "wilson_95ci": [
+          0.9628,
+          0.9697
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.0187,
+        "wilson_95ci": [
+          0.014,
+          0.025
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.1566,
+        "wilson_95ci": [
+          0.1323,
+          0.1844
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          -0.0,
+          0.0125
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0141,
+        "wilson_95ci": [
+          0.0039,
+          0.0499
+        ]
+      }
+    },
+    {
+      "threshold": 0.965,
+      "imc25_test": {
+        "flag_rate": 0.7435,
+        "wilson_95ci": [
+          0.7321,
+          0.7546
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9902,
+        "wilson_95ci": [
+          0.9861,
+          0.9932
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9545,
+        "wilson_95ci": [
+          0.9504,
+          0.9583
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.0142,
+        "wilson_95ci": [
+          0.0102,
+          0.0197
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.1325,
+        "wilson_95ci": [
+          0.1101,
+          0.1587
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          -0.0,
+          0.0125
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0141,
+        "wilson_95ci": [
+          0.0039,
+          0.0499
+        ]
+      }
+    },
+    {
+      "threshold": 0.97,
+      "imc25_test": {
+        "flag_rate": 0.7101,
+        "wilson_95ci": [
+          0.6982,
+          0.7216
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9893,
+        "wilson_95ci": [
+          0.985,
+          0.9923
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.9142,
+        "wilson_95ci": [
+          0.9087,
+          0.9194
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.0129,
+        "wilson_95ci": [
+          0.0091,
+          0.0183
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.1124,
+        "wilson_95ci": [
+          0.0917,
+          0.1371
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          -0.0,
+          0.0125
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0141,
+        "wilson_95ci": [
+          0.0039,
+          0.0499
+        ]
+      }
+    },
+    {
+      "threshold": 0.975,
+      "imc25_test": {
+        "flag_rate": 0.6759,
+        "wilson_95ci": [
+          0.6637,
+          0.6879
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9863,
+        "wilson_95ci": [
+          0.9816,
+          0.9899
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.6924,
+        "wilson_95ci": [
+          0.6835,
+          0.7011
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.0083,
+        "wilson_95ci": [
+          0.0054,
+          0.0128
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.0884,
+        "wilson_95ci": [
+          0.0701,
+          0.1109
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          -0.0,
+          0.0125
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0141,
+        "wilson_95ci": [
+          0.0039,
+          0.0499
+        ]
+      }
+    },
+    {
+      "threshold": 0.98,
+      "imc25_test": {
+        "flag_rate": 0.6322,
+        "wilson_95ci": [
+          0.6197,
+          0.6446
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9766,
+        "wilson_95ci": [
+          0.9706,
+          0.9813
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.2963,
+        "wilson_95ci": [
+          0.2876,
+          0.3051
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.0067,
+        "wilson_95ci": [
+          0.0041,
+          0.0108
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.0736,
+        "wilson_95ci": [
+          0.057,
+          0.0946
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          -0.0,
+          0.0125
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0141,
+        "wilson_95ci": [
+          0.0039,
+          0.0499
+        ]
+      }
+    },
+    {
+      "threshold": 0.985,
+      "imc25_test": {
+        "flag_rate": 0.5684,
+        "wilson_95ci": [
+          0.5556,
+          0.5811
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.9375,
+        "wilson_95ci": [
+          0.9284,
+          0.9455
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.1044,
+        "wilson_95ci": [
+          0.0987,
+          0.1104
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.005,
+        "wilson_95ci": [
+          0.0029,
+          0.0087
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.0495,
+        "wilson_95ci": [
+          0.0361,
+          0.0675
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          -0.0,
+          0.0125
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.007,
+        "wilson_95ci": [
+          0.0012,
+          0.0388
+        ]
+      }
+    },
+    {
+      "threshold": 0.99,
+      "imc25_test": {
+        "flag_rate": 0.4651,
+        "wilson_95ci": [
+          0.4522,
+          0.478
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.609,
+        "wilson_95ci": [
+          0.5917,
+          0.6262
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.0116,
+        "wilson_95ci": [
+          0.0097,
+          0.0138
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.0021,
+        "wilson_95ci": [
+          0.0009,
+          0.0049
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.0174,
+        "wilson_95ci": [
+          0.0102,
+          0.0295
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          -0.0,
+          0.0125
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.007,
+        "wilson_95ci": [
+          0.0012,
+          0.0388
+        ]
+      }
+    },
+    {
+      "threshold": 0.995,
+      "imc25_test": {
+        "flag_rate": 0.3166,
+        "wilson_95ci": [
+          0.3047,
+          0.3288
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.0016,
+        "wilson_95ci": [
+          0.0007,
+          0.0038
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.0029,
+        "wilson_95ci": [
+          0.002,
+          0.0041
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.0004,
+        "wilson_95ci": [
+          0.0001,
+          0.0024
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.0067,
+        "wilson_95ci": [
+          0.0029,
+          0.0156
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          -0.0,
+          0.0125
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          0.0,
+          0.0263
+        ]
+      }
+    },
+    {
+      "threshold": 0.997,
+      "imc25_test": {
+        "flag_rate": 0.2131,
+        "wilson_95ci": [
+          0.2027,
+          0.2239
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.0013,
+        "wilson_95ci": [
+          0.0005,
+          0.0033
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.0005,
+        "wilson_95ci": [
+          0.0002,
+          0.0011
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          0.0,
+          0.0016
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          -0.0,
+          0.0051
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          -0.0,
+          0.0125
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          0.0,
+          0.0263
+        ]
+      }
+    },
+    {
+      "threshold": 0.998,
+      "imc25_test": {
+        "flag_rate": 0.1538,
+        "wilson_95ci": [
+          0.1447,
+          0.1633
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.0013,
+        "wilson_95ci": [
+          0.0005,
+          0.0033
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.0003,
+        "wilson_95ci": [
+          0.0001,
+          0.0008
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          0.0,
+          0.0016
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          -0.0,
+          0.0051
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          -0.0,
+          0.0125
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          0.0,
+          0.0263
+        ]
+      }
+    },
+    {
+      "threshold": 0.999,
+      "imc25_test": {
+        "flag_rate": 0.0681,
+        "wilson_95ci": [
+          0.0619,
+          0.0749
+        ]
+      },
+      "sp24_seen": {
+        "flag_rate": 0.0003,
+        "wilson_95ci": [
+          0.0001,
+          0.0018
+        ]
+      },
+      "sp24_novel": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          0.0,
+          0.0004
+        ]
+      },
+      "uci_ham_evaluation": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          0.0,
+          0.0016
+        ]
+      },
+      "uci_spam": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          -0.0,
+          0.0051
+        ]
+      },
+      "india_legit": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          -0.0,
+          0.0125
+        ]
+      },
+      "india_promo": {
+        "flag_rate": 0.0,
+        "wilson_95ci": [
+          0.0,
+          0.0263
+        ]
+      }
+    }
+  ],
+  "latency_ms": {
+    "imc25_test": {
+      "p50": 0.919,
+      "p95": 0.919,
+      "note": "per message within a batched forward pass"
+    },
+    "india_test": {
+      "p50": 0.128,
+      "p95": 0.128,
+      "note": "per message within a batched forward pass"
+    },
+    "uci_ham_calibration": {
+      "p50": 0.09,
+      "p95": 0.09,
+      "note": "per message within a batched forward pass"
+    },
+    "uci_ham_evaluation": {
+      "p50": 0.089,
+      "p95": 0.089,
+      "note": "per message within a batched forward pass"
+    },
+    "uci_spam": {
+      "p50": 0.148,
+      "p95": 0.148,
+      "note": "per message within a batched forward pass"
+    },
+    "sp24_seen": {
+      "p50": 0.11,
+      "p95": 0.11,
+      "note": "per message within a batched forward pass"
+    },
+    "sp24_novel": {
+      "p50": 0.076,
+      "p95": 0.076,
+      "note": "per message within a batched forward pass"
+    }
+  },
+  "pairs": {
+    "imc25_test__vs__uci_ham_evaluation_legit": {
+      "n_pos": 5767,
+      "n_neg": 2400,
+      "prevalence": 0.7061,
+      "pr_auc": 0.9855,
+      "roc_auc": 0.9631,
+      "ece": 0.0751,
+      "threshold": 0.9680699150935076,
+      "precision": 0.9924,
+      "recall": 0.7231,
+      "fpr": 0.0133,
+      "confusion_at_threshold": {
+        "tp": 4170,
+        "fn": 1597,
+        "fp": 32,
+        "tn": 2368
+      }
+    },
+    "imc25_test__vs__india_test_legit": {
+      "n_pos": 5767,
+      "n_neg": 303,
+      "prevalence": 0.9501,
+      "pr_auc": 0.9993,
+      "roc_auc": 0.9875,
+      "ece": 0.0487,
+      "threshold": 0.9680699150935076,
+      "precision": 1.0,
+      "recall": 0.7231,
+      "fpr": 0.0,
+      "confusion_at_threshold": {
+        "tp": 4170,
+        "fn": 1597,
+        "fp": 0,
+        "tn": 303
+      }
+    },
+    "imc25_test__vs__india_test_promo": {
+      "n_pos": 5767,
+      "n_neg": 142,
+      "prevalence": 0.976,
+      "pr_auc": 0.9995,
+      "roc_auc": 0.9836,
+      "ece": 0.0548,
+      "threshold": 0.9680699150935076,
+      "precision": 0.9995,
+      "recall": 0.7231,
+      "fpr": 0.0141,
+      "confusion_at_threshold": {
+        "tp": 4170,
+        "fn": 1597,
+        "fp": 2,
+        "tn": 140
+      }
+    },
+    "sp24_novel__vs__uci_ham_evaluation_legit": {
+      "n_pos": 10510,
+      "n_neg": 2400,
+      "prevalence": 0.8141,
+      "pr_auc": 0.9937,
+      "roc_auc": 0.9892,
+      "ece": 0.0689,
+      "threshold": 0.9680699150935076,
+      "precision": 0.9968,
+      "recall": 0.9358,
+      "fpr": 0.0133,
+      "confusion_at_threshold": {
+        "tp": 9835,
+        "fn": 675,
+        "fp": 32,
+        "tn": 2368
+      }
+    },
+    "sp24_seen__vs__uci_ham_evaluation_legit": {
+      "n_pos": 3072,
+      "n_neg": 2400,
+      "prevalence": 0.5614,
+      "pr_auc": 0.9913,
+      "roc_auc": 0.9952,
+      "ece": 0.1614,
+      "threshold": 0.9680699150935076,
+      "precision": 0.9896,
+      "recall": 0.9899,
+      "fpr": 0.0133,
+      "confusion_at_threshold": {
+        "tp": 3041,
+        "fn": 31,
+        "fp": 32,
+        "tn": 2368
+      }
+    },
+    "sp24_novel__vs__india_test_promo": {
+      "n_pos": 10510,
+      "n_neg": 142,
+      "prevalence": 0.9867,
+      "pr_auc": 0.9994,
+      "roc_auc": 0.987,
+      "ece": 0.025,
+      "threshold": 0.9680699150935076,
+      "precision": 0.9998,
+      "recall": 0.9358,
+      "fpr": 0.0141,
+      "confusion_at_threshold": {
+        "tp": 9835,
+        "fn": 675,
+        "fp": 2,
+        "tn": 140
+      }
+    }
+  }
+}

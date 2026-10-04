@@ -1,6 +1,6 @@
 # Real-data training plan
 
-Status: E0–E4 (CPU) approved and run on 2026-10-03; results in `REAL_EXPERIMENT_RESULTS.md`. E5–E7 cross-source validation done (`REAL_CROSS_SOURCE_VALIDATION.md`). Sentinel v2 (clean text) is prepared, not trained: `SENTINEL_TRAINING_PLAN.md`; GPU training awaits approval.
+Status: E0–E4 (CPU) approved and run on 2026-10-03; results in `REAL_EXPERIMENT_RESULTS.md`. E5–E7 cross-source validation done (`REAL_CROSS_SOURCE_VALIDATION.md`). Sentinel GPU training approved 2026-10-04 for the v3 build (8,000-scam stratified cap, clean text): `SENTINEL_TRAINING_PLAN.md` section 11; results, once the Colab run is done, in `SENTINEL_TRAINING_RESULTS.md`.
 
 ## Scope
 

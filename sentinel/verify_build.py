@@ -26,6 +26,11 @@ def main() -> int:
         good = p.exists() and hashlib.sha256(p.read_bytes()).hexdigest() == meta["sha256"]
         ok &= good
         print(f"  {'ok  ' if good else 'FAIL'} {f} ({meta['rows']} rows)")
+    if frozen.get("sampled_scam_ids_file"):
+        local = out / "sampled_scam_ids.json"
+        good = local.exists() and local.read_bytes() == (ROOT / frozen["sampled_scam_ids_file"]).read_bytes()
+        ok &= good
+        print(f"  {'ok  ' if good else 'FAIL'} sampled scam ids == {frozen['sampled_scam_ids_file']}")
     print("BUILD MATCHES APPROVED MANIFEST" if ok else "BUILD DIFFERS: do not train on it")
     return 0 if ok else 1
 

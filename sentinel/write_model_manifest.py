@@ -34,7 +34,11 @@ def main() -> None:
          "data_build_manifest": json.loads((data / "build_manifest.json").read_text()),
          "adapter_files": {str(p.relative_to(run)): sha(p) for p in sorted(run.rglob("*"))
                            if p.is_file() and p.suffix in (".safetensors", ".bin", ".gguf", ".json")
-                           and "predictions" not in p.parts and p.name != "MODEL_MANIFEST.json"},
+                           and p.relative_to(run).parts[0] in ("lora", "gguf")},
+         "adapter_checksum_sha256": sha(run / "lora" / "adapter_model.safetensors")
+         if (run / "lora" / "adapter_model.safetensors").exists() else None,
+         "training_log": {k: v for k, v in json.loads((run / "training_log.json").read_text()).items()
+                          if k != "log_history"} if (run / "training_log.json").exists() else None,
          "metrics_file": str(metrics) if metrics.exists() else None,
          "status": "EVALUATED" if metrics.exists() else "UNEVALUATED",
          "claims_allowed": "Only the numbers in metrics_real.json, on the named test files. Not real-world deployment performance."}

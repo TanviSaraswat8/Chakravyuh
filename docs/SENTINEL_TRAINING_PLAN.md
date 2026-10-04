@@ -1,6 +1,6 @@
 # Sentinel v2 (clean text): training plan
 
-**Status: PREPARED — NOT TRAINED. GPU training needs your explicit approval.**
+**Status: APPROVED 2026-10-04 for the v3 build (8,000-scam stratified cap; section 11). Not yet trained; results go to `SENTINEL_TRAINING_RESULTS.md`.** Sections 1–10 describe the v2 design and stay as written, since they are the pre-registration. Section 11 lists the only differences.
 
 - **Track:** REAL PUBLIC DATA.
 - **Synthetic data:** none. The shipped simulator-trained tagger (`backend/artifacts/tagger.pkl`) stays separate. It appears only as a labelled zero-shot reference in E2/E3/E5 and is untouched by this plan.
@@ -150,3 +150,49 @@ Otherwise the result is reported as **not better**, and the character model rema
 - **Weak labels:** scam_type and lures are GPT-4o labels, scored as agreement with GPT-4o.
 - **Narrow legitimate data:** E6 shows the sources remain about 90% separable, so any model can still learn source style.
 - **Untested GPU scripts:** `predict_hf.py` and the training path were written without GPU access or model downloads here. The notebook runs a 50-message smoke test first, which prints the label-token ids.
+
+## 11. Approved run: v3 (8,000-scam stratified cap) — addendum, 2026-10-04
+
+Approved instead of the 20,000-example v2 cap. **The objective is robust scam / legitimate / promotional discrimination across unseen sources, not the dominant class.** Everything in sections 1–10 is unchanged, including:
+- the model and hyperparameters;
+- the threshold rule;
+- the five acceptance criteria;
+- held-out UCI and S&P'24;
+- the baseline.
+
+The differences:
+
+| Item | v2 (sections 1–10) | v3 (approved) |
+|---|---|---|
+| Config | `sentinel_real_v2_clean.json` | `sentinel_real_v3_scam8k.json` |
+| Training scams | 18,449, simple random cap | **8,000, stratified** (scam_type × language, floor 150; round-robin over near-duplicate clusters; rarest lure combination first; seed 13) |
+| Training legit / promo | 1,044 / 507 | 1,044 / 507 (all kept) |
+| Train rows / share scam | 20,000 / 92% | 9,551 / 84% |
+| Validation and every test file | — | **byte-identical to v2** (checked by SHA-256) |
+| Frozen manifest | `sentinel_real_v2_clean.build.json` | `sentinel_real_v3_scam8k.build.json` + `sentinel_real_v3_scam8k.sampled_scam_ids.json` |
+| Notebook | `colab_sentinel_real_v2_clean.ipynb` | `colab_sentinel_real_v3_scam8k.ipynb` |
+| Steps (effective batch 16) | ≈ 1,250 | ≈ 597 |
+
+**Smoke test (gate before full training):**
+- `finetune.py --limit 50 --max-steps 5` (same hyperparameters), then `predict_hf.py --limit 50`, then `smoke_check.py`.
+- It checks pipeline mechanics only. It fails on:
+  - non-finite loss;
+  - a broken loss mask;
+  - a missing adapter;
+  - mismatched prediction ids;
+  - invalid label probabilities;
+  - missing JSON generation;
+  - missing latency output.
+- On failure the notebook stops and the failure is reported. Nothing is changed silently.
+
+**Added reporting (no change to decisions):**
+- source-pair precision, PR-AUC, ROC-AUC, ECE and confusion counts at the same calibrated threshold;
+- latency p50/p95 and batch-1 latency.
+
+`sentinel/check_acceptance.py` applies section 9 mechanically. Its limits are constants in the file.
+
+**Code fixes made before any Sentinel result exists (scoring is unchanged):**
+- `predict_hf.py` no longer truncates prompts, which could have cut off the forced label prefix.
+- It generates JSON in batches (sequential generation would have taken hours on a T4).
+- It counts JSON as valid only if the whole output parses and contains a valid label.
+

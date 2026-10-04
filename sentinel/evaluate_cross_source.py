@@ -1,4 +1,5 @@
-"""Evaluation protocol for Sentinel (and baselines) on the v2 clean test files — per source, never merged.
+"""Evaluation protocol for Sentinel (and baselines) on the clean test files (v2 and v3 builds share them
+byte-for-byte) — per source, never merged.
 
     python sentinel/evaluate_cross_source.py --data sentinel/sft_real/sentinel_real_v2_clean \
         --pred <predictions dir> --out <metrics.json>
@@ -11,6 +12,9 @@ Decisions reported:
   3. a threshold curve 0.05-0.999 with Wilson 95% CIs per source.
 Sources: IMC'25 test (recall; scam_type/lures if generated), India test (legit and promo FPR),
 UCI evaluation half (legit FPR), UCI spam (flag rate only), S&P'24 seen/novel (recall). Track: REAL.
+Precision, PR-AUC, ROC-AUC and ECE need both classes, so they are reported for named source PAIRS
+(one scam source vs one legitimate source) at the same threshold — never as a merged headline. Pair
+precision depends on that pair's prevalence and is not a deployment precision.
 """
 
 from __future__ import annotations
@@ -84,7 +88,26 @@ def main() -> None:
             ind = np.array([gold[x["record_id"]]["meta"].get("country") == "IND" for x in P])
             blk["india_network_subset_recall"] = round(float((p[ind] >= thr).mean()), 4) if ind.any() else None
         rep["per_source"][k] = blk
-        rep["latency_ms"][k] = round(float(np.median([x.get("latency_ms", np.nan) for x in P])), 3)
+    thr_ci = rep["threshold"]["bootstrap_95ci"]
+    rep["pairs"] = {}
+    for pos_k, neg_k, neg_c in (("imc25_test", "uci_ham_evaluation", "legit"), ("imc25_test", "india_test", "legit"),
+                                ("imc25_test", "india_test", "promo"), ("sp24_novel", "uci_ham_evaluation", "legit"),
+                                ("sp24_seen", "uci_ham_evaluation", "legit"), ("sp24_novel", "india_test", "promo")):
+        p_pos = D[pos_k][3][D[pos_k][2] == "scam"]
+        p_neg = D[neg_k][3][D[neg_k][2] == neg_c]
+        blk = C.pair_block(p_pos, p_neg, thr)
+        y = np.r_[np.ones(len(p_pos), bool), np.zeros(len(p_neg), bool)]
+        flag = np.r_[p_pos, p_neg] >= thr
+        blk["confusion_at_threshold"] = {"tp": int((flag & y).sum()), "fn": int((~flag & y).sum()),
+                                         "fp": int((flag & ~y).sum()), "tn": int((~flag & ~y).sum())}
+        rep["pairs"][f"{pos_k}__vs__{neg_k}_{neg_c}"] = blk
+    for k in D:
+        lat = np.array([x.get("latency_ms", np.nan) for x in D[k][1]], float)
+        rep["latency_ms"][k] = {"p50": round(float(np.nanmedian(lat)), 3), "p95": round(float(np.nanpercentile(lat, 95)), 3),
+                                "note": "per message within a batched forward pass"}
+    single = pred / "latency_single.json"
+    if single.exists():
+        rep["latency_ms"]["single_message_batch1"] = json.loads(single.read_text())
     for t in np.round(np.r_[np.arange(0.05, 0.95, 0.05), np.arange(0.95, 0.996, 0.005), [0.997, 0.998, 0.999]], 4):
         row = {"threshold": float(t)}
         for k in ("imc25_test", "sp24_seen", "sp24_novel", "uci_ham_evaluation", "uci_spam"):
@@ -99,9 +122,11 @@ def main() -> None:
     Path(a.out).parent.mkdir(parents=True, exist_ok=True)
     Path(a.out).write_text(json.dumps(rep, indent=2) + "\n")
     s = {k: v["calibrated_threshold"] for k, v in rep["per_source"].items()}
-    print(f"threshold {thr:.4f} CI {rep['threshold']['bootstrap_95ci']}")
+    print(f"threshold {thr:.4f} CI {thr_ci}")
     for k, v in s.items():
         print(f"  {k}: " + ", ".join(f"{m} {v[m]}" for m in ("recall", "fpr_legit", "fpr_promo", "uci_spam_flag_rate") if m in v))
+    for k, v in rep["pairs"].items():
+        print(f"  pair {k}: precision {v['precision']} pr_auc {v['pr_auc']} ece {v['ece']}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,88 @@
+{
+  "name": "sentinel_real_v3_scam8k",
+  "seed": 13,
+  "real_or_synthetic": "REAL",
+  "text_variant": "clean",
+  "label_scheme": "scam_promo_legit",
+  "base_model": "unsloth/Qwen2.5-1.5B-Instruct-bnb-4bit",
+  "lora": {
+    "rank": 16,
+    "alpha": 32,
+    "dropout": 0.0,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ]
+  },
+  "training": {
+    "epochs": 1,
+    "learning_rate": 0.0002,
+    "max_seq_len": 384,
+    "per_device_batch": 8,
+    "grad_accum": 2,
+    "scheduler": "cosine",
+    "warmup_ratio": 0.03,
+    "loss_on": "assistant JSON only",
+    "precision": "fp16 (T4) / bf16 (A100, L4)",
+    "eval_every_steps": 200,
+    "seed": 13
+  },
+  "require_negatives": true,
+  "never_train": [
+    "uci_sms_spam",
+    "sp24_gateway_phishing"
+  ],
+  "sources": [
+    {
+      "dataset_id": "imc25_smishing",
+      "split": "imc25_group_v1",
+      "typed": true,
+      "labels": [
+        "scam"
+      ]
+    },
+    {
+      "dataset_id": "india_spam_sms_junioralive",
+      "split": "india_spam_sms_junioralive_group_v1",
+      "typed": false,
+      "labels": [
+        "legit",
+        "spam"
+      ]
+    },
+    {
+      "dataset_id": "sp24_gateway_phishing",
+      "split": "sp24_temporal_v1",
+      "typed": false,
+      "eval_only": true
+    },
+    {
+      "dataset_id": "uci_sms_spam",
+      "split": "uci_ham_calibration_v1",
+      "typed": false,
+      "eval_only": true,
+      "labels": [
+        "legit",
+        "spam"
+      ]
+    }
+  ],
+  "threshold_selection": {
+    "score": "p_scam = softmax over the first label token for 'scam' / 'promo' / 'legit' after the forced prefix {\"label\": \"",
+    "calibration_set": "test_uci_ham_calibration_v1_calibration (2,401 UCI ham, never trained on)",
+    "rule": "smallest threshold flagging at most floor(1% x n) calibration messages (tie-aware: just above the (k+1)-th highest score)",
+    "uncertainty": "500 bootstrap resamples of the calibration set -> threshold CI and the induced CIs on every source",
+    "report_also": "argmax label decision; full threshold curve 0.05-0.999 per source"
+  },
+  "notes": "Approved 2026-10-04: same as v2 (S0 design) except training scams capped at 8,000 by stratified sampling; all 1,044 legit and 507 promo kept; validation unchanged; UCI and S&P'24 held out.",
+  "scam_cap": {
+    "n": 8000,
+    "strategy": "stratified: scam_type x language bucket; proportional with floor; round-robin over near-duplicate clusters; rarest lure combination first",
+    "min_per_stratum": 150
+  }
+}
