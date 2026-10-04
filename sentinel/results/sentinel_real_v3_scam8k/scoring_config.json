@@ -1,0 +1,45 @@
+{
+  "train_max_seq": 384,
+  "longest_prompt_plus_generation": 682,
+  "effective_max_seq": 682,
+  "model_native_context": 32768,
+  "truncation": false,
+  "generation_max_new_tokens": 96,
+  "per_file": {
+    "test_imc25_group_v1_test.jsonl": {
+      "rows": 5767,
+      "max_prompt_tokens": 586,
+      "prompts_over_train_max_seq": 6
+    },
+    "test_india_spam_sms_junioralive_group_v1_test.jsonl": {
+      "rows": 445,
+      "max_prompt_tokens": 267,
+      "prompts_over_train_max_seq": 0
+    },
+    "test_sp24_temporal_v1_test_novel_campaign.jsonl": {
+      "rows": 10510,
+      "max_prompt_tokens": 195,
+      "prompts_over_train_max_seq": 0
+    },
+    "test_sp24_temporal_v1_test_seen_campaign.jsonl": {
+      "rows": 3072,
+      "max_prompt_tokens": 164,
+      "prompts_over_train_max_seq": 0
+    },
+    "test_uci_ham_calibration_v1_calibration.jsonl": {
+      "rows": 2393,
+      "max_prompt_tokens": 328,
+      "prompts_over_train_max_seq": 0
+    },
+    "test_uci_ham_calibration_v1_evaluation.jsonl": {
+      "rows": 2400,
+      "max_prompt_tokens": 322,
+      "prompts_over_train_max_seq": 0
+    },
+    "test_uci_ham_calibration_v1_spam.jsonl": {
+      "rows": 747,
+      "max_prompt_tokens": 176,
+      "prompts_over_train_max_seq": 0
+    }
+  }
+}

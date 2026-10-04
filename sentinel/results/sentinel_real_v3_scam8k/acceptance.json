@@ -1,0 +1,131 @@
+{
+  "track": "REAL PUBLIC DATA",
+  "preregistered_in": "docs/SENTINEL_TRAINING_PLAN.md section 9",
+  "criteria": [
+    {
+      "id": 1,
+      "criterion": "UCI ham evaluation FPR <= 0.015 and 95% CI upper <= 0.025",
+      "value": 0.0058,
+      "ci": [
+        0.002916666666666667,
+        0.009166666666666667
+      ],
+      "pass": true
+    },
+    {
+      "id": 2,
+      "criterion": "India promotional FPR <= 0.05",
+      "value": 0.0,
+      "ci": [
+        0.0,
+        0.0
+      ],
+      "pass": true
+    },
+    {
+      "id": 3,
+      "criterion": "IMC'25 recall >= baseline + 0.03 with non-overlapping bootstrap CIs",
+      "value": 0.6655,
+      "ci": [
+        0.6535417027917462,
+        0.6778220912086007
+      ],
+      "baseline": 0.7231,
+      "baseline_ci": [
+        0.7109415640714409,
+        0.7343506155713543
+      ],
+      "required": 0.7531,
+      "pass": false
+    },
+    {
+      "id": 4,
+      "criterion": "S&P'24 novel-campaign recall >= 0.9",
+      "value": 0.0311,
+      "ci": [
+        0.027783063748810656,
+        0.03453853472882969
+      ],
+      "pass": false
+    },
+    {
+      "id": 5,
+      "criterion": "JSON validity >= 0.99 on generated IMC'25 outputs",
+      "value": 1.0,
+      "pass": true
+    }
+  ],
+  "all_pass": false,
+  "verdict": "Sentinel did NOT pass the pre-registered criteria (failed: 3, 4). It is not reported as an improvement; the frozen character model remains the reference.",
+  "reported_alongside_not_criteria": {
+    "india_test": {
+      "fpr_legit": {
+        "sentinel": 0.0,
+        "baseline": 0.0
+      },
+      "fpr_promo": {
+        "sentinel": 0.0,
+        "baseline": 0.0141
+      }
+    },
+    "uci_ham_evaluation": {
+      "fpr_legit": {
+        "sentinel": 0.0058,
+        "baseline": 0.0133
+      }
+    },
+    "uci_spam": {
+      "uci_spam_flag_rate": {
+        "sentinel": 0.0616,
+        "baseline": 0.1245
+      }
+    },
+    "sp24_seen": {
+      "recall": {
+        "sentinel": 0.0098,
+        "baseline": 0.9899
+      }
+    },
+    "sp24_novel": {
+      "recall": {
+        "sentinel": 0.0311,
+        "baseline": 0.9358
+      }
+    },
+    "imc25_test": {
+      "recall": {
+        "sentinel": 0.6655,
+        "baseline": 0.7231
+      }
+    },
+    "thresholds": {
+      "sentinel": {
+        "rule": "smallest threshold with <= floor(1% n) UCI-calibration ham flagged (tie-aware)",
+        "value": 0.9977778792381288,
+        "bootstrap_95ci": [
+          0.9972293972969056,
+          0.9980421066284181
+        ],
+        "calibration_n": 2393
+      },
+      "baseline": {
+        "rule": "smallest threshold with <= floor(1% n) UCI-calibration ham flagged (tie-aware)",
+        "value": 0.9680699150935076,
+        "bootstrap_95ci": [
+          0.956683120501791,
+          0.9744251755619386
+        ],
+        "calibration_n": 2393
+      }
+    }
+  },
+  "false_alarm_rates_higher_than_baseline": [],
+  "claims_not_made": [
+    "real-world deployment validation",
+    "UPI detection",
+    "session-level detection",
+    "payment prediction",
+    "Hindi/Hinglish capability",
+    "victim behaviour prediction"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "results_zip": "sentinel_real_v3_scam8k_results.zip",
+  "results_zip_sha256": "45d0425ec7d2fee8e00a655ba36d601faaacbe257dd17214eaf6fab53ef04db7",
+  "results_zip_bytes": 896018,
+  "adapter_zip": "sentinel_real_v3_scam8k_adapter.zip",
+  "adapter_zip_sha256": "27813643179cf8483e082276b7fdd3f7b00e1160bfca965ab7e8d37c64634ca4",
+  "adapter_zip_bytes": 70604245,
+  "adapter_model_safetensors_sha256": "fe0dfc0c3bfcdd3ef9c4fbf73229fb0f54fc5acfd849a6768f45c6fe6be7ff4a",
+  "stored_at": "owner's laptop, Chakravyuh/sentinel/outputs/ (git-ignored); weights and per-message predictions are not committed",
+  "code_commit": "753fd667fe710a091572ef445598530a97a5a1e6"
+}

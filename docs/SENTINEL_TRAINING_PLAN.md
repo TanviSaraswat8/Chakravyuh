@@ -1,6 +1,6 @@
 # Sentinel v2 (clean text): training plan
 
-**Status: APPROVED 2026-10-04 for the v3 build (8,000-scam stratified cap; section 11). Not yet trained; results go to `SENTINEL_TRAINING_RESULTS.md`.** Sections 1–10 describe the v2 design and stay as written, since they are the pre-registration. Section 11 lists the only differences.
+**Status: APPROVED 2026-10-04 for the v3 build (8,000-scam stratified cap; section 11). Trained and evaluated 2026-10-04: did NOT pass (criteria 3 and 4 failed); see `SENTINEL_TRAINING_RESULTS.md`.** Sections 1–10 describe the v2 design and stay as written, since they are the pre-registration. Section 11 lists the only differences.
 
 - **Track:** REAL PUBLIC DATA.
 - **Synthetic data:** none. The shipped simulator-trained tagger (`backend/artifacts/tagger.pkl`) stays separate. It appears only as a labelled zero-shot reference in E2/E3/E5 and is untouched by this plan.

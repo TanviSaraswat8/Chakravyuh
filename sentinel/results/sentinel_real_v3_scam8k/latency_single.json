@@ -1,0 +1,8 @@
+{
+  "n": 100,
+  "batch": 1,
+  "what": "one forward pass for p_scam (no generation)",
+  "gpu": "Tesla T4",
+  "p50_ms": 115.81332200057659,
+  "p95_ms": 161.31157400013763
+}
