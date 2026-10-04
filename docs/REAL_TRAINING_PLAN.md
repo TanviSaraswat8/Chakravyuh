@@ -1,6 +1,6 @@
 # Real-data training plan
 
-Status: E0–E4 (CPU) approved and run on 2026-10-03; results in `REAL_EXPERIMENT_RESULTS.md`. E5–E7 cross-source validation done (`REAL_CROSS_SOURCE_VALIDATION.md`). Sentinel GPU training approved 2026-10-04 for the v3 build (8,000-scam stratified cap, clean text): `SENTINEL_TRAINING_PLAN.md` section 11; trained and evaluated the same day. It did **not** pass the pre-registered criteria (IMC'25 recall and S&P'24 novel recall failed); the E3 character model remains the reference (`SENTINEL_TRAINING_RESULTS.md`).
+Status: E0–E4 (CPU) approved and run on 2026-10-03; results in `REAL_EXPERIMENT_RESULTS.md`. E5–E7 cross-source validation done (`REAL_CROSS_SOURCE_VALIDATION.md`). Sentinel GPU training approved 2026-10-04 for the v3 build (8,000-scam stratified cap, clean text): `SENTINEL_TRAINING_PLAN.md` section 11; trained and evaluated the same day. It did **not** pass the pre-registered criteria (IMC'25 recall and S&P'24 novel recall failed); the E3 character model remains the reference (`SENTINEL_TRAINING_RESULTS.md`). Sentinel v4 (balanced 1:1, plus MOZ as an evaluation-only external test) is approved and prepared, not yet trained: `SENTINEL_V4_PROPOSAL.md`.
 
 ## Scope
 

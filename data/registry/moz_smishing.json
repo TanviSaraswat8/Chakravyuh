@@ -1,7 +1,9 @@
 {
-  "version": "Hugging Face commit 1092f9d9a545b29ae6be030ee9713b615fc2d987 (2025-05-24), per the earlier pass; reconfirm",
+  "version": "Hugging Face dataset MOZNLP/MOZ-Smishing, commit 1092f9d9a545b29ae6be030ee9713b615fc2d987 (lastModified 2025-05-24T17:59:45Z); test.csv git blob 5b12445d55a79f2f53f8888a259bf23228558330, 322,828 bytes",
   "download_date": null,
-  "sha256": {},
+  "sha256": {
+    "test.csv": "814a11d9b05741c4b47eb0d0784b1fd12a2a076f83a714a9908bdda594986ab8"
+  },
   "mirror_sha256": {},
   "sample_count": 2561,
   "preprocessing_version": null,
@@ -11,12 +13,20 @@
     "sentinel"
   ],
   "training_allowed": false,
-  "training_note": "Only real mobile-money smishing set with real legitimate messages. Blocked until the dataset licence is confirmed on the Hugging Face card.",
-  "raw_columns": [],
+  "training_note": "EVALUATION ONLY (Sentinel v4 pre-registered external test, criterion 6). Never in train/val: training_allowed stays false and Sentinel configs list it in never_train.",
+  "raw_columns": [
+    "id",
+    "source",
+    "text",
+    "label"
+  ],
   "schema": "canonical msg-v1 (see docs/REAL_DATA_STRATEGY.md); raw columns listed in 'raw_columns'",
   "label_schema": {
-    "paper": "ham 2,009 / smishing ('spam') 552",
-    "canonical": "ham -> legit; spam -> scam"
+    "raw": {
+      "Legitimate": 2009,
+      "Smishing": 552
+    },
+    "canonical": "Legitimate -> legit; Smishing -> scam"
   },
   "paper": "MOZ-Smishing: A Benchmark Dataset for Detecting Mobile Money Frauds. AfricaNLP workshop 2025 (ACL Anthology 2025.africanlp-1.23)",
   "pii_status": "legitimate messages anonymised per paper; verify after download",
@@ -30,20 +40,28 @@
     "Collection period and consent procedure not documented in the paper",
     "Shipped as one 'test' file (no official split); no timestamps"
   ],
-  "provenance": "Authors' Hugging Face release cited in the paper.",
+  "provenance": "Authors' Hugging Face release cited in the paper, fetched at commit 1092f9d9a545b29ae6be030ee9713b615fc2d987. In the build environment Hugging Face is blocked, so the bytes were read through the owner's browser and verified against the Hugging Face file index (size 322,828 and git blob id 5b12445d...). Colab fetches the same revision URL and checks the SHA-256.",
   "dataset_id": "moz_smishing",
   "name": "MOZ-Smishing",
   "source": "Ali, Saide, Sousa-Silva, Lopes Cardoso (Univ. Porto / Mozambique)",
   "official_url": "https://huggingface.co/datasets/MOZNLP/MOZ-Smishing",
-  "license": "Paper CC-BY-4.0. An earlier pass of this audit read the Hugging Face card as 'creativeml-openrail-m' (a model licence with use restrictions, unusual for data); not re-verified here. Confirm the card at download.",
-  "license_status": "UNRESOLVED",
+  "license": "Hugging Face dataset card declares 'creativeml-openrail-m' (OpenRAIL-M: use permitted subject to the licence's use restrictions); the accompanying paper is CC-BY-4.0. Read from the card on 2026-10-04.",
+  "license_status": "RESTRICTED",
   "data_type": "messages",
-  "access_status": "REQUIRES_LOCAL_DOWNLOAD",
+  "access_status": "AVAILABLE_NOW",
   "original_or_mirror": "original (Hugging Face)",
   "real_or_synthetic": "REAL",
   "fetch": {
-    "method": "local",
-    "instructions": "huggingface-cli download MOZNLP/MOZ-Smishing --repo-type dataset --local-dir ~/Downloads/moz ; read the dataset card licence and record it in this manifest ; then register (adapter accepts csv/tsv with text+label columns)",
-    "files": []
-  }
+    "method": "url",
+    "revision": "1092f9d9a545b29ae6be030ee9713b615fc2d987",
+    "files": [
+      {
+        "dest": "test.csv",
+        "url": "https://huggingface.co/datasets/MOZNLP/MOZ-Smishing/resolve/1092f9d9a545b29ae6be030ee9713b615fc2d987/test.csv"
+      }
+    ],
+    "instructions": "python scripts/fetch_real_datasets.py fetch moz_smishing (pinned revision URL; refuses on SHA-256 mismatch)"
+  },
+  "license_decision": "2026-10-04: the project owner accepted the card licence for use of MOZ-Smishing as an evaluation-only test set in Chakravyuh. Not a legal opinion; never used for training.",
+  "evaluation_allowed": true
 }

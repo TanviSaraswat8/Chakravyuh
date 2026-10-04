@@ -177,7 +177,8 @@ def nus_sms_corpus(raw: Path) -> Iterator[dict]:
 def moz_smishing(raw: Path) -> Iterator[dict]:
     """Expected after local download from Hugging Face (MOZNLP/MOZ-Smishing). Column names are checked
     at registration; the adapter refuses unknown layouts instead of guessing."""
-    files = sorted(p for p in raw.iterdir() if p.suffix in (".csv", ".tsv", ".jsonl", ".json"))
+    files = sorted(p for p in raw.iterdir()
+                   if p.suffix in (".csv", ".tsv", ".jsonl", ".json") and not p.name.startswith("."))
     if not files:
         raise FileNotFoundError("MOZ-Smishing raw files not found; see scripts/fetch_real_datasets.py status")
     n = 0
@@ -190,8 +191,8 @@ def moz_smishing(raw: Path) -> Iterator[dict]:
             raise ValueError(f"{f.name}: unexpected columns {header}; update the adapter after inspecting")
         for r in rows:
             lab = r[lcol].strip().lower()
-            label = {"ham": "legit", "0": "legit", "legit": "legit", "spam": "scam", "smishing": "scam",
-                     "1": "scam"}.get(lab, "unknown")
+            label = {"ham": "legit", "0": "legit", "legit": "legit", "legitimate": "legit", "spam": "scam",
+                     "smishing": "scam", "1": "scam"}.get(lab, "unknown")
             yield _rec("moz_smishing", n, r[tcol], label, label_raw=lab, language="pt", country="MOZ",
                        label_quality="manual annotation (paper); 'spam' = mobile-money smishing")
             n += 1

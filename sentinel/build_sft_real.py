@@ -160,9 +160,11 @@ def main() -> None:
     for src in cfg["sources"]:
         reg = json.loads((DATA / "registry" / f"{src['dataset_id']}.json").read_text())
         proc = DATA / "processed" / f"{src['dataset_id']}.msg-v1.jsonl"
-        if not reg["training_allowed"] or not proc.exists():
+        # Evaluation-only datasets (registry evaluation_allowed) may enter only as eval_only sources.
+        usable = reg["training_allowed"] or (reg.get("evaluation_allowed", False) and src.get("eval_only"))
+        if not usable or not proc.exists():
             manifest["refused"].append({"dataset_id": src["dataset_id"],
-                                        "why": "training not allowed by manifest" if not reg["training_allowed"]
+                                        "why": "not allowed by manifest for this use" if not usable
                                         else "not processed / not on disk"})
             continue
         recs = [json.loads(x) for x in open(proc, encoding="utf-8")]

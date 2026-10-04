@@ -1,0 +1,89 @@
+{
+  "dataset_id": "moz_smishing",
+  "hard_failures": [],
+  "warnings": [
+    "4 duplicate groups carry conflicting labels",
+    "68 records match aadhaar_like (heuristic); review before any redistribution"
+  ],
+  "checks": {
+    "manifest": {
+      "problems": []
+    },
+    "license": {
+      "license": "Hugging Face dataset card declares 'creativeml-openrail-m' (OpenRAIL-M: use permitted subject to the licence's use restrictions); the accompanying paper is CC-BY-4.0. Read from the card on 2026-10-04.",
+      "status": "RESTRICTED"
+    },
+    "provenance": {
+      "kind": "original",
+      "urls": [
+        "https://huggingface.co/datasets/MOZNLP/MOZ-Smishing/resolve/1092f9d9a545b29ae6be030ee9713b615fc2d987/test.csv"
+      ],
+      "revision": "1092f9d9a545b29ae6be030ee9713b615fc2d987",
+      "fetched_at": "2026-10-04T17:33:05+00:00",
+      "note": "bytes read via owner browser; verified against HF size and git blob id"
+    },
+    "files": {
+      "test.csv": {
+        "bytes": 322828,
+        "sha256_ok": true,
+        "encoding": {
+          "utf8_valid": true,
+          "bom": false
+        },
+        "structure": {
+          "header_fields": 4,
+          "row_field_counts": {
+            "4": 2561
+          },
+          "rows_not_matching_header": 0
+        }
+      }
+    },
+    "records": 2561,
+    "missingness": {
+      "text": 0.0,
+      "label": 0.0,
+      "language": 0.0,
+      "country": 0.0,
+      "timestamp": 1.0,
+      "year": 1.0,
+      "scam_type": 1.0,
+      "sender_type": 1.0
+    },
+    "labels": {
+      "legit": 2009,
+      "scam": 552
+    },
+    "duplicates": {
+      "duplicate_rows": 0,
+      "exact_duplicate_texts_raw": 1,
+      "unique_after_normalisation": 2305,
+      "near_duplicate_clusters": 2192,
+      "records_in_multi_member_near_clusters": 458,
+      "groups_with_conflicting_labels": 4,
+      "near_dup_threshold": 0.8
+    },
+    "pii_indicators": {
+      "aadhaar_like": {
+        "records": 68,
+        "share": 0.0266
+      },
+      "url": {
+        "records": 31,
+        "share": 0.0121
+      },
+      "phone_intl": {
+        "records": 18,
+        "share": 0.007
+      },
+      "phone_india": {
+        "records": 7,
+        "share": 0.0027
+      },
+      "email": {
+        "records": 2,
+        "share": 0.0008
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
-# Sentinel v4: proposal (not approved, not run)
+# Sentinel v4: pre-registered plan (approved, not yet run)
 
-**Status: PROPOSAL, awaiting approval.** Nothing here has been trained or scored.
+**Status: APPROVED 2026-10-04 — prepared, NOT YET TRAINED.** The owner approved all three decisions: continue Sentinel, use this design and these criteria, and use MOZ as an evaluation-only test under its licence. Everything in this file was fixed before any v4 number existed. Section "Approval record" lists the details fixed during preparation.
 
 - **Track:** REAL PUBLIC DATA.
 - **Reference model:** the frozen E3 character model (`e3__clean__chakravyuh_tagger_arch`) stays the reference unless a run passes its pre-registered criteria.
@@ -59,3 +59,22 @@ The same five criteria as v3 (`SENTINEL_TRAINING_PLAN.md` section 9), applied me
 3. MOZ: whether you'll download it and confirm its licence. Without it, v4 has no untouched test.
 
 Nothing will be built, trained or scored until you approve.
+
+## Approval record (2026-10-04, fixed before any v4 result)
+
+| Item | Value |
+|---|---|
+| Decision 0 | Continue Sentinel with v4 |
+| Config | `sentinel/configs/sentinel_real_v4_balanced.json` |
+| Frozen build | `sentinel/manifests/sentinel_real_v4_balanced.build.json`; sampled scam ids `sentinel/manifests/sentinel_real_v4_balanced.sampled_scam_ids.json` |
+| Training rows | 3,102 = 1,551 scam / 1,044 legit / 507 promo |
+| Stratum floor | **29** = round(150 × 1,551/8,000). v3's floor of 150 scaled to the smaller sample; 150 × 14 strata would exceed 1,551 |
+| Sample diversity | 1,542 distinct near-duplicate clusters; 37 of 64 lure combinations; scam-type shares preserved (small types floored) |
+| Unchanged from v3 | val and all 8 v3 test files, byte-identical (SHA-256) |
+| MOZ | HF `MOZNLP/MOZ-Smishing` commit `1092f9d9a545b29ae6be030ee9713b615fc2d987`, `test.csv` SHA-256 `814a11d9b05741c4b47eb0d0784b1fd12a2a076f83a714a9908bdda594986ab8` (also matches HF's size and git blob id). Card licence `creativeml-openrail-m`, accepted by the owner for evaluation only. Split `moz_smishing_eval_all_v1`: all 2,561 rows are test (2,009 legit / 552 scam); 0 near-duplicates of train/val. In `never_train` |
+| MOZ data notes | Evaluated exactly as published. 4 duplicate groups carry conflicting labels; nothing is relabelled. 68 numbers match an ID-like pattern, so raw data is never committed or redistributed |
+| Criterion 6 | at the UCI-calibrated threshold: Sentinel MOZ recall ≥ baseline MOZ recall, **and** Sentinel MOZ legit FPR ≤ 0.05 (point estimates; CIs reported). Implemented in `sentinel/check_acceptance.py` |
+| Baseline on MOZ | Scored after Sentinel's v4 predictions exist. Its model files stay outside Colab. Nobody looks at MOZ numbers for either model before the v4 run |
+| Acceptance | Run once, after the baseline MOZ scoring, with `--label "Sentinel v4"` |
+| Notebook | `sentinel/colab_sentinel_real_v4_balanced.ipynb`: smoke test → training → **secure adapter (zip, SHA-256, download) before scoring** → scoring (full-length prompts, 0 truncation) → evaluation → results zip |
+

@@ -35,6 +35,7 @@ FILES = {"imc25_test": "test_imc25_group_v1_test.jsonl", "india_test": "test_ind
          "uci_ham_calibration": "test_uci_ham_calibration_v1_calibration.jsonl",
          "uci_ham_evaluation": "test_uci_ham_calibration_v1_evaluation.jsonl", "uci_spam": "test_uci_ham_calibration_v1_spam.jsonl",
          "sp24_seen": "test_sp24_temporal_v1_test_seen_campaign.jsonl", "sp24_novel": "test_sp24_temporal_v1_test_novel_campaign.jsonl"}
+OPTIONAL_FILES = {"moz_test": "test_moz_smishing_eval_all_v1_test.jsonl"}
 
 
 def load(data: Path, pred: Path, fname: str):
@@ -60,7 +61,10 @@ def main() -> None:
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     data, pred = Path(a.data), Path(a.pred)
-    D = {k: load(data, pred, f) for k, f in FILES.items()}
+    files = dict(FILES)
+    if (data / OPTIONAL_FILES["moz_test"]).exists():      # v4+: evaluation-only external test (MOZ-Smishing)
+        files.update(OPTIONAL_FILES)
+    D = {k: load(data, pred, f) for k, f in files.items()}
     cal = D["uci_ham_calibration"][3]
     thr = select(cal)
     rng = np.random.default_rng(13)
@@ -114,6 +118,11 @@ def main() -> None:
             ys, p = D[k][2], D[k][3]
             n = int((p >= t).sum())
             row[k] = {"flag_rate": round(n / len(p), 4), "wilson_95ci": C.wilson(n, len(p))}
+        if "moz_test" in D:
+            ys, p = D["moz_test"][2], D["moz_test"][3]
+            for c in ("scam", "legit"):
+                n = int((p[ys == c] >= t).sum())
+                row[f"moz_{c}"] = {"flag_rate": round(n / max((ys == c).sum(), 1), 4), "wilson_95ci": C.wilson(n, int((ys == c).sum()))}
         ys, p = D["india_test"][2], D["india_test"][3]
         for c in ("legit", "promo"):
             n = int((p[ys == c] >= t).sum())

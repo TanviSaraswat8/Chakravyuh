@@ -69,9 +69,29 @@ def _install(m: dict, files: dict[str, Path], provenance: dict, pin: bool, key: 
     print(f"{m['dataset_id']}: installed {len(files)} file(s) into {raw.relative_to(registry.REPO)}")
 
 
+def _url_download(url: str, dest: Path, max_bytes: int = 50_000_000) -> None:
+    import urllib.request
+    with urllib.request.urlopen(url, timeout=60) as r, open(dest, "wb") as out:   # noqa: S310 - pinned https URL
+        data = r.read(max_bytes + 1)
+        if len(data) > max_bytes:
+            raise SystemExit(f"{url}: larger than {max_bytes} bytes")
+        out.write(data)
+
+
 def fetch(dataset_id: str, mirror: bool, pin: bool) -> None:
     m = registry.load(dataset_id)
     spec = m["fetch"].get("mirror") if mirror else m["fetch"]
+    if spec and spec.get("method") == "url":
+        # Files at an immutable revision URL (e.g. a Hugging Face commit); refused unless SHA-256 matches.
+        with tempfile.TemporaryDirectory() as tmp:
+            files = {}
+            for f in spec["files"]:
+                files[f["dest"]] = Path(tmp) / f["dest"]
+                _url_download(f["url"], files[f["dest"]])
+            prov = {"kind": "original", "urls": [f["url"] for f in spec["files"]], "revision": spec.get("revision"),
+                    "fetched_at": datetime.now(UTC).isoformat(timespec="seconds")}
+            _install(m, files, prov, pin)
+        return
     if not spec or spec.get("method") != "git":
         raise SystemExit(f"{dataset_id}: no {'mirror' if mirror else 'GitHub'} source. "
                          f"Access status {m['access_status']}: {m['fetch'].get('instructions', '')}")

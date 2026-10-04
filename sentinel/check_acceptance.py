@@ -20,9 +20,10 @@ PROMO_FPR_MAX = 0.05
 IMC_RECALL_MARGIN = 0.03
 SP24_NOVEL_RECALL_MIN = 0.90
 JSON_VALID_MIN = 0.99
+MOZ_LEGIT_FPR_MAX = 0.05          # criterion 6 (v4 pre-registration, docs/SENTINEL_V4_PROPOSAL.md)
 
-PASS_WORDING = ("Sentinel v2 passed the pre-registered evaluation criteria on held-out public real-world "
-                "message datasets.")
+def pass_wording(label: str) -> str:
+    return f"{label} passed the pre-registered evaluation criteria on held-out public real-world message datasets."
 
 
 def cal(m: dict, src: str) -> dict:
@@ -34,6 +35,7 @@ def main() -> int:
     ap.add_argument("--sentinel", required=True)
     ap.add_argument("--baseline", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--label", default="Sentinel v2", help="model name used in the pass wording")
     a = ap.parse_args()
     S = json.loads(Path(a.sentinel).read_text())
     B = json.loads(Path(a.baseline).read_text())
@@ -64,6 +66,17 @@ def main() -> int:
                  "value": jv, "pass": jv is not None and jv >= JSON_VALID_MIN,
                  **({"note": "no generated outputs found: cannot pass"} if jv is None else {})})
 
+    # Criterion 6 applies only when the Sentinel run has the MOZ external test (v4 onward).
+    if "moz_test" in S["per_source"]:
+        sm = cal(S, "moz_test")
+        bm = cal(B, "moz_test") if "moz_test" in B.get("per_source", {}) else None
+        ok6 = bm is not None and sm["recall"] >= bm["recall"] and sm["fpr_legit"] <= MOZ_LEGIT_FPR_MAX
+        crit.append({"id": 6, "criterion": f"MOZ recall >= baseline MOZ recall and MOZ legit FPR <= {MOZ_LEGIT_FPR_MAX}",
+                     "value": {"recall": sm["recall"], "fpr_legit": sm["fpr_legit"]},
+                     "ci": {"recall": sm["recall_95ci"], "fpr_legit": sm["fpr_legit_95ci"]},
+                     "baseline": None if bm is None else {"recall": bm["recall"], "fpr_legit": bm["fpr_legit"]},
+                     "pass": ok6, **({"note": "baseline has no MOZ metrics: cannot pass"} if bm is None else {})})
+
     # Reported alongside, never used to override a failed criterion.
     side = {}
     for src, keys in (("india_test", ("fpr_legit", "fpr_promo")), ("uci_ham_evaluation", ("fpr_legit",)),
@@ -76,7 +89,7 @@ def main() -> int:
                       and v["baseline"] is not None and v["sentinel"] > v["baseline"]]
 
     passed = all(c["pass"] for c in crit)
-    verdict = PASS_WORDING if passed else (
+    verdict = pass_wording(a.label) if passed else (
         "Sentinel did NOT pass the pre-registered criteria (failed: "
         + ", ".join(str(c["id"]) for c in crit if not c["pass"])
         + "). It is not reported as an improvement; the frozen character model remains the reference.")

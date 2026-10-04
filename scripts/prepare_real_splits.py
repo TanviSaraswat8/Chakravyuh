@@ -38,7 +38,10 @@ def load(dataset_id: str) -> tuple[dict, list[dict]] | None:
     recs = list(ADAPTERS[dataset_id](raw))
     cl = near_dup_clusters([r["text"] for r in recs])
     ex = exact_groups([r["text"] for r in recs])
-    audit_only = not m["training_allowed"] or prov.get("kind") == "mirror"
+    # Evaluation-only datasets (licence accepted for evaluation, never training) are processed too;
+    # they get an all-test split below and Sentinel configs list them in never_train.
+    usable = m["training_allowed"] or m.get("evaluation_allowed", False)
+    audit_only = not usable or prov.get("kind") == "mirror"
     for r, c, e in zip(recs, cl, ex):
         r.update(text_masked=masked(r["text"]), near_dup_cluster=f"{dataset_id}:{c}", exact_group=f"{dataset_id}:{e}",
                  preprocessing_version=PREPROCESSING_VERSION, real_or_synthetic=m["real_or_synthetic"],
@@ -112,6 +115,11 @@ def main() -> int:
         if i in ("imc25_smishing", "sp24_gateway_phishing") or not recs or recs[0]["audit_only"]:
             continue
         recs = [r for r in recs if r["label"] != "unknown"]
+        if not registry.load(i)["training_allowed"]:      # evaluation-only: every record is test
+            write_split(f"{i}_eval_all_v1", {r["record_id"]: "test" for r in recs},
+                        {"purpose": "evaluation-only external test (never trained on)", "dataset": i,
+                         "real_or_synthetic": "REAL", "control": "whole dataset held out"}, index)
+            continue
         side = leakage.group_split(recs, [r["near_dup_cluster"] for r in recs], seed=SEED)
         write_split(f"{i.replace('_sms_spam', '').replace('_smishing', '')}_group_v1",
                     {r["record_id"]: s for r, s in zip(recs, side)},
