@@ -38,7 +38,36 @@ def main() -> None:
     a = ap.parse_args()
     import torch
     from unsloth import FastLanguageModel
-    model, tok = FastLanguageModel.from_pretrained(a.model, max_seq_length=a.max_seq, load_in_4bit=True)
+    # Scoring context: never truncate a held-out message. Measure the longest prompt (chat template + forced
+    # prefix, and the generation budget) with the adapter's own tokenizer, then load the model with a context
+    # that fits it. --max-seq (the training length) is only a floor. Stop if the model's native context is
+    # too short rather than truncate.
+    from transformers import AutoConfig, AutoTokenizer
+    tok0 = AutoTokenizer.from_pretrained(a.model)
+    gen_tokens = 96
+    longest = {}
+    for f in sorted(Path(a.data).glob("test_*.jsonl")):
+        rows = [json.loads(x) for x in open(f, encoding="utf-8")]
+        rows = rows[: a.limit] if a.limit else rows
+        n = [len(tok0(tok0.apply_chat_template(r["messages"][:2], tokenize=False, add_generation_prompt=True)
+                      + PREFIX, add_special_tokens=False)["input_ids"]) for r in rows]
+        longest[f.name] = {"rows": len(rows), "max_prompt_tokens": max(n), "prompts_over_train_max_seq": sum(x > a.max_seq for x in n)}
+    need = max(v["max_prompt_tokens"] for v in longest.values()) + gen_tokens
+    effective = max(a.max_seq, need)
+    try:
+        native = AutoConfig.from_pretrained(a.model).max_position_embeddings
+    except Exception:  # noqa: BLE001 - a LoRA dir may not carry the base config
+        import peft
+        native = AutoConfig.from_pretrained(peft.PeftConfig.from_pretrained(a.model).base_model_name_or_path).max_position_embeddings
+    scoring_cfg = {"train_max_seq": a.max_seq, "longest_prompt_plus_generation": need, "effective_max_seq": effective,
+                   "model_native_context": native, "truncation": False, "generation_max_new_tokens": gen_tokens,
+                   "per_file": longest}
+    print("scoring config:", json.dumps(scoring_cfg))
+    if effective > native:
+        raise SystemExit(f"longest prompt needs {effective} tokens > model context {native}; refusing to truncate")
+    Path(a.out).mkdir(parents=True, exist_ok=True)
+    (Path(a.out) / "scoring_config.json").write_text(json.dumps(scoring_cfg, indent=2) + "\n")
+    model, tok = FastLanguageModel.from_pretrained(a.model, max_seq_length=effective, load_in_4bit=True)
     FastLanguageModel.for_inference(model)
     tok.padding_side = "left"
     if tok.pad_token is None:
@@ -59,7 +88,7 @@ def main() -> None:
         for b in range(0, len(rows), a.batch):
             # No truncation: cutting the prompt would drop the forced prefix. SMS prompts are far below max-seq.
             enc = tok([p + PREFIX for p in prompts[b: b + a.batch]], return_tensors="pt", padding=True).to(model.device)
-            over_max += int((enc["attention_mask"].sum(1) > a.max_seq).sum())
+            over_max += int((enc["attention_mask"].sum(1) > a.max_seq).sum())   # counted, never truncated
             t0 = time.perf_counter()
             with torch.no_grad():
                 logits = model(**enc).logits[:, -1, :]
